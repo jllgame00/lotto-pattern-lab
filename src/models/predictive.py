@@ -80,14 +80,21 @@ class TrainingTransform:
 
 
 class FittedModel:
-    def __init__(self, *, columns=None, seed=42):
+    def __init__(self, *, columns=None, seed=42, prediction_scope=None):
+        from src.prediction_scope import ProspectiveScope
+        if prediction_scope is not None and not isinstance(prediction_scope,ProspectiveScope):
+            raise ValueError('Invalid prospective scope')
+        self.prediction_scope=prediction_scope
         self.columns = feature_columns() if columns is None else list(columns)
         TrainingTransform(self.columns)  # validate immediately
         self.seed = seed
 
     def _training(self, rows, cutoff):
-        assert_open(rows,'target_draw')
-        if cutoff>LAST_OPEN_DRAW: raise ValueError('Training cutoff is sealed')
+        if self.prediction_scope is None:
+            assert_open(rows,'target_draw')
+            if cutoff>LAST_OPEN_DRAW: raise ValueError('Training cutoff is sealed')
+        else:
+            self.prediction_scope.training(rows,cutoff)
         if rows.empty or rows.target_draw.max() > cutoff:
             raise ValueError('Training rows must be nonempty and at or before training cutoff')
         if not rows.feature_cutoff.eq(rows.target_draw-1).all():
@@ -100,7 +107,8 @@ class FittedModel:
         return self.transformer.transform(rows), rows.appeared_next.to_numpy(dtype=float)
 
     def _current(self, rows):
-        assert_open(rows,'target_draw')
+        if self.prediction_scope is None: assert_open(rows,'target_draw')
+        else: self.prediction_scope.current(rows)
         if 'appeared_next' in rows.columns:
             raise ValueError('Scoring rows must not expose target outcomes')
         if len(rows)!=45 or set(rows.number)!=set(range(1,46)) or rows.target_draw.nunique()!=1:
@@ -110,7 +118,10 @@ class FittedModel:
         return self.transformer.transform(rows)
 
     def configuration(self):
-        return dict(model=type(self).__name__,seed=self.seed,features=self.columns)
+        config=dict(model=type(self).__name__,seed=self.seed,features=self.columns)
+        if self.prediction_scope is not None:
+            config['prospective_scope']=dict(cutoff=self.prediction_scope.cutoff,target=self.prediction_scope.target)
+        return config
 
     def importance(self):
         return []

@@ -18,6 +18,12 @@ offline snapshot capability: when explicitly invoked it may use local canonical
 draw1245 to target1246, without retrieving that result. It does not change the
 retrospective research seal or make1245 a pristine holdout.
 
+Phase5 upgrades `freeze-next` to the fixed six-track draw1246 experiment with
+full rankings, equal-budget portfolios, immutable manifests/hashes and a registry.
+`evaluate-freeze` accepts an explicit local result later; it never fetches one.
+See [the prospective protocol](docs/prospective-experiment.md). Existing freezes
+are never overwritten, and an already reserved target cannot be regenerated.
+
 ## Quick start
 
 Python 3.11 or newer is required. From this directory:

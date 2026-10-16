@@ -77,6 +77,10 @@ def _parser():
     add_command(commands)
     from src.regime_cli import add_commands as add_regime_commands
     add_regime_commands(commands)
+    evaluation=commands.add_parser('evaluate-freeze',help='Offline evaluation of a frozen snapshot and explicit local result JSON')
+    evaluation.add_argument('snapshot',type=Path)
+    evaluation.add_argument('result_file',type=Path)
+    evaluation.add_argument('--output',type=Path,help='New evaluation JSON; existing files are never overwritten')
     return parser
 
 
@@ -245,9 +249,21 @@ def main(argv=None) -> int:
             print(json.dumps(report, indent=2))
             return 0 if report['complete'] else 1
         if args.command == 'freeze-next':
-            from src.prospective import freeze_snapshot
-            path=freeze_snapshot(args.data,args.reports_dir or ROOT/'reports/prospective',seed=args.seed)
-            print(f'Experimental offline snapshot: {path}. No future result fetched. Verify unseen status independently.')
+            from src.prospective_experiment import freeze_experiment
+            from src.freeze_artifacts import digest
+            paths=freeze_experiment(args.data,args.reports_dir or ROOT/'reports/prospective',
+                expected_target=1246,seed=args.seed,progress=lambda s:print(s,flush=True))
+            print('Target1246, training cutoff1245: FROZEN_UNEVALUATED. Target result not retrieved or inspected.')
+            for name,path in paths.items(): print(f'{name}: {path}\nSHA-256: {digest(path)}')
+            return 0
+        if args.command == 'evaluate-freeze':
+            from src.freeze_evaluator import evaluate_freeze
+            evaluation=evaluate_freeze(args.snapshot,args.result_file)
+            text=json.dumps(evaluation,indent=2,allow_nan=False)+'\n'
+            if args.output:
+                with args.output.open('x',encoding='utf-8') as stream: stream.write(text)
+                print(f'Offline evaluation saved: {args.output}; original freeze and registry unchanged.')
+            else: print(text)
             return 0
         history = load_history(args.data)
         if args.command == 'validate':

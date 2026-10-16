@@ -35,6 +35,18 @@ def build_features(history, *, min_history=104, include_current=False, progress=
     assert_open(history)
     if include_current and history.draw_no.max()>=LAST_OPEN_DRAW:
         raise ValueError('Next target is sealed; current prediction is disabled')
+    return _build_features(history,min_history=min_history,include_current=include_current,progress=progress)
+
+
+def build_prospective_features(history, *, scope, progress=None):
+    from src.prediction_scope import ProspectiveScope
+    if not isinstance(scope,ProspectiveScope): raise ValueError('Explicit prospective scope required')
+    scope.history(history)
+    return _build_features(history,min_history=104,include_current=True,progress=progress)
+
+
+def _build_features(history, *, min_history, include_current, progress):
+    """Shared unchanged calculations; callers enforce their explicit data boundary."""
     if isinstance(min_history, bool) or not isinstance(min_history, int) or min_history < 104:
         raise ValueError('min_history must be an integer >= 104')
     data = validate_history(history)

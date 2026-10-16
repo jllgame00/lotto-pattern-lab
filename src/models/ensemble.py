@@ -15,7 +15,11 @@ def normalize_scores(scores,method='rank'):
 
 
 class FrozenEnsemble:
-    def __init__(self,components,*,method='rank',weights=None,development_end=None):
+    def __init__(self,components,*,method='rank',weights=None,development_end=None,prediction_scope=None):
+        from src.prediction_scope import ProspectiveScope
+        if prediction_scope is not None and not isinstance(prediction_scope,ProspectiveScope):
+            raise ValueError('Invalid prospective scope')
+        self.prediction_scope=prediction_scope
         self.components=tuple(components); self.method=method
         if not components or len(set(components))!=len(components) or method not in ('rank','score'):
             raise ValueError('Distinct components and a known normalization required')
@@ -32,6 +36,7 @@ class FrozenEnsemble:
         return np.array([normalize_scores(json.loads(selected[selected.model==name].iloc[0].scores),self.method) for name in self.components])
 
     def select(self,development,*,development_end):
+        if self.prediction_scope is not None: raise ValueError('Prospective ensembles require already frozen weights')
         assert_open(development,'target_draw')
         if self.development_end is not None: raise ValueError('Ensemble weights are already frozen')
         if development.empty or development.target_draw.max()>development_end:
@@ -50,7 +55,8 @@ class FrozenEnsemble:
         return self
 
     def score(self,rows):
-        assert_open(rows,'target_draw')
+        if self.prediction_scope is None: assert_open(rows,'target_draw')
+        else: self.prediction_scope.current(rows)
         if self.development_end is None or rows.target_draw.min()<=self.development_end:
             raise ValueError('Ensemble evaluation must strictly follow frozen development cutoff')
         values=self.weights@self._matrix(rows)
