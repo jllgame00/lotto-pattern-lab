@@ -1,0 +1,60 @@
+{
+  "source": "Public GitHub snapshots: hyomuel/Lotto data.json (1-1156); johyunchol/lottogo-python src/constant/draw_no/{draw}.json (1157-1245); retrieved via GitHub connector; not directly verified against live official JSON",
+  "retrieved_at": "2026-10-16T20:36:11.082548+00:00",
+  "rows": 1245,
+  "added": 0,
+  "first_draw": 1,
+  "last_draw": 1245,
+  "expected_end": 1245,
+  "missing_draws": [],
+  "errors": [],
+  "complete": true,
+  "sha256": "b3de32b409c9edd3da5525ad0280d3f59cd21bf0618feda16d3947686c27a11e",
+  "input_sha256": "3b7bb1e0a37c28ae4b4a97e098180d8407008ec007698c191ed6cf279db8225b",
+  "events": [
+    {
+      "source": "https://www.dhlottery.co.kr/lt645/selectPstLt645InfoNew.do",
+      "retrieved_at": "2026-10-16T20:32:30.414752+00:00",
+      "rows": 0,
+      "added": 0,
+      "first_draw": null,
+      "last_draw": null,
+      "expected_end": null,
+      "missing_draws": [],
+      "errors": [
+        "Unable to retrieve https://www.dhlottery.co.kr/lt645/selectPstLt645InfoNew.do?srchDir=center&srchLtEpsd=1246: <urlopen error [WinError 10061] \ub300\uc0c1 \ucef4\ud4e8\ud130\uc5d0\uc11c \uc5f0\uacb0\uc744 \uac70\ubd80\ud588\uc73c\ubbc0\ub85c \uc5f0\uacb0\ud558\uc9c0 \ubabb\ud588\uc2b5\ub2c8\ub2e4>"
+      ],
+      "complete": false,
+      "sha256": null,
+      "input_sha256": null
+    },
+    {
+      "source": "Public GitHub snapshots: hyomuel/Lotto data.json (1-1156); johyunchol/lottogo-python src/constant/draw_no/{draw}.json (1157-1245); retrieved via GitHub connector; not directly verified against live official JSON",
+      "retrieved_at": "2026-10-16T20:32:37.049555+00:00",
+      "rows": 1245,
+      "added": 1245,
+      "first_draw": 1,
+      "last_draw": 1245,
+      "expected_end": 1245,
+      "missing_draws": [],
+      "errors": [],
+      "complete": true,
+      "sha256": "b3de32b409c9edd3da5525ad0280d3f59cd21bf0618feda16d3947686c27a11e",
+      "input_sha256": "3b7bb1e0a37c28ae4b4a97e098180d8407008ec007698c191ed6cf279db8225b"
+    },
+    {
+      "source": "Public GitHub snapshots: hyomuel/Lotto data.json (1-1156); johyunchol/lottogo-python src/constant/draw_no/{draw}.json (1157-1245); retrieved via GitHub connector; not directly verified against live official JSON",
+      "retrieved_at": "2026-10-16T20:36:11.082548+00:00",
+      "rows": 1245,
+      "added": 0,
+      "first_draw": 1,
+      "last_draw": 1245,
+      "expected_end": 1245,
+      "missing_draws": [],
+      "errors": [],
+      "complete": true,
+      "sha256": "b3de32b409c9edd3da5525ad0280d3f59cd21bf0618feda16d3947686c27a11e",
+      "input_sha256": "3b7bb1e0a37c28ae4b4a97e098180d8407008ec007698c191ed6cf279db8225b"
+    }
+  ]
+}

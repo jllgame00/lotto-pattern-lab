@@ -1,0 +1,128 @@
+{
+  "model": "RandomModel",
+  "total_tickets": 5000,
+  "target_draws": 100,
+  "target_range": [
+    339,
+    1220
+  ],
+  "repeats": 10,
+  "average_matches": 0.7888,
+  "match_distribution": {
+    "0": 2019,
+    "1": 2125,
+    "2": 756,
+    "3": 93,
+    "4": 7,
+    "5": 0,
+    "6": 0
+  },
+  "rate_3_plus": 0.02,
+  "rate_4_plus": 0.0014,
+  "rate_5_plus": 0.0,
+  "best_result": 4,
+  "mean_matches_ci95": [
+    0.7672000000000001,
+    0.8102050000000001
+  ],
+  "ci_method": "percentile bootstrap of target-draw means",
+  "bootstrap_samples": 2000,
+  "bootstrap_seed": 42,
+  "average_matches_by_repeat": {
+    "0": 0.824,
+    "1": 0.816,
+    "2": 0.818,
+    "3": 0.818,
+    "4": 0.79,
+    "5": 0.778,
+    "6": 0.738,
+    "7": 0.718,
+    "8": 0.824,
+    "9": 0.764
+  },
+  "random_expectation": {
+    "average_matches": 0.8,
+    "match_probabilities": {
+      "0": 0.40056463672459136,
+      "1": 0.4241272624142732,
+      "2": 0.15147402229081186,
+      "3": 0.02244059589493509,
+      "4": 0.0013646308314487555,
+      "5": 2.872907013576327e-05,
+      "6": 1.2277380399898834e-07
+    },
+    "rate_3_plus": 0.023834078570323606,
+    "rate_4_plus": 0.0013934826753885178,
+    "rate_5_plus": 2.885184393976226e-05
+  },
+  "difference_from_random_expectation": -0.011200000000000099,
+  "warnings": [
+    "Exploratory baseline evaluation; no predictive performance established.",
+    "CI resamples target draws, keeping repeated tickets together. It assumes independent draws; future adaptive strategies may require a temporal block bootstrap.",
+    "Best ticket depends on ticket count. Repeated tickets are not additional historical draws."
+  ],
+  "configuration": {
+    "mode": "checkpoints",
+    "min_train": 299,
+    "seed": 42,
+    "tickets": 5,
+    "repeats": 10,
+    "checkpoints": 100,
+    "start": null,
+    "end": null
+  },
+  "created_at": "2026-10-16T20:32:57.403688+00:00",
+  "dataset_path": "D:\\univ\\personal\\lotto-pattern-lab\\data\\raw\\lotto_history.csv",
+  "dataset_sha256": "b3de32b409c9edd3da5525ad0280d3f59cd21bf0618feda16d3947686c27a11e",
+  "versions": {
+    "python": "3.13.1",
+    "numpy": "2.2.5",
+    "pandas": "2.2.3"
+  },
+  "dataset_provenance": {
+    "source": "Public GitHub snapshots: hyomuel/Lotto data.json (1-1156); johyunchol/lottogo-python src/constant/draw_no/{draw}.json (1157-1245); retrieved via GitHub connector; not directly verified against live official JSON",
+    "retrieved_at": "2026-10-16T20:32:37.049555+00:00",
+    "rows": 1245,
+    "added": 1245,
+    "first_draw": 1,
+    "last_draw": 1245,
+    "expected_end": 1245,
+    "missing_draws": [],
+    "errors": [],
+    "complete": true,
+    "sha256": "b3de32b409c9edd3da5525ad0280d3f59cd21bf0618feda16d3947686c27a11e",
+    "input_sha256": "3b7bb1e0a37c28ae4b4a97e098180d8407008ec007698c191ed6cf279db8225b",
+    "events": [
+      {
+        "source": "https://www.dhlottery.co.kr/lt645/selectPstLt645InfoNew.do",
+        "retrieved_at": "2026-10-16T20:32:30.414752+00:00",
+        "rows": 0,
+        "added": 0,
+        "first_draw": null,
+        "last_draw": null,
+        "expected_end": null,
+        "missing_draws": [],
+        "errors": [
+          "Unable to retrieve https://www.dhlottery.co.kr/lt645/selectPstLt645InfoNew.do?srchDir=center&srchLtEpsd=1246: <urlopen error [WinError 10061] \ub300\uc0c1 \ucef4\ud4e8\ud130\uc5d0\uc11c \uc5f0\uacb0\uc744 \uac70\ubd80\ud588\uc73c\ubbc0\ub85c \uc5f0\uacb0\ud558\uc9c0 \ubabb\ud588\uc2b5\ub2c8\ub2e4>"
+        ],
+        "complete": false,
+        "sha256": null,
+        "input_sha256": null
+      },
+      {
+        "source": "Public GitHub snapshots: hyomuel/Lotto data.json (1-1156); johyunchol/lottogo-python src/constant/draw_no/{draw}.json (1157-1245); retrieved via GitHub connector; not directly verified against live official JSON",
+        "retrieved_at": "2026-10-16T20:32:37.049555+00:00",
+        "rows": 1245,
+        "added": 1245,
+        "first_draw": 1,
+        "last_draw": 1245,
+        "expected_end": 1245,
+        "missing_draws": [],
+        "errors": [],
+        "complete": true,
+        "sha256": "b3de32b409c9edd3da5525ad0280d3f59cd21bf0618feda16d3947686c27a11e",
+        "input_sha256": "3b7bb1e0a37c28ae4b4a97e098180d8407008ec007698c191ed6cf279db8225b"
+      }
+    ]
+  }
+}

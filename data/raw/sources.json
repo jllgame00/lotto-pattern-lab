@@ -1,0 +1,169 @@
+{
+  "retrieved_at": "2026-10-16T20:34:17.922123+00:00",
+  "retrieval_method": "Public GitHub connector fetch, then canonical-schema normalization and explicit CLI import",
+  "canonical_sha256": "b3de32b409c9edd3da5525ad0280d3f59cd21bf0618feda16d3947686c27a11e",
+  "range": [
+    1,
+    1245
+  ],
+  "dates": [
+    "2002-12-07",
+    "2026-10-10"
+  ],
+  "sources": [
+    {
+      "range": [
+        1,
+        1156
+      ],
+      "url": "https://github.com/hyomuel/Lotto/blob/main/data.json"
+    },
+    {
+      "range": [
+        1157,
+        1245
+      ],
+      "url_template": "https://github.com/johyunchol/lottogo-python/blob/main/src/constant/draw_no/{draw_no}.json"
+    }
+  ],
+  "spot_checks": [
+    {
+      "draw_no": 1,
+      "draw_date": "2002-12-07",
+      "numbers": [
+        10,
+        23,
+        29,
+        33,
+        37,
+        40
+      ],
+      "bonus": 16
+    },
+    {
+      "draw_no": 500,
+      "draw_date": "2012-06-30",
+      "numbers": [
+        3,
+        4,
+        12,
+        20,
+        24,
+        34
+      ],
+      "bonus": 41
+    },
+    {
+      "draw_no": 1156,
+      "draw_date": "2025-01-25",
+      "numbers": [
+        30,
+        31,
+        34,
+        39,
+        41,
+        45
+      ],
+      "bonus": 7
+    }
+  ],
+  "limitations": [
+    "Third-party mirrors, not full independent official verification.",
+    "Direct Python official-source retrieval failed with WinError 10061; latest published source JSON could not be verified.",
+    "Snapshot files are normalized extracts. Hashes fingerprint those local extracts, not original upstream JSON bytes.",
+    "Source URLs reference moving branches; locally saved extracts and hashes preserve this run."
+  ],
+  "normalized_snapshot_hashes": {
+    "snapshots/hyomuel_1_1156.csv": "b2f6232bd12fe8c937691e0216edda8fbe7c5e25bae09ac0f81a14bb453dff28",
+    "snapshots/recent/1157.csv": "fab9cb2aba62250637c699a55ba719421209fd195713f3701209aea10bee905e",
+    "snapshots/recent/1158.csv": "dae54da7285511d95dc3a3295dba2cd1c88185d9b3fa416774dec863d6f9772e",
+    "snapshots/recent/1159.csv": "1703edb3de8deeca84442590bca6e8f7f1c8dddde687ec3e174e1250a99d6f0f",
+    "snapshots/recent/1160.csv": "4a83108907be9d98ab53669b0cca68bfb29a7fe8435f4aaebcb033f834a5480b",
+    "snapshots/recent/1161.csv": "0a219030013c211c1c676908bf5a0493d27ea07126c8ae68989e809479f7dfc4",
+    "snapshots/recent/1162.csv": "8a298675efa44600b0309e50f16539e8bcb39279252e957c19a371f980b089c6",
+    "snapshots/recent/1163.csv": "9ab5a6834205fd26c65853f36049062d3bab3ee12bf5103f9057400a28fa372e",
+    "snapshots/recent/1164.csv": "63fb1caec0821ab7b051906386b8afacd84b20fe04b6414f5343f8f2be22086c",
+    "snapshots/recent/1165.csv": "8b63650af651bde6f327d4d9be856e5576fcacd8584c04db4f431446edf3661b",
+    "snapshots/recent/1166.csv": "4027e9034b0f519d8167307a40bf4669b27f49d7783fcbb1e45bd06dce0970eb",
+    "snapshots/recent/1167.csv": "3e4fc26cc657a9f22cbefcd29593226cfc77baf3f14a7c2a40dd8ec666fe8d88",
+    "snapshots/recent/1168.csv": "f8a164991de177dea2bd7a0a3c4b62bf1adac595138eada2d5991ba6c02c9e69",
+    "snapshots/recent/1169.csv": "4db91da13092f2d065caa66d2b0ad6afc174ba648b3566b292882bcb0487971a",
+    "snapshots/recent/1170.csv": "36fa9e8b017089c4a5a86ccfe5f88c2d1ecb33cf685802de9a0cab497402272f",
+    "snapshots/recent/1171.csv": "aa7473859cb5d5640f45c3441b311f7c70ce9a167989fe68bbcb5fadd3131350",
+    "snapshots/recent/1172.csv": "fe82bf4ae7e49f5779e3dc643ae0387a9af6e524677f8ec59c1e2748547f22c8",
+    "snapshots/recent/1173.csv": "12cb2aa5aa272dd39b2d690d19f8bcdc518681179b02796349918d1626864cb3",
+    "snapshots/recent/1174.csv": "7f769ddd8c99f5012ca924e4bb1b6b703abab1aa8b63ffac3f06d1d1d00ae74c",
+    "snapshots/recent/1175.csv": "c0064a5c6966c467686ff7b06ac7a5a73e7541039049ebf6cd28635b4e049057",
+    "snapshots/recent/1176.csv": "0d03edb99981b2c08b033dcb4b2dc33fbcd366e73f7604a14f9e2e02cca907ba",
+    "snapshots/recent/1177.csv": "f6bad227b2626021e4df699dbddc067197e6a22ddc211a8feb36635f5886af5b",
+    "snapshots/recent/1178.csv": "9cc8293ae046980dc833f30032c5a7980bd4e2e2d0c91a9024f3d23c6666a055",
+    "snapshots/recent/1179.csv": "c34ec01990cb31d61e98e5176c6709ab2a971dab3e513c3d8c0eb424f537b9d2",
+    "snapshots/recent/1180.csv": "2411c14d6eba996d8000d2fb26356bac2b2c1350c3f49e76c91156097421e4da",
+    "snapshots/recent/1181.csv": "8b3bf2fbda9caa7c43d50833d399092d10a6bd159c6e4118236e210e58dfd0f9",
+    "snapshots/recent/1182.csv": "8be6a56c52d2742fa5a1a7e0a6d5f3da6965c5edbe75a6ba026ad6bb71861d8c",
+    "snapshots/recent/1183.csv": "4cd70baf01d84963268af5d1353bc18dbfcdd75dd09fcbdc1e4cfe8f656a298a",
+    "snapshots/recent/1184.csv": "90c39d667c805b62aa185eb5b16fda734ad09c96c1fd0226ffb457b067c9ef17",
+    "snapshots/recent/1185.csv": "938a9ec9caed3bdc3eca2561e873db6b945b866a8545b330be0f97b3a44f2788",
+    "snapshots/recent/1186.csv": "58b08a64deb929677cb2a8c791daf6d5a916ff09fcc4fada213b7f7fe679ffff",
+    "snapshots/recent/1187.csv": "d11542497a6c098760be37cf78d08a14defe048192bec779b6b1b293859211e2",
+    "snapshots/recent/1188.csv": "d4b6f23f5e8f15b59b93601b73d7464117e13564a8bc7123c6ff9d7b70791424",
+    "snapshots/recent/1189.csv": "ca60666f45193835f90e0a7237a7e20cdc7ef62ac5693ff73f3fe9b5e43e06f7",
+    "snapshots/recent/1190.csv": "dc396026ec23edced3de7961b2b3d40a27159e600d7cf515957d1ee192afeb28",
+    "snapshots/recent/1191.csv": "b0b41ac782aff98d11aa3e340811c266034112c7bad0eaeb7585399bed3701c2",
+    "snapshots/recent/1192.csv": "52082c7100e388fe9675ddc8290283da41558b95a9503cafb0b49ef730ad08b8",
+    "snapshots/recent/1193.csv": "1f47576428b70ec3a5e43e9b65a98d0aaea0efa2861382479b0c6f775236cfce",
+    "snapshots/recent/1194.csv": "8b88a7e774cefad0cd8f4cd371d30a0ac6ea42fa271ea892b2ce073c87922ab3",
+    "snapshots/recent/1195.csv": "ac784e2e987ccf2b883fe7ea2e5df56583cf05171c12c3575ba8b79fd824d849",
+    "snapshots/recent/1196.csv": "c50006beee83eb7615238945b8225112b5878875a2946b3c3fd9a02f8d6cf2d7",
+    "snapshots/recent/1197.csv": "ba4c5f6194b038eafaed6369af6ee27025d4655bb5be5b0be06384dfc476dafe",
+    "snapshots/recent/1198.csv": "0e31991b0b0dd4896be1f285c9c58fb57d44869ae4863127d227a6941a0646c3",
+    "snapshots/recent/1199.csv": "ecf9fcf6b20de554dfcea534c7fcb61a57f6bf7fcb29af2c588e1734fcc06b82",
+    "snapshots/recent/1200.csv": "a4ca7d9bc2cfaa986fc560a7becd6684b93946d8c7e205150111040ade59deca",
+    "snapshots/recent/1201.csv": "d34eb5ae7c2ef2bc05411182faf0e7273e22d242290906672a592dfa676fb451",
+    "snapshots/recent/1202.csv": "a8d2287cbb3818b02f17532237fdfdcd4e4b7fec2cf2b76af76b7ded57b6ac0f",
+    "snapshots/recent/1203.csv": "8408f31de222cc2a97994c28fde3d6111031926d91522ada24597a1a8f42b92c",
+    "snapshots/recent/1204.csv": "9f0b5a5629dc3d92583417c149d10d9b8ec3cdd755f1218c2f7e89cbd9651c9f",
+    "snapshots/recent/1205.csv": "5dc31883a7235c2046a6c269d8925f7c36d3dc3be56578915f45d3b54ee3db15",
+    "snapshots/recent/1206.csv": "ba96a07ce4d8dc44b14e2def48d8e0797bf64cc545bf1e24256861d0842d41c7",
+    "snapshots/recent/1207.csv": "d68cc495de03a5f3717f1290a6ce8e9fc833381e6c1c3ef50ccabda0c33d0106",
+    "snapshots/recent/1208.csv": "dd535cfb9ff3b9c189769e81e2d79892dc0c3ce446c95bdc496017a6a6f51340",
+    "snapshots/recent/1209.csv": "d348554d1b41d73a3048cbabcaa7b247924215d4a34d7b73ffe989040ab6e0d4",
+    "snapshots/recent/1210.csv": "8c814adba68d4a4b2dab2b9f0afffbc8e35f42cefc31f9cea084286a7a030cc6",
+    "snapshots/recent/1211.csv": "c3780a834276173c6a5f2b8120b11cac5ab3a77801af9e58ec6d295633792416",
+    "snapshots/recent/1212.csv": "415d5d8556ad5e3e221badbb353771aaa7b62de1e0d0ec3c34da8a4f3601d2f6",
+    "snapshots/recent/1213.csv": "0a1abd0743024c3524ba155889f3bbf372fbc17c1d63f1879a13b9398206b47d",
+    "snapshots/recent/1214.csv": "e7da83a735b161da04d440aa82c9269135dae2dbedb57ac5ec61b257561561a0",
+    "snapshots/recent/1215.csv": "18e1e77c3b738aa840435be9a2f604dae0b0f0d12d8562b07b50435cf3c1b0fd",
+    "snapshots/recent/1216.csv": "3a6d3c7b0c843732eb6e2c8bee3a297faac120dde991e1903e6b3e1ebeb8c9b8",
+    "snapshots/recent/1217.csv": "cf25dd0c4401b899356d00acb4a25b7fb11cf8f4486662eb99aef45489b69a8d",
+    "snapshots/recent/1218.csv": "38054d98eaf101641f8c2a3b8377e6535c81e6ea9a0dd478868fa6c7386b66d8",
+    "snapshots/recent/1219.csv": "fcad0b8031160fd59c8dd0c124e3be9e2eb6e613677e2c871f6addc62dbda2f1",
+    "snapshots/recent/1220.csv": "1807b814b742d30edf70ccd795ba1a3d70983122562b0838fae064fa4f1d8018",
+    "snapshots/recent/1221.csv": "cee8c859724a97f84b285fc5521c824c5bf4339bb452f15d6df19acce63e91c4",
+    "snapshots/recent/1222.csv": "82c997f2f980485e088b49ec8cdda2bdc10b57ee478003a15dea482fe73bc9d8",
+    "snapshots/recent/1223.csv": "674001962ef889f2d8a0fd612b48f7eaa52c14b3d45fb195ed8dbc62958ecb3f",
+    "snapshots/recent/1224.csv": "381d3e4282e859675988c39ad31a7a55bd186672f04f7b7e38037f7e017d2652",
+    "snapshots/recent/1225.csv": "627f3da6d4094110305b740d6efda2898049f15bf03d71f5bce985aaaba09758",
+    "snapshots/recent/1226.csv": "3f36844767b20ad0fae41c9163289fa2a3ae0509ada148c04b61fcc3e6b9610f",
+    "snapshots/recent/1227.csv": "565fb7fd9140e01f7c452895e039455060e85712c9e3a07a7e92a643247f6491",
+    "snapshots/recent/1228.csv": "4995219f8ae741bf35d46b2895d49b8a05dd29c5864dbd46f9b43e088a6279da",
+    "snapshots/recent/1229.csv": "7268e0e8879010b67313b24154e26d8abd2878d6b07ab46a9a26181997c3163e",
+    "snapshots/recent/1230.csv": "9dd08eaade7c38938489135a245ee5767ae7bf7ae9745629765b2c3ad1d8a8ff",
+    "snapshots/recent/1231.csv": "af157e5c21c214f835fe5ca5f5b3c8d23f8b3c66089a7e57f981a5591a776aa6",
+    "snapshots/recent/1232.csv": "579854c43d4130a6873a4ff6bcf0a90485dfd10e615c2d346d116afac9b33311",
+    "snapshots/recent/1233.csv": "55be4598863883f94b34f75b09033fb4fd63ba54fb21a6bb0c24ef1b0841ffc7",
+    "snapshots/recent/1234.csv": "85f17321256736c8ebaca3b5499dc9d3ed4e739febc668f9acabef5fa7519bc1",
+    "snapshots/recent/1235.csv": "2e417221a28d6fe047c78a0a98cd7dc2ce46f35ea002b5c2dffdf489a3e43107",
+    "snapshots/recent/1236.csv": "c3f0551b767206bcde6fee49a5e8556c0a7caa5af5a614fc408eca0b2ce65317",
+    "snapshots/recent/1237.csv": "34d9ac942a8e9207f29233cf461dc4d56a6534b2d0432a8840da595363411437",
+    "snapshots/recent/1238.csv": "7640821c97ebfdb4f1ca9cff389cdf7202c5eac2ba6602b303dfb09ee0f44c6b",
+    "snapshots/recent/1239.csv": "fb30a9e834fae8c314a093b77e7781ae2b6d18a8bec2b74be7b7dda89f89bf94",
+    "snapshots/recent/1240.csv": "66ba98e84701af16dd8abf93e68d9127c9ce9b38447aea67d8a3cc0f6ec81df8",
+    "snapshots/recent/1241.csv": "774ffb75045b01f03b4349b0af6cf65f163e4561cf6dc3bfbfa813c6f17b30d0",
+    "snapshots/recent/1242.csv": "a9001ddbce2a61e3c1fc204f4fbf920b372c3cd56f2f2fdc8997d6b0eccdd552",
+    "snapshots/recent/1243.csv": "593fa27262ebe94ebaa6945c2e65e534a410098ed6c843d802cec9c59a7ccbb0",
+    "snapshots/recent/1244.csv": "b795728fcbad8b151cdcde33cef1edfb1b9cbef4caf434649a69382f25e79a67",
+    "snapshots/recent/1245.csv": "81220971312a135e8306bdf124435d3226d4fae5e27d62ab2572dee687220353",
+    "snapshots/combined_history.csv": "3b7bb1e0a37c28ae4b4a97e098180d8407008ec007698c191ed6cf279db8225b"
+  }
+}

@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+.coverage
+htmlcov/
+*.egg-info/
+data/raw/snapshots/
+data/processed/*.csv
+reports/*.csv
+*.tmp
+.superpowers/
+tests/.tmp/
+pytest-cache-files-*/
+data/test_tmp/
+data/probe_*/
