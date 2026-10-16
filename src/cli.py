@@ -71,6 +71,8 @@ def _parser():
     backtest.add_argument("--report", type=Path, default=ROOT / "reports/random_backtest", help="Output prefix (.csv and .json)")
     candidates = commands.add_parser("candidates", help="Generate a uniform random candidate ticket")
     candidates.add_argument("--seed", type=int, default=42)
+    from src.prediction_cli import add_commands
+    add_commands(commands)
     return parser
 
 
@@ -85,7 +87,7 @@ def _status(path):
     if metadata.exists():
         source = json.loads(metadata.read_text(encoding="utf-8"))
         print(f"Last collection/import source: {source.get('source', 'unknown')}")
-    print("Temporal exploration and RandomModel baseline. No advanced predictive models.")
+    print("Temporal exploration and experimental ranking models. No validated predictive advantage.")
 
 
 def _inspect(history, number):
@@ -239,6 +241,9 @@ def main(argv=None) -> int:
             print(f'Binary series saved to {args.output}')
         elif args.command == 'backtest':
             _backtest(args, history)
+        elif args.command in ('compare-models','predict-current','explain-number'):
+            from src.prediction_cli import run_command
+            run_command(args,history,_guard_outputs)
         elif args.command == 'candidates':
             target = int(history.draw_no.max()) + 1
             context = TargetDrawContext(target, history.iloc[-1].draw_date + pd.Timedelta(days=7))

@@ -1,0 +1,5 @@
+# Optional tree-model backends. Core logistic regression uses installed SciPy.
+-r requirements.txt
+scikit-learn>=1.6,<2
+lightgbm>=4.5,<5
+# XGBoost may be installed explicitly instead of LightGBM; adapter detects it.

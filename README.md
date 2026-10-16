@@ -215,11 +215,14 @@ shuffles per eligible fixed scope; `--permutations 4999` gives finer resolution.
 Use `--reports-dir` to select another destination. With a non-default `--data`
 and no report override, outputs go into a `reports/` folder beside that dataset.
 
-Still deferred: predictive FrequencyModel, GapModel, SeasonalityModel,
-PeriodicityModel, SimilarityModel, EnsembleModel, multi-model comparison and
-advanced machine learning. No temporal exploration output is connected to the
-backtester or RandomModel. Their acceptance criterion remains leakage-safe
-out-of-sample evaluation against RandomModel, not visually interesting patterns.
+Phase 3 adds shared causal supervised features, same-number similarity,
+pooled regularized logistic regression, optional Random Forest/LightGBM/XGBoost
+adapters, ranking audits, chronological refitting, feature ablations and paired
+random comparisons. Run `python main.py compare-models --ablations`,
+`python main.py predict-current`, or `python main.py explain-number 17`.
+See [predictive experiments](docs/predictive-experiments.md) for the fixed
+protocol, formulas, dependency limitations and outputs. No predictive advantage
+is established. The original RandomModel backtester remains available unchanged.
 
 Tests require no network. Test scratch directories inherit normal permissions
 because the Windows sandbox cannot reopen pytest's owner-only directories;

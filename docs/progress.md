@@ -78,3 +78,46 @@ number34/window52 (230.5). No recurrence significance test or predictive claim.
 Aggregate and selected-number null CSVs matched exactly. Detailed observations,
 limitations, output schemas and runtime are in docs/temporal-analysis.md.
 Phase 2 scope complete. No commits or pushes.
+
+## Phase 3 predictive experiments - 2026-10-17
+
+Added canonical causal supervised features; same-number nearest-state model;
+pooled SciPy L2 logistic regression; optional sklearn Random Forest and
+LightGBM/XGBoost adapters. Separate ranking engine supports frozen fits at a
+configurable cadence, weighted tickets, exact random-reference simulations,
+paired block-bootstrap uncertainty, time blocks, ablations and full audits.
+CLI: compare-models, predict-current, explain-number. Original backtests intact.
+
+Protocol fixed before results: feature history104, first feature target105,
+evaluation601..1244, reserved1245, cadence26, seed42, no tuning. Export contains
+51,345 rows x37 columns including31 predictors. Full feature transform75cols.
+644 targets x9 available model/group specifications =5,796 audited rows;
+3,725 coefficient rows; 27 time blocks; 115,920 separately sampled tickets.
+Seven logistic feature groups evaluated on the identical target set.
+
+RandomModel mean hits .798137, Similarity .777950, full Logistic .796584.
+Gap-only .849379 had paired interval vs random [-.035714,.139790]. No model's
+paired mean-hit interval excludes zero. Incremental periodicity vs frequency+
+gap is +.015528 hits, CI[-.054348,.090062], inconsistent across time blocks.
+Incremental recall and mean-winning-rank intervals also include zero.
+No validated predictive advantage or incremental periodicity value established.
+
+Completed fixed experiment163.349s (features47.380s, similarity35.562s, full
+logistic29.911s). An earlier diagnostic-heavy similarity attempt was canceled;
+avoiding unused neighbor explanations preserved exact scores and improved
+runtime. No configuration or evaluation boundaries changed. Real-data current
+logistic command55.17s; number17 similarity explanation45.91s.
+
+Independent review found no causal leakage and caught missing configuration
+in --no-audit metadata. Regression reproduced it; configurations/runtime now
+persist independently of detailed audit. Artifact verification checked all
+target outcomes, hits, rankings, 45 scores, ticket counts and fit cutoffs.
+Final suite:85 passed,2 skipped in19.02s (all original69 still pass).
+Compile and git diff --check pass. Canonical SHA256 unchanged.
+
+Remaining environment blocker: sklearn, LightGBM, XGBoost are absent; package
+installation attempts failed and HTTPS to PyPI was refused (WinError10061).
+Forest/boosting adapters were not executed and their integration tests skip.
+No algorithm was silently substituted. SciPy logistic backend is explicit.
+See docs/predictive-experiments.md and reports/prediction/ for methods/results.
+No commits or pushes.

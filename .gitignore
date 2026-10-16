@@ -11,6 +11,9 @@ reports/*.csv
 *.tmp
 .superpowers/
 tests/.tmp/
+.deps/
+reports/prediction/
+reports/prediction*.log
 pytest-cache-files-*/
 data/test_tmp/
 data/probe_*/
