@@ -201,6 +201,40 @@ Initial seed-42 verification:
 Both intervals contain the 0.8 random expectation. These runs verify the
 evaluation pipeline; **no predictive advantage is claimed**.
 
+## Research roadmap
+
+| Hypothesis | Status |
+|---|---|
+| H1 — Fixed-number temporal patterns | TESTED / INCONCLUSIVE |
+| H2 — Gap / periodicity / regime models | TESTED / INCONCLUSIVE |
+| H3 — Translational number patterns | TESTED / INCONCLUSIVE |
+| H4 — State-conditioned 3D patterns | PLANNED |
+| H5 — Higher-dimensional trajectories / embeddings | BACKLOG |
+
+Phase6 tests bounded translations through draw and ordered number space against
+complete-search maxima from IID and exact-margin surrogate histories. It uses
+draws1–1245 only; draw1246 is not retrieved or evaluated. The Phase5 prospective
+experiment remains immutable. See [research ideas](docs/research-ideas.md) and
+[the predeclared Phase6 protocol](docs/superpowers/plans/2026-10-17-phase6.md).
+Formulas, limitations and output schemas are documented in
+[the spatiotemporal-analysis guide](docs/spatiotemporal-analysis.md).
+The completed199+199 surrogate searches found no structure surviving correction,
+and primary walk-forward paired intervals include zero. See
+[Phase6 results](docs/phase6-results.md). This preserves H4 as a planned research
+direction; it does not establish predictability or rule out every possible signal.
+
+```powershell
+python main.py analyze-2d --surrogates 199
+python main.py compare-2d
+python main.py compare-2d --cadence 13 --primary-only
+python main.py freeze-2d
+```
+
+Research outputs go to `reports/spatiotemporal/`. The last command creates an
+independent, non-overwritable experiment in `reports/prospective/phase6/` with its
+own registry. It never fetches results, and refuses a second freeze for the same
+Phase6 target. Old commands and defaults remain intact.
+
 ## Structure and next phases
 
 ```text
