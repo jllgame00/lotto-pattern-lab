@@ -75,6 +75,8 @@ def _parser():
     add_commands(commands)
     from src.prize_cli import add_command
     add_command(commands)
+    from src.regime_cli import add_commands as add_regime_commands
+    add_regime_commands(commands)
     return parser
 
 
@@ -242,6 +244,11 @@ def main(argv=None) -> int:
                 raise ValueError('Network collection is disabled while draw1245 is sealed; batches can include future draws')
             print(json.dumps(report, indent=2))
             return 0 if report['complete'] else 1
+        if args.command == 'freeze-next':
+            from src.prospective import freeze_snapshot
+            path=freeze_snapshot(args.data,args.reports_dir or ROOT/'reports/prospective',seed=args.seed)
+            print(f'Experimental offline snapshot: {path}. No future result fetched. Verify unseen status independently.')
+            return 0
         history = load_history(args.data)
         if args.command == 'validate':
             _status(args.data)
@@ -261,6 +268,9 @@ def main(argv=None) -> int:
             run_command(args,history,_guard_outputs)
         elif args.command == 'prize-eval':
             from src.prize_cli import run
+            run(args,history,_guard_outputs)
+        elif args.command in ('hazard-analysis','compare-regime-models'):
+            from src.regime_cli import run
             run(args,history,_guard_outputs)
         elif args.command == 'candidates':
             target = int(history.draw_no.max()) + 1

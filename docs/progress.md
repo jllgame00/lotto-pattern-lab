@@ -169,3 +169,37 @@ HTTP/HTTPS proxy127.0.0.1:9; single PyPI probe ConnectionRefusedError WinError10
 Restrictions untouched; no complex replacements or claimed tree results.
 Reports in reports/prize_research; methods/results in docs/gap-prize-research.md.
 No commits or pushes by this work.
+
+## Phase4: regime/Bayesian research,2026-10-17
+
+At entry, clean HEAD already was5b66beed885de7ee4d240e06100e474c03609497,
+`feat: add prize-aware validation and gap signal audit`. Reverified114passed,
+2skipped before edits. Authorized push failed at proxy127.0.0.1:9; no history
+rewrite or duplicate commit. Phase4 remains uncommitted as requested.
+
+Added smoothed GapHazard, static/recency Beta appearance models, small batched
+Bernoulli HMM2/3, causal online filtering, normalization and frozen ensembles.
+New CLI:hazard-analysis,compare-regime-models,freeze-next. The latter is an
+offline capability tested with synthetic data only; actual1245 remains unused
+in this phase, and no future result was requested. Prior1245 access prevents
+calling it pristine. Retrospective seal remains1244.
+
+Default fixed experiment601-1244/cadence26; ensemble development601-900 and
+later901-1244. Additional starts501/701 and cadence13. Run291.34s.
+Primary average hits:Random.7981,GapHazard.7811,BayesianStatic.7733,
+BayesianRecent.7640,HMM2/HMM3.7873. All paired average-hit intervals include0.
+Development-weight ensemble later.7849 versus Random.7674,paired difference
+.0174[-.0843,.1193]. No reliable predictive advantage; weak state separation,
+no corrected selected-number HMM null evidence or pool concentration evidence.
+Later portfolios:27 rare occurrences represent15 unique draw/ticket pairs on9
+draws,0first/1second/14third equivalents across1,259,040 max-budget ticket
+instances. These are correlated virtual events, not profit or predictive proof.
+
+136tests passed,2 optional-tree dependency skips21.67s. New model prefix,
+Bayesian update algebra,HMM enumeration/filter/fit,ensemble split,immutable
+snapshot/no-network tests pass. Independent reviewer checked EM update against
+enumeration to2.78e-17; Git-unknown provenance fallback fixed with regression.
+Verified all9660+10320 ranking audits,99900 pool rows,251808 budget rows,57960
+state rows and27 rare events against open-prefix source. Compileall/diff checks
+pass. All optional HMM/tree libraries absent,PIP_NO_INDEX=1,proxy refused.
+Full methods/results:docs/regime-research.md; outputs:reports/regime_research/.

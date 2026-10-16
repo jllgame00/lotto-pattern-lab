@@ -11,6 +11,13 @@ Run `python main.py prize-eval` for gap robustness, candidate-pool concentration
 and equal-budget virtual portfolios. See [the gap/prize research report](docs/gap-prize-research.md)
 for methods, uncertainty, results and the prior-phase access caveat.
 
+Phase4 adds `hazard-analysis` and `compare-regime-models` for transparent hazard,
+Bayesian, small Bernoulli HMM and development-frozen ensemble experiments.
+See [methods and results](docs/regime-research.md). `freeze-next` is a separate
+offline snapshot capability: when explicitly invoked it may use local canonical
+draw1245 to target1246, without retrieving that result. It does not change the
+retrospective research seal or make1245 a pristine holdout.
+
 ## Quick start
 
 Python 3.11 or newer is required. From this directory:

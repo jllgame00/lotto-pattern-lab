@@ -19,3 +19,6 @@ reports/prize_*.log
 pytest-cache-files-*/
 data/test_tmp/
 data/probe_*/
+reports/regime_research/
+reports/regime_*.log
+reports/prospective/
