@@ -207,9 +207,10 @@ evaluation pipeline; **no predictive advantage is claimed**.
 |---|---|
 | H1 — Fixed-number temporal patterns | TESTED / INCONCLUSIVE |
 | H2 — Gap / periodicity / regime models | TESTED / INCONCLUSIVE |
-| H3 — Translational number patterns | TESTED / INCONCLUSIVE |
-| H4 — State-conditioned 3D patterns | PLANNED |
-| H5 — Higher-dimensional trajectories / embeddings | BACKLOG |
+| H3 — 2D translational number patterns | TESTED / INCONCLUSIVE |
+| H4 — Gap-conditioned 3D translational patterns | TESTED / INCONCLUSIVE |
+| H5 — Alternative state-conditioned 3D patterns | PLANNED |
+| H6 — Higher-dimensional trajectories / embeddings / tensors | BACKLOG |
 
 Phase6 tests bounded translations through draw and ordered number space against
 complete-search maxima from IID and exact-margin surrogate histories. It uses
@@ -220,8 +221,8 @@ Formulas, limitations and output schemas are documented in
 [the spatiotemporal-analysis guide](docs/spatiotemporal-analysis.md).
 The completed199+199 surrogate searches found no structure surviving correction,
 and primary walk-forward paired intervals include zero. See
-[Phase6 results](docs/phase6-results.md). This preserves H4 as a planned research
-direction; it does not establish predictability or rule out every possible signal.
+[Phase6 results](docs/phase6-results.md). This motivated H4; it does not establish
+predictability or rule out every possible signal.
 
 ```powershell
 python main.py analyze-2d --surrogates 199
@@ -236,6 +237,29 @@ own registry. It never fetches results, and refuses a second freeze for the same
 Phase6 target. Old commands and defaults remain intact.
 
 ## Structure and next phases
+
+Phase7 tests only **causal current gap** as the third dimension. A translation
+may hypothetically concentrate in a gap state even when its pooled2D pattern is
+weak. This is a hypothesis, not evidence. `python main.py analyze-gap3d` writes
+complete conditional/trajectory searches and surrogate maxima under
+`reports/spatiotemporal3d/`. Every surrogate recomputes its own gaps and bins.
+See [the Phase7 methods](docs/gap3d-analysis.md),
+[results](docs/phase7-results.md), and [predeclared protocol](docs/superpowers/plans/2026-10-17-phase7.md).
+Phase5 and Phase6 prospective artifacts remain immutable; no future draw is accessed.
+The completed 199+199 null searches found no corrected structure. Adding gap
+conditioning did not establish predictive improvement over Random or the2D parents.
+The primary models and representation ablations retain their predeclared settings.
+
+```powershell
+python main.py analyze-gap3d --surrogates 199
+python main.py compare-gap3d
+python main.py compare-gap3d --cadence 13 --primary-only
+python main.py freeze-gap3d
+```
+
+These isolated commands admit local draws1–1245 only. `freeze-gap3d` creates a
+separate Phase7 snapshot and refuses to regenerate a reserved/frozen target.
+It never retrieves or evaluates a result. Legacy command seals remain unchanged.
 
 ```text
 data/raw/             canonical CSV, provenance, local source snapshots

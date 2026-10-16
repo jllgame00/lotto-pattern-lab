@@ -79,6 +79,8 @@ def _parser():
     add_regime_commands(commands)
     from src.spatiotemporal_cli import add_commands as add_spatiotemporal_commands
     add_spatiotemporal_commands(commands)
+    from src.gap3d_cli import add_commands as add_gap3d_commands
+    add_gap3d_commands(commands)
     evaluation=commands.add_parser('evaluate-freeze',help='Offline evaluation of a frozen snapshot and explicit local result JSON')
     evaluation.add_argument('snapshot',type=Path)
     evaluation.add_argument('result_file',type=Path)
@@ -266,6 +268,10 @@ def main(argv=None) -> int:
                 with args.output.open('x',encoding='utf-8') as stream: stream.write(text)
                 print(f'Offline evaluation saved: {args.output}; original freeze and registry unchanged.')
             else: print(text)
+            return 0
+        if args.command in ('analyze-gap3d','compare-gap3d','freeze-gap3d'):
+            from src.gap3d_cli import run as run_gap3d
+            run_gap3d(args)
             return 0
         if args.command in ('analyze-2d','compare-2d','freeze-2d'):
             from src.spatiotemporal_cli import run as run_spatiotemporal
