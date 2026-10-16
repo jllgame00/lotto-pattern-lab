@@ -15,6 +15,7 @@ from scipy.special import expit
 from scipy.spatial.distance import cdist
 
 from src.analysis.features import feature_columns
+from src.research_seal import assert_open, LAST_OPEN_DRAW
 
 
 def _scores(scores):
@@ -85,6 +86,8 @@ class FittedModel:
         self.seed = seed
 
     def _training(self, rows, cutoff):
+        assert_open(rows,'target_draw')
+        if cutoff>LAST_OPEN_DRAW: raise ValueError('Training cutoff is sealed')
         if rows.empty or rows.target_draw.max() > cutoff:
             raise ValueError('Training rows must be nonempty and at or before training cutoff')
         if not rows.feature_cutoff.eq(rows.target_draw-1).all():
@@ -97,6 +100,7 @@ class FittedModel:
         return self.transformer.transform(rows), rows.appeared_next.to_numpy(dtype=float)
 
     def _current(self, rows):
+        assert_open(rows,'target_draw')
         if 'appeared_next' in rows.columns:
             raise ValueError('Scoring rows must not expose target outcomes')
         if len(rows)!=45 or set(rows.number)!=set(range(1,46)) or rows.target_draw.nunique()!=1:

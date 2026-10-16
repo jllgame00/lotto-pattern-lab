@@ -11,6 +11,7 @@ import pandas as pd
 from src.collect.dataset import MAIN_COLUMNS, validate_history
 from src.models.predictive import rank_numbers, weighted_ticket
 from src.models.random_model import RandomModel
+from src.research_seal import assert_open, LAST_OPEN_DRAW
 
 
 def rank_metrics(ranking, actual):
@@ -27,18 +28,24 @@ def _seed(seed, target, stream):
 
 
 def evaluate(history, features, factories, *, start=601, end=None, cadence=26,
-             seed=42, tickets=0, audit=True, progress=None):
+             seed=42, tickets=0, audit=True, progress=None, reserve_latest=True, fit_callback=None,
+             score_callback=None):
     """features must come from build_features; no external arbitrary CSV cache.
 
-    Latest observed draw is always reserved. Each fitted instance sees only
+    Latest supplied draw is reserved by default; sealed-prefix research can use
+    reserve_latest=False. The fixed1245 seal is enforced in either mode.
+    Each fitted instance sees only
     labels through its fit cutoff; scoring receives no label column. Between
     fits current features update, but scalers/neighbor sets remain frozen.
     """
+    assert_open(history)
+    assert_open(features,'target_draw')
     data = validate_history(history)
-    end = len(data)-1 if end is None else end
+    end = len(data)-int(reserve_latest) if end is None else end
     if (not isinstance(cadence,int) or cadence<1 or not isinstance(tickets,int) or tickets<0 or
-            not isinstance(start,int) or not isinstance(end,int) or start>end or end>=len(data)):
-        raise ValueError('Invalid protocol; latest draw must remain reserved')
+            not isinstance(start,int) or not isinstance(end,int) or start>end or
+            end>len(data)-int(reserve_latest) or end>LAST_OPEN_DRAW):
+        raise ValueError('Invalid protocol; end must respect open history and the reservation')
     if features.duplicated(['target_draw','number']).any() or not features.feature_cutoff.eq(features.target_draw-1).all():
         raise ValueError('Invalid canonical feature table')
     if 'RandomModel' in factories:
@@ -71,12 +78,14 @@ def evaluate(history, features, factories, *, start=601, end=None, cadence=26,
                 if index % cadence == 0:
                     training = features[(features.target_draw<target) & features.appeared_next.notna()].copy(deep=True)
                     model = factory().fit(training,cutoff=target-1)
+                    if fit_callback: fit_callback(name,model,training)
                     for item in model.importance():
                         importances.append(dict(model=name,training_cutoff=target-1,**item))
                     if progress: progress(f'{name}: fit through {target-1} ({len(training):,} rows)')
                 scores = model.score_rows(current)
                 ranking = rank_numbers(scores)
                 cutoff,config = model.training_cutoff,model.configuration()
+                if score_callback: score_callback(name,model,current,scores)
             # Outcome access occurs after this model's scores/ranking exist.
             actual = set(data.iloc[target-1][MAIN_COLUMNS].astype(int))
             record = dict(model=name,target_draw=target,feature_cutoff=target-1,training_cutoff=cutoff,

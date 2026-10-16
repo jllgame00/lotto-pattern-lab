@@ -17,7 +17,7 @@ from src.analysis.statistics import inspect_number
 from src.backtest.engine import run_backtest
 from src.backtest.metrics import summarize
 from src.collect.collector import atomic_write, collect_history, import_history
-from src.collect.dataset import load_history
+from src.research_seal import load_research_history as load_history, prefix_hash, LAST_OPEN_DRAW
 from src.models.base import TargetDrawContext
 from src.models.random_model import RandomModel
 
@@ -73,6 +73,8 @@ def _parser():
     candidates.add_argument("--seed", type=int, default=42)
     from src.prediction_cli import add_commands
     add_commands(commands)
+    from src.prize_cli import add_command
+    add_command(commands)
     return parser
 
 
@@ -123,7 +125,8 @@ def _explore(args,history):
                              windows=args.windows,config=config,permutations=args.permutations,seed=args.seed,
                              percentile=args.percentile,min_history=args.regime_history,min_length=args.regime_length,
                              progress=lambda message:print(message,flush=True))
-    analysis['metadata']['source_csv_sha256']=hashlib.sha256(args.data.read_bytes()).hexdigest()
+    analysis['metadata']['source_csv_sha256']=prefix_hash(args.data)
+    analysis['metadata']['hash_scope']='open CSV prefix only; normalized newlines'
     analysis['metadata']['source_path']=str(args.data.resolve())
     write_reports(analysis,directory)
     if number is not None:
@@ -170,7 +173,7 @@ def _backtest(args, history):
     summary.update(configuration=configuration,
                    created_at=datetime.now(timezone.utc).isoformat(),
                    dataset_path=str(args.data.resolve()),
-                   dataset_sha256=hashlib.sha256(args.data.read_bytes()).hexdigest(),
+                   dataset_sha256=prefix_hash(args.data),hash_scope='open CSV prefix only; normalized newlines',
                    versions=dict(python=platform.python_version(), numpy=np.__version__, pandas=pd.__version__))
     metadata = args.data.with_suffix('.metadata.json')
     if metadata.exists():
@@ -212,6 +215,10 @@ def main(argv=None) -> int:
     parser = _parser()
     args = parser.parse_args(argv)
     try:
+        canonical=(args.data.resolve()==DEFAULT_DATA.resolve() or
+                   (args.data.exists() and DEFAULT_DATA.exists() and args.data.samefile(DEFAULT_DATA)))
+        if canonical and args.command in ('collect','predict-current','explain-number','candidates'):
+            raise ValueError('Canonical draw1245 is sealed; collection and current prediction commands are disabled')
         if args.command is None:
             _status(args.data)
             if sys.stdin.isatty():
@@ -222,9 +229,17 @@ def main(argv=None) -> int:
             if args.input:
                 if not args.source_label or args.end is not None:
                     raise ValueError('--input requires --source-label and cannot be combined with --end')
+                if (args.input.resolve()==DEFAULT_DATA.resolve() or
+                        (args.input.exists() and DEFAULT_DATA.exists() and args.input.samefile(DEFAULT_DATA))):
+                    raise ValueError('Canonical source contains a sealed suffix; import is disabled')
+                # Do not let the legacy importer read/hash a possible sealed suffix.
+                # Small open-prefix fixtures/imports remain supported during the freeze.
+                for path in (args.input,args.data):
+                    if path.exists() and load_history(path).draw_no.max()>=LAST_OPEN_DRAW:
+                        raise ValueError('Import at the sealed boundary is disabled')
                 report = import_history(args.data, args.input, args.source_label)
             else:
-                report = collect_history(args.data, end=args.end)
+                raise ValueError('Network collection is disabled while draw1245 is sealed; batches can include future draws')
             print(json.dumps(report, indent=2))
             return 0 if report['complete'] else 1
         history = load_history(args.data)
@@ -244,8 +259,12 @@ def main(argv=None) -> int:
         elif args.command in ('compare-models','predict-current','explain-number'):
             from src.prediction_cli import run_command
             run_command(args,history,_guard_outputs)
+        elif args.command == 'prize-eval':
+            from src.prize_cli import run
+            run(args,history,_guard_outputs)
         elif args.command == 'candidates':
             target = int(history.draw_no.max()) + 1
+            if target>LAST_OPEN_DRAW: raise ValueError('Next target is sealed; current candidates are disabled')
             context = TargetDrawContext(target, history.iloc[-1].draw_date + pd.Timedelta(days=7))
             print(f'Uniform random candidate for draw {target} ({context.draw_date.date()}), seed={args.seed}: '
                   f'{RandomModel().predict(history, context=context, seed=args.seed)}')

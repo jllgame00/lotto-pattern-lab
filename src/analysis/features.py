@@ -12,6 +12,7 @@ import pandas as pd
 from src.analysis.periodicity import periodicity_metrics
 from src.analysis.series import binary_series
 from src.collect.dataset import validate_history
+from src.research_seal import assert_open, LAST_OPEN_DRAW
 
 FREQUENCY = [f'{kind}_{w}' for w in (5,10,26,52,104) for kind in ('count','rate')]
 FREQUENCY += ['short_long_ratio', 'consecutive']
@@ -31,6 +32,9 @@ def feature_columns(group='full'):
 
 
 def build_features(history, *, min_history=104, include_current=False, progress=None):
+    assert_open(history)
+    if include_current and history.draw_no.max()>=LAST_OPEN_DRAW:
+        raise ValueError('Next target is sealed; current prediction is disabled')
     if isinstance(min_history, bool) or not isinstance(min_history, int) or min_history < 104:
         raise ValueError('min_history must be an integer >= 104')
     data = validate_history(history)

@@ -5,6 +5,12 @@ app or frontend. It provides data collection and validation, binary histories,
 frequency/gap statistics, exploratory calendar and periodicity analysis, and a
 reproducible random baseline backtester. It does **not** establish predictive performance.
 
+**Research seal active:** CLI research uses only draws1..1244. Draw1245 and later
+are excluded; current prediction and network collection are temporarily blocked.
+Run `python main.py prize-eval` for gap robustness, candidate-pool concentration,
+and equal-budget virtual portfolios. See [the gap/prize research report](docs/gap-prize-research.md)
+for methods, uncertainty, results and the prior-phase access caveat.
+
 ## Quick start
 
 Python 3.11 or newer is required. From this directory:
@@ -21,12 +27,11 @@ command prints dataset status and help without blocking. All work is also
 available through subcommands:
 
 ```powershell
-python main.py collect
+python main.py prize-eval
 python main.py validate
 python main.py inspect 17
 python main.py analyze-all --permutations 4999 --seed 42
 python main.py export-series
-python main.py candidates --seed 42
 python main.py backtest --mode checkpoints --checkpoints 100 --tickets 5 --repeats 10 --seed 42 --report reports/random_checkpoints
 python main.py backtest --mode walk-forward --min-train 299 --seed 42 --report reports/random_walk_forward
 python -m pytest -q
@@ -35,7 +40,7 @@ python -m pytest -q
 Use `--data path/to/history.csv` **before** the subcommand to use another dataset.
 Relative output paths are relative to your working directory; default paths are
 relative to the project root. No command downloads data implicitly except
-`collect` without `--input`.
+`collect` without `--input`, which is disabled while the research seal is active.
 
 ## Data and provenance
 

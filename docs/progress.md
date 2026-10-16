@@ -121,3 +121,51 @@ Forest/boosting adapters were not executed and their integration tests skip.
 No algorithm was silently substituted. SciPy logistic backend is explicit.
 See docs/predictive-experiments.md and reports/prediction/ for methods/results.
 No commits or pushes.
+
+## Gap robustness / prize research - 2026-10-17
+
+New fixed research boundary1244: prefix loader stops before1245, hashes only
+open prefix, guards features/models/backtests and CLI. Current canonical
+prediction/collection disabled. Canonical-source copy via alternate destination,
+network collection, and alternate-path sealed candidates are blocked. Only
+synthetic boundary fixtures were used to test forbidden paths. Previous phase
+had accessed1245 in predict-current; that historical access cannot be undone.
+This phase did not inspect/use1245 or reuse prior current-prediction artifacts.
+
+Implemented five gap rules, coefficient/scaler/sign/rank-contribution audits,
+five start-point robustness runs, pool distributions6/8/10/12/15, exact random
+and Monte Carlo references, bonus-only post-prediction prizes, fixed-budget
+weighted and five-subset/pair-coverage portfolios, per-prize rare-event intervals,
+paired draw-bootstrap uncertainty, time blocks and prize-eval CLI.
+
+Fixed run: end1244; starts401/501/601/701/801; primary601; cadence26; seed42;
+C=1; Top12 portfolios;1/5/10/20 unique tickets;3 repeats;2000 bootstrap/null runs.
+Open features51,300 rows. Primary15 specifications;47 model/window comparisons.
+All five gap-vs-random intervals and all25 gap-vs-heuristic hit intervals include
+zero. Gap coefficients stable but current-gap and gap-ratio terms partly cancel;
+median and variability materially affect rankings. No robust superiority found.
+
+Gap Top8/10/12/15 >=5 winner counts0/2/4/8 across644 draws, all-six counts0.
+All corrected primary pool tests equal1.0. Gap+periodicity Top10/12 counts0/2;
+mean rank point improvement has an interval including zero and average hits fall.
+At20 tickets, gap weighted mean best1.5740 versus matched random1.5771;
+gap coverage1.5880 versus matched random1.5870; unrestricted Uniform45=2.3898.
+None of the matched-random portfolio differences establishes an advantage.
+
+All methods/seeds produce44 rare ticket occurrences on14 draws, representing
+27 unique draw/ticket pairs:0 first-,1 second-,26 third-prize equivalents.
+Gap second-prize-equivalent at621 has fit cutoff600 and feature cutoff620.
+These are virtual, correlated, multiple-comparison events; no profit/skill claim.
+
+Run219.771s, including100.794s portfolios. Reporting-only refresh5.035s plus
+small exact-reference exports; no model/ticket settings changed after results.
+Verified9660 ranking audits,48300 pools,239568 budget rows and all44 prize events.
+Final full suite114 passed,2 optional-library skips in14.67s; original85 intact.
+Independent review found and prompted regressions for collection/candidate seal
+bypasses and missing individual-prize intervals; fixes verified synthetically.
+
+Dependency diagnosis: sklearn/LightGBM/XGBoost absent; PIP_NO_INDEX=1;
+HTTP/HTTPS proxy127.0.0.1:9; single PyPI probe ConnectionRefusedError WinError10061.
+Restrictions untouched; no complex replacements or claimed tree results.
+Reports in reports/prize_research; methods/results in docs/gap-prize-research.md.
+No commits or pushes by this work.

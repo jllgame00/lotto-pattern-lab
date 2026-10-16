@@ -1,5 +1,9 @@
 # Predictive experiments
 
+Historical Phase3 report. The subsequent fixed research seal now limits CLI
+analysis to draws1..1244 and blocks canonical current prediction. See
+[gap/prize research](gap-prize-research.md) for the active protocol and caveats.
+
 These are exploratory chronological ranking experiments. A fitted score is not
 evidence that Lotto can be predicted. There is no hyperparameter search, final
 draw optimization, neural network, HMM, or web frontend.

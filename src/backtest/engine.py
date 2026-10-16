@@ -9,6 +9,7 @@ import pandas as pd
 
 from src.collect.dataset import MAIN_COLUMNS, RAW_COLUMNS, validate_history
 from src.models.base import NumberModel, TargetDrawContext, validate_ticket
+from src.research_seal import assert_open
 
 
 def _positive(value, name):
@@ -32,6 +33,7 @@ def run_backtest(history: pd.DataFrame, model_factory: Callable[[], NumberModel]
         raise ValueError("seed must be a nonnegative integer")
     if mode not in ("walk-forward", "checkpoints"):
         raise ValueError("mode must be walk-forward or checkpoints")
+    assert_open(history)
     data = validate_history(history)[RAW_COLUMNS]
     start = min_train + 1 if start is None else start
     end = int(data.draw_no.max()) if end is None else end

@@ -17,6 +17,7 @@ from src.backtest.ranking import evaluate, summarize_rankings
 from src.collect.collector import atomic_write
 from src.models.predictive import (BoostingModel, ForestModel, LogisticModel,
                                    SimilarityModel, rank_numbers, weighted_ticket)
+from src.research_seal import prefix_hash, LAST_OPEN_DRAW
 
 MODELS = dict(similarity=SimilarityModel,logistic=LogisticModel,forest=ForestModel,boosting=BoostingModel)
 REPORT_FILES = ['features.csv','feature_sample.csv','comparison.csv','time_blocks.csv',
@@ -26,7 +27,7 @@ REPORT_FILES = ['features.csv','feature_sample.csv','comparison.csv','time_block
 def add_commands(commands):
     compare = commands.add_parser('compare-models',help='Experimental chronological ranking comparisons')
     compare.add_argument('--start',type=int,default=601)
-    compare.add_argument('--end',type=int,help='Default penultimate draw; latest is always reserved')
+    compare.add_argument('--end',type=int,help='Default last open draw; draw1245 and later are sealed')
     compare.add_argument('--cadence',type=int,default=26)
     compare.add_argument('--models',nargs='+',choices=list(MODELS),default=list(MODELS))
     compare.add_argument('--ablations',action='store_true',help='Also run all seven logistic feature groups')
@@ -111,7 +112,7 @@ def run_command(args,history,guard_outputs):
         atomic_write(root/'feature_sample.csv',features.head(450).to_csv(index=False))
         results,importance=evaluate(history,features,factories,start=args.start,end=args.end,
                                     cadence=args.cadence,seed=args.seed,tickets=args.tickets,audit=not args.no_audit,
-                                    progress=lambda message:print(message,flush=True))
+                                    progress=lambda message:print(message,flush=True),reserve_latest=False)
         summary=summarize_rankings(results,simulations=args.simulations,bootstraps=args.bootstraps,seed=args.seed)
         ablations=_ablation_differences(results,args.seed,args.bootstraps)
         for name,frame in [('comparison',summary['comparison']),('time_blocks',summary['time_blocks']),
@@ -121,11 +122,12 @@ def run_command(args,history,guard_outputs):
         for package in ('numpy','pandas','scipy','scikit-learn','lightgbm','xgboost'):
             try: versions[package]=importlib.metadata.version(package)
             except importlib.metadata.PackageNotFoundError: versions[package]=None
-        metadata=dict(source_path=str(args.data.resolve()),source_sha256=hashlib.sha256(args.data.read_bytes()).hexdigest(),
-                      source_draws=len(history),reserved_draw=int(history.draw_no.max()),
+        metadata=dict(source_path=str(args.data.resolve()),source_sha256=prefix_hash(args.data),
+                      hash_scope='open CSV prefix only; normalized newlines',
+                      source_draws=len(history),reserved_draw=LAST_OPEN_DRAW+1,
                       feature_rows=len(features),feature_columns=len(features.columns),predictor_columns=len(feature_columns()),
                       first_feature_target=int(features.target_draw.min()),last_feature_target=int(features.target_draw.max()),
-                      protocol=dict(start=args.start,end=args.end or len(history)-1,cadence=args.cadence,seed=args.seed,
+                      protocol=dict(start=args.start,end=args.end or len(history),cadence=args.cadence,seed=args.seed,
                                     min_feature_history=104,tickets=args.tickets,ablations=args.ablations,tuning='none'),
                       availability=statuses,versions=dict(python=platform.python_version(),**versions),
                       model_configurations=results.attrs['model_configurations'],
