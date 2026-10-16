@@ -29,7 +29,14 @@ def inspect_number(history: pd.DataFrame, number: int) -> dict:
         else:
             run = 0
     current_gap = int(len(series) - 1 - positions[-1]) if len(positions) else None
+    # Include boundary-censored runs as observed lower bounds, never impute a hit.
+    zero_runs = np.diff(np.r_[-1, positions, len(series)]) - 1
+    longest_absence = int(zero_runs.max())
+    touches_boundary = bool(zero_runs[0] == longest_absence or zero_runs[-1] == longest_absence)
     return dict(number=int(number), observed_draws=len(series), total_frequency=int(series.sum()),
+                appearance_draws=series.index[positions].astype(int).tolist(),
+                longest_absence=longest_absence,
+                longest_absence_touches_boundary=touches_boundary,
                 appearance_rate=float(series.mean()), current_gap=current_gap,
                 absence_lower_bound=current_gap if current_gap is not None else len(series),
                 appearance_intervals=gaps, completed_gap_count=len(gaps),

@@ -1,0 +1,4 @@
+number,window_size,regime_count,independent_episodes,regime_start_gaps,episode_start_gaps,mean_regime_start_gap,regime_start_gap_variance,mean_episode_start_gap,episode_start_gap_variance,episode_gap_cv,episode_period_cv,recurring_interval_candidate,status
+34,26,7,6,"[179, 29, 79, 118, 71, 259]","[179, 108, 118, 71, 259]",122.5,5855.25,147.0,4341.2,0.4482162135349597,0.2568668904440836,,irregular_timing_or_periods
+34,52,11,5,"[190, 60, 7, 172, 256, 20, 25, 192, 43, 21]","[190, 239, 256, 237]",98.6,7782.839999999999,230.5,601.25,0.10637917427539462,0.24517492365833943,230.5,exploratory_timing_candidate
+34,104,5,3,"[22, 520, 194, 78]","[542, 194]",203.5,37238.75,368.0,30276.0,0.47282608695652173,0.36861957222315733,,insufficient_independent_regimes

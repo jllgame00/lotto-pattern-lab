@@ -1,0 +1,4 @@
+number,window_size,regime_count,independent_episodes,regime_start_gaps,episode_start_gaps,mean_regime_start_gap,regime_start_gap_variance,mean_episode_start_gap,episode_start_gap_variance,episode_gap_cv,episode_period_cv,recurring_interval_candidate,status
+17,26,10,9,"[148, 16, 70, 174, 247, 43, 81, 139, 53]","[148, 86, 174, 247, 43, 81, 139, 53]",107.88888888888889,4902.765432098767,121.375,4158.734375,0.531314108331385,0.24389060699039278,,irregular_timing_or_periods
+17,52,13,5,"[19, 16, 183, 8, 126, 30, 8, 246, 137, 21, 39, 38]","[218, 134, 284, 137]",72.58333333333333,5873.409722222223,193.25,3880.6875,0.32235531352556407,0.3791082686156541,,irregular_timing_or_periods
+17,104,13,5,"[85, 29, 72, 140, 144, 89, 144, 133, 49, 73, 28, 4]","[326, 144, 233, 133]",82.5,2232.25,209.0,6066.5,0.37266861114070116,0.5052459646660794,,irregular_timing_or_periods

@@ -1,9 +1,9 @@
 # Lotto Pattern Lab
 
 A local Python research project for Korean Lotto 6/45 historical data. No web
-app or frontend. This first pass provides data collection and validation,
-binary number histories, frequency/gap statistics, and a reproducible random
-baseline backtester. It does **not** establish predictive performance.
+app or frontend. It provides data collection and validation, binary histories,
+frequency/gap statistics, exploratory calendar and periodicity analysis, and a
+reproducible random baseline backtester. It does **not** establish predictive performance.
 
 ## Quick start
 
@@ -24,6 +24,7 @@ available through subcommands:
 python main.py collect
 python main.py validate
 python main.py inspect 17
+python main.py analyze-all --permutations 4999 --seed 42
 python main.py export-series
 python main.py candidates --seed 42
 python main.py backtest --mode checkpoints --checkpoints 100 --tickets 5 --repeats 10 --seed 42 --report reports/random_checkpoints
@@ -199,11 +200,26 @@ main.py               entry point
 requirements.txt      dependencies
 ```
 
-Deferred deliberately: year/month normalized comparisons, rolling periodicity,
-autocorrelation/periodograms/FFT, regime similarity, FrequencyModel, GapModel,
-SeasonalityModel, PeriodicityModel, SimilarityModel, EnsembleModel and multi-model
-comparison. Their acceptance criterion is leakage-safe out-of-sample evaluation
-against RandomModel, not visually interesting patterns.
+Phase 2 adds normalized year/month/year-month tables, 26/52/104-draw trailing
+statistics, guarded ACF/periodograms, a documented descriptive periodicity score,
+prior-history regime thresholds, recurrence diagnostics, conditional shuffle
+comparisons, and nine-panel matplotlib reports for any number. See
+[the temporal-analysis guide](docs/temporal-analysis.md) for exact formulas,
+output schemas, limitations, runtime and observed findings.
+
+`python main.py inspect 17` writes supporting reports to `reports/number_17/`
+and a plot to `reports/plots/number_17_temporal.png`. Use `--no-plots` to skip
+rendering and `--permutations 0` to skip null simulations. The default is 199
+shuffles per eligible fixed scope; `--permutations 4999` gives finer resolution.
+`analyze-all` writes aggregate CSVs and `reports/temporal_analysis.json`.
+Use `--reports-dir` to select another destination. With a non-default `--data`
+and no report override, outputs go into a `reports/` folder beside that dataset.
+
+Still deferred: predictive FrequencyModel, GapModel, SeasonalityModel,
+PeriodicityModel, SimilarityModel, EnsembleModel, multi-model comparison and
+advanced machine learning. No temporal exploration output is connected to the
+backtester or RandomModel. Their acceptance criterion remains leakage-safe
+out-of-sample evaluation against RandomModel, not visually interesting patterns.
 
 Tests require no network. Test scratch directories inherit normal permissions
 because the Windows sandbox cannot reopen pytest's owner-only directories;

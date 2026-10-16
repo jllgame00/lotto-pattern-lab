@@ -45,6 +45,18 @@ def _parser():
     commands.add_parser("validate", help="Validate values, calendar and completeness")
     inspect = commands.add_parser("inspect", help="Inspect one number's descriptive statistics")
     inspect.add_argument("number", type=int)
+    inspect.add_argument('--no-plots',action='store_true',help='Skip the nine-panel PNG')
+    analyze = commands.add_parser('analyze-all',help='Export exploratory temporal statistics for all 45 numbers')
+    for command in (inspect,analyze):
+        command.add_argument('--reports-dir',type=Path,help='Report root; default reports/ next to dataset project')
+        command.add_argument('--windows',type=int,nargs='+',default=[26,52,104])
+        command.add_argument('--max-lag',type=int,default=52)
+        command.add_argument('--min-cycles',type=int,default=3)
+        command.add_argument('--permutations',type=int,default=199,help='Shuffles per fixed scope; 0 skips null tests')
+        command.add_argument('--seed',type=int,default=42)
+        command.add_argument('--percentile',type=float,default=90)
+        command.add_argument('--regime-history',type=int,default=52,help='Minimum past valid scores for a threshold')
+        command.add_argument('--regime-length',type=int,default=3,help='Minimum consecutive high endpoints')
     export = commands.add_parser("export-series", help="Export 45 binary main-number time series")
     export.add_argument("--output", type=Path, default=ROOT / "data/processed/number_series.csv")
     backtest = commands.add_parser("backtest", help="Evaluate RandomModel on unseen historical draws")
@@ -73,22 +85,78 @@ def _status(path):
     if metadata.exists():
         source = json.loads(metadata.read_text(encoding="utf-8"))
         print(f"Last collection/import source: {source.get('source', 'unknown')}")
-    print("First pass: descriptive statistics and RandomModel. Advanced strategies are not implemented.")
+    print("Temporal exploration and RandomModel baseline. No advanced predictive models.")
 
 
 def _inspect(history, number):
     stats = inspect_number(history, number)
     print(f"Number {number}")
     print(f"Total appearances: {stats['total_frequency']} / {stats['observed_draws']}")
+    print(f"Overall appearance rate: {stats['appearance_rate']:.4%}")
     print(f"Current gap: {stats['current_gap'] if stats['current_gap'] is not None else 'never observed'}")
     print(f"Mean historical gap: {stats['mean_gap']}; median: {stats['median_gap']}")
     print(f"Gap variance: {stats['gap_variance']}; standard deviation: {stats['gap_std']}")
     print(f"Consecutive pairs: {stats['consecutive_pairs']}; longest run: {stats['longest_run']}")
+    print(f"Longest observed absence: {stats['longest_absence']} draws; boundary-censored: {stats['longest_absence_touches_boundary']}")
     for n, recent in stats['recent'].items():
         print(f"Recent {n} draw frequency: {recent['frequency']}/{recent['observed_draws']} ({recent['rate']:.2%})")
     for warning in stats['warnings']:
         print(f"Note: {warning}")
-    print("Periodicity and regime similarity are deferred to later phases.")
+
+
+def _explore(args,history):
+    from src.analysis.exploration import analyze_history,report_paths,write_reports
+    from src.analysis.periodicity import PeriodicityConfig
+    from src.analysis.temporal import selected_numbers
+    number=args.number if args.command=='inspect' else None
+    if number is not None: selected_numbers([number])
+    config=PeriodicityConfig(max_lag=args.max_lag,min_cycles=args.min_cycles)
+    root=args.reports_dir or (ROOT/'reports' if args.data.resolve()==DEFAULT_DATA.resolve() else args.data.parent/'reports')
+    directory=root/f'number_{number}' if number is not None else root
+    destinations=report_paths(directory)
+    if number is not None and not args.no_plots:
+        destinations.append(root/'plots'/f'number_{number:02d}_temporal.png')
+    _guard_outputs(args.data,*destinations)
+    analysis=analyze_history(history,numbers=[number] if number is not None else None,
+                             windows=args.windows,config=config,permutations=args.permutations,seed=args.seed,
+                             percentile=args.percentile,min_history=args.regime_history,min_length=args.regime_length,
+                             progress=lambda message:print(message,flush=True))
+    analysis['metadata']['source_csv_sha256']=hashlib.sha256(args.data.read_bytes()).hexdigest()
+    analysis['metadata']['source_path']=str(args.data.resolve())
+    write_reports(analysis,directory)
+    if number is not None:
+        _inspect(history,number)
+        diagnostics=analysis['diagnostics'][number]
+        print(f"Strongest positive ACF lags (full history): {diagnostics['autocorrelation']['candidates'] or diagnostics['autocorrelation']['status']}")
+        print(f"Dominant spectral periods (full history): {diagnostics['spectrum']['candidates'] or diagnostics['spectrum']['status']}")
+        rolling=analysis['tables']['rolling_number_stats']
+        for window in args.windows:
+            group=rolling[rolling.window_size==window]
+            if group.empty:
+                print(f'Current {window}-draw periodicity: insufficient observations')
+            else:
+                row=group.iloc[-1]
+                score='unavailable' if pd.isna(row.periodicity_score) else f'{row.periodicity_score:.4f}'
+                lag='unavailable' if pd.isna(row.dominant_lag) else row.dominant_lag
+                period='unavailable' if pd.isna(row.dominant_period) else row.dominant_period
+                print(f'Current {window}-draw periodicity score: {score}; status={row.status}; lag={lag}; period={period}')
+        regimes=analysis['tables']['periodicity_regimes']
+        print(f'Historical high-periodicity regimes: {len(regimes)} (across window sizes)')
+        if not regimes.empty:
+            print(regimes[['window_size','start_draw','end_draw','peak_periodicity_score','dominant_period']].tail(8).to_string(index=False))
+        print('Regime recurrence (overlapping support combined):')
+        print(analysis['tables']['regime_recurrence'][['window_size','regime_count','independent_episodes','recurring_interval_candidate','status']].to_string(index=False))
+        print('Fixed-scope conditional shuffle comparisons:')
+        print(analysis['tables']['periodicity_null'][['scope','observed_score','p_value','p_bonferroni','status']].to_string(index=False))
+        if not args.no_plots:
+            from src.analysis.plots import plot_number
+            print(f"Plot: {plot_number(history,number,analysis,root/'plots',config)}")
+    else:
+        print(f"Generated temporal reports for 45 numbers through draw {analysis['metadata']['cutoff_draw']}.")
+        print(f"Rows per report: {analysis['metadata']['row_counts']}")
+    print(f'Reports: {directory}')
+    print(f"Analysis runtime (excluding exports/plots): {analysis['metadata']['runtime_seconds']}")
+    for warning in analysis['metadata']['warnings']: print(f'Note: {warning}')
 
 
 def _backtest(args, history):
@@ -162,7 +230,9 @@ def main(argv=None) -> int:
             _status(args.data)
             print('Validation passed: complete history; valid numbers, bonus and dates.')
         elif args.command == 'inspect':
-            _inspect(history, args.number)
+            _explore(args,history)
+        elif args.command == 'analyze-all':
+            _explore(args,history)
         elif args.command == 'export-series':
             _guard_outputs(args.data, args.output)
             atomic_write(args.output, binary_series(history).to_csv(lineterminator='\n'))
