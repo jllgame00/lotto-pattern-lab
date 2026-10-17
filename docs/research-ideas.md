@@ -38,3 +38,19 @@ discovery risk. Complete null searches found no corrected interaction, and
 matching-target prediction did not establish improvement over both parents.
 H6 concludes TESTED / INCONCLUSIVE. Full continuous4D vectors and arbitrary state
 progressions remain deferred; H7/H8 stay backlog.
+
+Phase10 began H9 IN PROGRESS: spatial neighborhood/range-density patterns change
+representation rather than adding a dimension. Treat ordered labels1..45 as a
+finite one-dimensional space, without wrapping45 to1. A strong22..27 region could
+hypothetically contribute partial support to nearby candidates even when no
+single number dominates. Numerical adjacency is not physical adjacency in the
+lottery machine, and the hypothesis requires both complete-search null evidence
+and leakage-safe later predictive validation.
+
+Predeclared windows10/26/52, widths3/5/7/9, four primary kernels, own/neighbor-only
+controls and descriptive multiscale radii1..4 limit the search. IID and exact-margin
+null histories repeat all range/kernel/persistence/movement/spacing searches.
+H9 concludes TESTED / INCONCLUSIVE. The development-selected neighborhood kernel
+was none, not a smoothed neighbor signal. H7 full continuous4D geometry is
+DEFERRED - insufficient lower-dimensional evidence; H8 delay/recurrence/tensors
+remain BACKLOG. All Phase5-9 prospective artifacts stay unchanged.

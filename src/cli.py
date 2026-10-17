@@ -85,6 +85,8 @@ def _parser():
     add_frequency_commands(commands)
     from src.joint_cli import add_commands as add_joint_commands
     add_joint_commands(commands)
+    from src.number_space_cli import add_commands as add_number_space_commands
+    add_number_space_commands(commands)
     evaluation=commands.add_parser('evaluate-freeze',help='Offline evaluation of a frozen snapshot and explicit local result JSON')
     evaluation.add_argument('snapshot',type=Path)
     evaluation.add_argument('result_file',type=Path)
@@ -272,6 +274,10 @@ def main(argv=None) -> int:
                 with args.output.open('x',encoding='utf-8') as stream: stream.write(text)
                 print(f'Offline evaluation saved: {args.output}; original freeze and registry unchanged.')
             else: print(text)
+            return 0
+        if args.command in ('analyze-number-space','compare-number-space','freeze-number-space'):
+            from src.number_space_cli import run as run_number_space
+            run_number_space(args)
             return 0
         if args.command in ('analyze-joint','compare-joint','freeze-joint'):
             from src.joint_cli import run as run_joint

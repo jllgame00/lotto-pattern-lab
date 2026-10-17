@@ -212,8 +212,9 @@ evaluation pipeline; **no predictive advantage is claimed**.
 | H4 — Gap-conditioned 3D translational patterns              | TESTED / INCONCLUSIVE |
 | H5 - Recent-frequency-conditioned 3D patterns | TESTED / INCONCLUSIVE |
 | H6 - Joint gap x recent-frequency interaction state | TESTED / INCONCLUSIVE |
-| H7 - Full 4D trajectory geometry | BACKLOG |
-| H8 - Delay embedding / tensor methods | BACKLOG |
+| H7 - Full continuous 4D trajectory geometry | DEFERRED - insufficient lower-dimensional evidence |
+| H8 - Delay / recurrence / tensor methods | BACKLOG |
+| H9 - Spatial neighborhood / range-density patterns | TESTED / INCONCLUSIVE |
 
 Phase6 tests bounded translations through draw and ordered number space against
 complete-search maxima from IID and exact-margin surrogate histories. It uses
@@ -240,6 +241,29 @@ own registry. It never fetches results, and refuses a second freeze for the same
 Phase6 target. Old commands and defaults remain intact.
 
 ## Structure and next phases
+
+Phase10 changes **representation**, treating1..45 as a finite one-dimensional
+number space. Activity around25 might hypothetically contribute to23/24/26/27,
+or an active22..27 region might matter more than its individual members.
+Numerical adjacency does NOT imply physical adjacency in the lottery machine.
+H9 began IN PROGRESS; complete IID/exact-margin searches and development-frozen
+later evaluation conclude TESTED / INCONCLUSIVE. In particular, development
+selected W52 with **no smoothing** for the neighborhood track, so that track is
+the own-number control and provides no evidence for neighbor contributions.
+See [methods](docs/number-space-analysis.md), [results](docs/phase10-results.md),
+and the [Phase10 protocol](docs/superpowers/plans/2026-10-17-phase10.md).
+
+```powershell
+python main.py analyze-number-space --surrogates 199
+python main.py compare-number-space
+python main.py compare-number-space --cadence 13
+python main.py freeze-number-space
+```
+
+Research outputs use `reports/number_space/`; prospective publication uses only
+`reports/prospective/phase10/`, with a separate registry and non-overwrite guard.
+All Phase5-9 prospective evidence remains immutable. No future results are fetched.
+No continuous4D, delay embedding, tensor decomposition or neural networks added.
 
 Phase9 tests the categorical **interaction** of causal gap LOW/MID/HIGH with
 W26 frequency COLD/NEUTRAL/HOT: nine joint states. A translation diluted globally
