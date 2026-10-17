@@ -54,14 +54,16 @@ H8: TESTED / INCONCLUSIVE. 과거 protocol의 H9는 현재 H8에 해당합니다
 
 ## Phase 11 — Delay / Recurrence
 
-H9: BACKLOG. 계획 단계이며 아직 실행되지 않았습니다.
+H9: TESTED / INCONCLUSIVE. 연구 cutoff는 영구적으로 1245회입니다.
 “비슷한 과거 상태가 비슷한 미래 결과로 이어지는가?”를 질문으로 삼습니다.
-구현·실험·결과 문서는 아직 없습니다. [H9 설계 방향](research-ideas.md#h9--delay-embedding--recurrence-geometry)
+[Phase 11 방법론](recurrence-analysis.md) · [결과·동결 설정·검증](phase11-results.md) · [H9 가설](research-ideas.md#h9--delay-embedding--recurrence-geometry)
+199+199 전체 surrogate 탐색과 이후 평가에서 안정적인 개선을 확인하지 못했습니다.
+1247 발행은 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION입니다.
 
 ## 향후 연구 가설
 
 [가설 노트](research-ideas.md)의 H7은 DEFERRED,
-H9–H17은 BACKLOG입니다. Wavelet / SSA, information / Transfer Entropy,
+H10–H17은 BACKLOG입니다. Wavelet / SSA, information / Transfer Entropy,
 graph / hypergraph, modular / difference-space, entropy / compression,
 tensor, symmetry / reflection, validated ensemble을 별도 가설로 관리합니다.
 

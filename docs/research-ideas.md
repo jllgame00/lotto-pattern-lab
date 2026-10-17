@@ -27,7 +27,7 @@ Current active documentation uses the canonical H1–H17 numbering below.
 | H6 | Gap × frequency interaction | TESTED / INCONCLUSIVE |
 | H7 | Full continuous 4D geometry | DEFERRED |
 | H8 | Spatial neighborhood / range-density | TESTED / INCONCLUSIVE |
-| H9 | Delay embedding / recurrence geometry | BACKLOG |
+| H9 | Delay embedding / recurrence geometry | TESTED / INCONCLUSIVE |
 | H10 | Wavelet / SSA multiscale structure | BACKLOG |
 | H11 | Mutual information / Transfer Entropy | BACKLOG |
 | H12 | Dynamic graph / Hypergraph | BACKLOG |
@@ -313,7 +313,7 @@ Phase 10은 TESTED / INCONCLUSIVE. 선택된 W52 neighborhood는 smoothing이 �
 
 **상태**
 
-BACKLOG
+TESTED / INCONCLUSIVE
 
 **핵심 아이디어**
 
@@ -325,15 +325,15 @@ delay-coordinate embedding으로 과거 관측 조합을 상태로 만들고 rec
 
 **검증 방법**
 
-Phase 11 후보: embedding·metric을 사전 제한하고 Theiler / observation-overlap exclusion을 적용한다. RQA뿐 아니라 state distance와 successor-similarity를 1차 진단으로 삼고 surrogate에도 동일한 전체 search freedom을 준다.
+Phase 11에서 A/B/C 표현·180개 embedding/metric·두 recurrence 정의를 사전 제한하고 Theiler / raw-support exclusion을 적용했다. RQA와 state distance → successor-similarity를 IID 199회·fixed-margin 199회의 동일한 전체 탐색 최대값과 비교했다.
 
 **현재까지 결과**
 
-이 저장소에서 Phase 11은 실행되지 않았다. recurrence 모델·검정·결과·1247회 freeze capability를 구현한 상태가 아니다.
+가장 강한 successor 관계는 ρ=−0.02407, family 보정 p=0.400/0.425였다. 개발 401–900회에서 선택한 nearest/analog/continuation의 이후 901–1245회 평균 Top6 적중은 0.7855/0.7362/0.7884로, Gap Logistic 0.8348 대비 안정적 개선이 없었다. Ensemble은 NOT CURRENTLY JUSTIFIED이다.
 
 **다음 결정**
 
-역사 연구는 1–1245회만 사용한다. 1246회는 선택·평가 근거에서 제외한다. 설정과 결과를 확정한 뒤 검증된 1246회를 training에 추가할 수 있으나 변경·검증 근거로 사용하지 않는다. 이후 prospective 대상은 1247회이다.
+역사 연구는 1–1245회로 완료하고 설정을 동결했다. 1246회는 어떤 연구 근거에도 사용하지 않았다. 1247 준비 gate는 구현했지만 기존 archive 부재로 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION이다. 복원·검증 후 별도 명시적 단계에서만 1246회를 훈련에 추가하고 정확한 동결 설정으로 refit할 수 있다.
 
 **주요 false-positive 위험**
 
@@ -341,7 +341,7 @@ Phase 11 후보: embedding·metric을 사전 제한하고 Theiler / observation-
 
 **관련 문서**
 
-[현재 roadmap](../README.md) · [Prospective workflow](prospective-workflow.md)
+[Phase 11 방법](recurrence-analysis.md) · [Phase 11 결과](phase11-results.md) · [현재 roadmap](../README.md) · [Prospective workflow](prospective-workflow.md)
 
 ## H10 — Wavelet / SSA multiscale structure
 

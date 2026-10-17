@@ -100,7 +100,7 @@ canonical history는 **1–1245회**, **2002-12-07–2026-10-10**입니다.
 | H6 | Gap × frequency interaction | TESTED / INCONCLUSIVE |
 | H7 | Full continuous 4D geometry | DEFERRED |
 | H8 | Spatial neighborhood / range-density | TESTED / INCONCLUSIVE |
-| H9 | Delay embedding / recurrence geometry | BACKLOG |
+| H9 | Delay embedding / recurrence geometry | TESTED / INCONCLUSIVE |
 | H10 | Wavelet / SSA multiscale structure | BACKLOG |
 | H11 | Mutual information / Transfer Entropy | BACKLOG |
 | H12 | Dynamic graph / Hypergraph | BACKLOG |
@@ -175,8 +175,12 @@ range-density·neighborhood smoothing·spacing·hot-zone 이동을 조사했습�
 H8은 TESTED / INCONCLUSIVE이며 neighbor 기여를 입증하지 못했습니다.
 [방법](docs/number-space-analysis.md) · [결과](docs/phase10-results.md)
 
-Phase 11의 H9 delay embedding / recurrence는 **계획 단계이며 실행되지 않았습니다**.
-핵심 질문은 “비슷한 과거 상태가 비슷한 미래 결과로 이어지는가?”입니다.
+### Phase 11 — Delay Embedding / Recurrence Geometry
+
+“비슷한 과거 상태가 비슷한 미래 결과로 이어지는가?”를 1–1245회만으로 검증했습니다.
+199 IID + 199 fixed-margin 전체 탐색과 이후 walk-forward에서 안정적인 개선을 확인하지 못했습니다.
+H9는 **TESTED / INCONCLUSIVE**, ensemble 후보는 **NOT CURRENTLY JUSTIFIED**입니다.
+[방법](docs/recurrence-analysis.md) · [결과·동결 설정](docs/phase11-results.md)
 
 ## Prospective experiments
 
@@ -184,8 +188,9 @@ Phase 11의 H9 delay embedding / recurrence는 **계획 단계이며 실행되�
 **1246회 결과는 현재 외부에 알려져 있으며 새로운 prospective 대상이 아닙니다.**
 원본의 FROZEN_UNEVALUATED는 당시 동결 상태로 보존하고 결과를 자동 평가하지 않습니다.
 
-향후 Phase 11의 역사 연구와 설정 고정이 끝난 뒤 진정한 prospective 대상은 **1247회**입니다.
-이번 문서 정리는 Phase 11 구현·1246회 import·새 freeze를 수행하지 않습니다.
+Phase 11의 역사 연구와 설정은 고정했으며 다음 prospective 대상은 **1247회**입니다.
+기존 archive가 없어 **PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION** 상태입니다.
+1247 준비 gate만 구현했고 1246회 import·새 prospective snapshot 발행은 수행하지 않았습니다.
 
 [Workflow와 보호 규칙](docs/prospective-workflow.md) ·
 [동결 기록 색인](docs/README.md#frozen-prospective-evidence)
@@ -196,7 +201,7 @@ Phase 11의 H9 delay embedding / recurrence는 **계획 단계이며 실행되�
 ## 실행 방법
 
 아래는 존재하는 명령의 사용 예입니다. 분석·freeze 명령은 출력 파일을 만듭니다.
-이번 문서 정리에서는 테스트 외에 연구·수집·결과 평가·freeze를 실행하지 않습니다.
+Phase 11 명령은 연구 입력을 1–1245회로 제한하며 데이터 수집을 수행하지 않습니다.
 
 ### 환경 설정
 
@@ -251,12 +256,13 @@ python main.py analyze-joint --surrogates 199
 python main.py compare-joint
 python main.py analyze-number-space --surrogates 199
 python main.py compare-number-space
+python main.py recurrence --help
 ```
 
 ### Prospective workflow
 
 기존 CLI의 사용법은 help로 확인할 수 있습니다.
-기존 명령이 미래의 Phase 11 / 1247회 freeze를 지원한다는 뜻은 아닙니다.
+`python main.py recurrence prepare-freeze`는 archive 복원 검증용 준비 기능이며 실제 snapshot을 발행하지 않습니다.
 이미 알려진 1246회를 새 prospective 실험으로 생성해서는 안 됩니다.
 
 ```powershell
