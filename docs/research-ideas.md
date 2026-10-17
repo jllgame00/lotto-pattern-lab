@@ -36,6 +36,7 @@ Current active documentation uses the canonical H1–H17 numbering below.
 | H15 | Tensor decomposition | TESTED / INCONCLUSIVE |
 | H16 | Symmetry / reflection structure | TESTED / INCONCLUSIVE |
 | H17 | Validated weak-signal ensemble | BACKLOG |
+| H18 | Change-point / piecewise-stationary regimes | TESTED / INCONCLUSIVE |
 
 ## H1 — 개별 번호의 시간적 패턴
 
@@ -645,3 +646,47 @@ rank / prediction correlation을 측정하고 weight는 development에서만 선
 **관련 문서**
 
 [Regime 연구](regime-research.md) · [Prospective workflow](prospective-workflow.md)
+
+## H18 — Change-point / piecewise-stationary regimes
+
+**상태**
+
+TESTED / INCONCLUSIVE
+
+**핵심 아이디어**
+
+단일 stationary history 대신 통계적 성질이 바뀌는 구간들이 존재하는지 검증한다.
+기존 HMM latent state와 구분하며,경계·penalty·minimum length를 제한한 segmentation을 쓴다.
+
+**검증 방법**
+
+45binary appearance,nonoverlap block13/26/52 frequency,고정7shape를 각각 분석한다.
+같은전체representation/config/prefix 검색을 IID/fixed-margin surrogate에 부여한다.
+예측에서는 target마다<T prefix만 segmentation하고 현재구간 rate를 fixed-frequency와 비교한다.
+
+**다음 결정**
+
+Phase19 완료:2237cells의 IID199/fixed199 global-max,다섯 family 보정 p는 전체 구간에서 모두1이다.
+20번585회 및22번507회 등의 개별 경계는 완전 검색 null보다 unusual하지 않았다.
+Global A/B/C는 CP없음,개발60개 Regime 설정은 모두Top6=.780으로 동률이다.
+이후Top6=.7942,Gap=.8348이며 adaptive boundary는 모든 target에서없어 cumulative frequency와 같았다.
+NOT CURRENTLY JUSTIFIED로 분류하며 prospective capability를 만들지 않는다.
+H17 ensemble은 남은 독립 가설 연구까지 BACKLOG로 미룬다.
+
+**관련 문서**
+
+[방법](change-point-analysis.md) · [결과·검증](change-point-results.md) · [Phase19 계획](superpowers/plans/2026-10-18-phase19.md)
+
+## 추가 독립 가설 backlog
+
+아래 가설은 명칭만 별도 보존하며 Phase19에서 구현하지 않는다. H1–H17을 renumber하지 않는다.
+
+| ID | 가설 | 상태 |
+|---|---|---|
+| H19 | Point-process / Hawkes / renewal | BACKLOG |
+| H20 | Long-memory / fractal scaling | BACKLOG |
+| H21 | Random Matrix Theory | BACKLOG |
+| H22 | Topological Data Analysis | BACKLOG |
+| H23 | Optimal Transport / Wasserstein geometry | BACKLOG |
+| H24 | Symbolic Dynamics / Markov order | BACKLOG |
+| H25 | Integrated randomness battery | BACKLOG |

@@ -121,6 +121,15 @@ PairModel/Phase18 prospective 기능/H17 ensemble은 만들지 않았습니다.
 [방법](symmetry-analysis.md) · [결과·결정·검증](phase18-results.md) · [실행 계획](superpowers/plans/2026-10-18-phase18.md)
 기존 prospective archive는 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION입니다.
 
+## Phase19 — H18 Change-point / piecewise-stationary regimes
+
+H18: TESTED / INCONCLUSIVE. draws1–1245,2237개 statistic cells를 IID199/fixed199의
+동일 complete-search와 비교했으며 전체 다섯 family의 보정 p는 모두1입니다.
+개발401–900에서 동결한 RegimeFrequency는 이후901–1245에서 CP를 검출하지 못해 cumulative frequency와 같았습니다.
+이후Top6=.7942,Gap=.8348이며 paired 우위는 확인되지 않아 NOT CURRENTLY JUSTIFIED입니다.
+[방법](change-point-analysis.md) · [결과·검증](change-point-results.md) · [계획](superpowers/plans/2026-10-18-phase19.md)
+H17 최종 ensemble은 BACKLOG로 유지합니다.
+
 ## 향후 연구 가설
 
 [가설 노트](research-ideas.md)의 H7은 DEFERRED,
