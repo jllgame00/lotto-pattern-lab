@@ -29,7 +29,7 @@ Current active documentation uses the canonical H1–H17 numbering below.
 | H8 | Spatial neighborhood / range-density | TESTED / INCONCLUSIVE |
 | H9 | Delay embedding / recurrence geometry | TESTED / INCONCLUSIVE |
 | H10 | Wavelet / SSA multiscale structure | TESTED / INCONCLUSIVE |
-| H11 | Mutual information / Transfer Entropy | BACKLOG |
+| H11 | Mutual information / Transfer Entropy | TESTED / INCONCLUSIVE |
 | H12 | Dynamic graph / Hypergraph | BACKLOG |
 | H13 | Modular / difference-space transforms | BACKLOG |
 | H14 | Entropy / compression / algorithmic randomness | BACKLOG |
@@ -381,7 +381,7 @@ scale·rank·구간 선택, boundary effect, 전체 자료 decomposition의 futu
 
 **상태**
 
-BACKLOG
+TESTED / INCONCLUSIVE
 
 **핵심 아이디어**
 
@@ -393,15 +393,15 @@ nonlinear dependence와 directional information flow를 조사한다.
 
 **검증 방법**
 
-lag·binning / estimator를 사전 제한하고 bias-corrected null / surrogate와 global-max를 사용한다. 방향성은 causal effect와 구분한다.
+Phase13에서45개 binary, lag1/2/3/4/8/13/26, k/l각1/2를 사전 제한했다. occupied-state Miller–Madow 및 source-only circular shift19회로 finite-sample bias를 진단하고, IID199회·fixed-margin199회 각각이 모든 pair/lag/history를 새로 검색한 maximum을 다섯 family 보정으로 비교했다. 개발401–900회에서 MI14/TE56개 후보를 선택하고901–1245회에서 causal ranking·target-history ablation을 평가했다. 방향성은 causal effect와 구분한다.
 
 **현재까지 결과**
 
-미실행이며 정보 흐름이나 인과관계의 증거는 없다.
+최고 MI2→33/lag13의 보정p는0.225/0.175, 최고TE13→24/lag4/k2/l2 및 비대칭은 두 null 모두 보정p1이었다. 보정 후 directional information은 없었다. 이후MI/TE 평균Top6는0.8435/0.7797, Gap은0.8348이며 paired구간은0을 포함한다. TE의 target-own 대비 logloss 차이는+0.000986[+0.000553,+0.001409]로 source 추가가 악화 방향이었다. 두 ensemble 후보는 NOT CURRENTLY JUSTIFIED이다.
 
 **다음 결정**
 
-estimator와 작은 표본의 bias 검증부터 설계한다.
+1–1245회만으로 역사 연구와 설정 동결을 완료했다. MI의 약한 양의 점추정치는 탐색용으로 보존하되 예측·인과 증거로 승격하지 않는다. 1246은 사용하지 않았다. draw1247_phase13_informationflow 준비 gate는 구현했지만 archive 부재로 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION이며 발행하지 않았다. Phase13에서 멈추고 fullgraph 및 finalensemble은 구현하지 않는다.
 
 **주요 false-positive 위험**
 
@@ -409,7 +409,7 @@ discretization 탐색, estimator bias, sparse joint distribution, 동시출현 �
 
 **관련 문서**
 
-[연구 원칙](../README.md#연구-원칙)
+[Phase13 방법](information-flow-analysis.md) · [결과·검증](phase13-results.md) · [연구 원칙](../README.md#연구-원칙)
 
 ## H12 — Dynamic graph / Hypergraph
 

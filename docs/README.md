@@ -68,11 +68,18 @@ Wavelet·SSA 모델은 모두 NOT CURRENTLY JUSTIFIED입니다.
 [방법](multiscale-analysis.md) · [결과·동결 설정·검증](phase12-results.md) · [실행 계획](superpowers/plans/2026-10-17-phase12.md)
 1247 발행은 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION입니다.
 
+## Phase 13 — Mutual Information / Transfer Entropy
+
+H11: TESTED / INCONCLUSIVE. 1–1245회45개 binary series의199+199 전체 surrogate 탐색에서
+다섯 information family 모두 보정을 통과하지 못했습니다. MI의 이후 작은 상승은 불확실하며,
+TE는 target-history baseline 대비 이후 logloss가 나빴습니다. 두 모델은 NOT CURRENTLY JUSTIFIED입니다.
+[방법](information-flow-analysis.md) · [결과·동결 설정·검증](phase13-results.md) · [실행 계획](superpowers/plans/2026-10-18-phase13.md)
+1247 발행은 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION입니다.
+
 ## 향후 연구 가설
 
 [가설 노트](research-ideas.md)의 H7은 DEFERRED,
-H11–H17은 BACKLOG입니다. Information / Transfer Entropy,
-graph / hypergraph, modular / difference-space, entropy / compression,
+H12–H17은 BACKLOG입니다. Graph / hypergraph, modular / difference-space, entropy / compression,
 tensor, symmetry / reflection, validated ensemble을 별도 가설로 관리합니다.
 
 ## Historical protocol archive
