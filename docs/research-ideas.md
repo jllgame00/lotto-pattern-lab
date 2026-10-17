@@ -37,6 +37,7 @@ Current active documentation uses the canonical H1–H17 numbering below.
 | H16 | Symmetry / reflection structure | TESTED / INCONCLUSIVE |
 | H17 | Validated weak-signal ensemble | BACKLOG |
 | H18 | Change-point / piecewise-stationary regimes | TESTED / INCONCLUSIVE |
+| H19 | Point process / Hawkes-like influence / renewal | TESTED / INCONCLUSIVE |
 
 ## H1 — 개별 번호의 시간적 패턴
 
@@ -677,13 +678,39 @@ H17 ensemble은 남은 독립 가설 연구까지 BACKLOG로 미룬다.
 
 [방법](change-point-analysis.md) · [결과·검증](change-point-results.md) · [Phase19 계획](superpowers/plans/2026-10-18-phase19.md)
 
+## H19 — Point process / Hawkes-like influence / renewal
+
+**상태**
+
+TESTED / INCONCLUSIVE
+
+**핵심 아이디어**
+
+번호 출현 사건 이후 자기 자신 또는 다른 번호의 tendency가 일시적으로 바뀌는지 검증한다.
+Renewal hazard와 self/cross excitation·inhibition을 구분하며 signed influence를 고전 Hawkes로 해석하지 않는다.
+
+**검증 방법**
+
+Lag1/2/3/4/8/13/26,세 kernel과 고정 renewal 표현을 IID/fixed-margin 전체 검색으로 보정한다.
+개발401–900에서 설정을 동결하고 이후901–1245에서 source 추가 logloss와 ranking을 평가한다.
+
+**다음 결정**
+
+Phase20 완료:36135cell의 IID199/fixed199 global-max에서 corrected event evidence가 없었다.
+이후 Renewal/Hawkes Top6=.7536/.7072,Gap=.8348이며 source-added logloss도 self-only보다 나빴다.
+Renewal/Hawkes는 NOT CURRENTLY JUSTIFIED,Signed는 개발 gate 실패로 이후 평가에서 제외했다.
+Prospective capability는 만들지 않았고 H17은 독립 가설 연구 종료까지 미룬다.
+
+**관련 문서**
+
+[방법](point-process-analysis.md) · [결과·검증](point-process-results.md) · [계획](superpowers/plans/2026-10-18-phase20.md)
+
 ## 추가 독립 가설 backlog
 
-아래 가설은 명칭만 별도 보존하며 Phase19에서 구현하지 않는다. H1–H17을 renumber하지 않는다.
+아래 가설은 명칭만 별도 보존하며 Phase20에서 구현하지 않는다. H1–H18을 renumber하지 않는다.
 
 | ID | 가설 | 상태 |
 |---|---|---|
-| H19 | Point-process / Hawkes / renewal | BACKLOG |
 | H20 | Long-memory / fractal scaling | BACKLOG |
 | H21 | Random Matrix Theory | BACKLOG |
 | H22 | Topological Data Analysis | BACKLOG |

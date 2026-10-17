@@ -130,6 +130,13 @@ H18: TESTED / INCONCLUSIVE. draws1–1245,2237개 statistic cells를 IID199/fixe
 [방법](change-point-analysis.md) · [결과·검증](change-point-results.md) · [계획](superpowers/plans/2026-10-18-phase19.md)
 H17 최종 ensemble은 BACKLOG로 유지합니다.
 
+## Phase20 — H19 Point process / Hawkes-like influence / renewal
+
+H19: TESTED / INCONCLUSIVE. IID199/fixed199의36135-cell complete search에서 여섯 family 모두 보정을 통과하지 못했습니다.
+이후 Renewal/Hawkes Top6는.7536/.7072,Gap은.8348이었고 source 추가 logloss도 self-only보다 나빴습니다.
+두 모델은 NOT CURRENTLY JUSTIFIED,Signed는 개발 gate에서 제외했습니다. Prospective 기능과 H17 ensemble은 만들지 않았습니다.
+[방법](point-process-analysis.md) · [결과·검증](point-process-results.md) · [계획](superpowers/plans/2026-10-18-phase20.md)
+
 ## 향후 연구 가설
 
 [가설 노트](research-ideas.md)의 H7은 DEFERRED,

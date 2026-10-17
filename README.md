@@ -110,6 +110,7 @@ canonical history는 **1–1245회**, **2002-12-07–2026-10-10**입니다.
 | H16 | Symmetry / reflection structure | TESTED / INCONCLUSIVE |
 | H17 | Validated weak-signal ensemble | BACKLOG |
 | H18 | Change-point / piecewise-stationary regimes | TESTED / INCONCLUSIVE |
+| H19 | Point process / Hawkes-like influence / renewal | TESTED / INCONCLUSIVE |
 
 H17은 남은 독립 가설 검증까지 의도적으로 미룹니다. Phase와 H번호는 서로 다른 분류이며 기존 번호는 보존합니다.
 대응 관계는 [번호 이관 안내](docs/research-ideas.md#번호-이관-안내)에 설명합니다.
@@ -249,6 +250,12 @@ H18은 TESTED / INCONCLUSIVE입니다. 동일 전체 검색의 IID199/fixed199 �
 RegimeFrequency는 이후 구간에서 CP 없이 cumulative frequency로 축소됐습니다.
 [방법](docs/change-point-analysis.md) · [결과·검증](docs/change-point-results.md)
 
+### Phase 20 — Point Process / Hawkes-like Influence / Renewal
+
+H19는 TESTED / INCONCLUSIVE입니다. Event influence는 global null 보정을 통과하지 못했고,
+cross-event를 추가한 이후 logloss가 self-only보다 나빴습니다. 신규 모델은 NOT CURRENTLY JUSTIFIED입니다.
+[방법](docs/point-process-analysis.md) · [결과·검증](docs/point-process-results.md)
+
 ## Prospective experiments
 
 여러 draw-1246 실험은 결과가 알려지기 전에 동결된 역사적 증거입니다.
@@ -256,7 +263,7 @@ RegimeFrequency는 이후 구간에서 CP 없이 cumulative frequency로 축소�
 원본의 FROZEN_UNEVALUATED는 당시 동결 상태로 보존하고 결과를 자동 평가하지 않습니다.
 
 Phase 11–15의 역사 연구와 설정은 고정했으며 다음 prospective 대상은 **1247회**입니다.
-Phase16–19는 prospective에 정당화된 predictor가 없어 별도 prospective capability를 생성하지 않았습니다.
+Phase16–20은 prospective에 정당화된 predictor가 없어 별도 prospective capability를 생성하지 않았습니다.
 기존 archive가 없어 **PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION** 상태입니다.
 1247 준비 gate만 구현했고 1246회 import·새 prospective snapshot 발행은 수행하지 않았습니다.
 
@@ -269,7 +276,7 @@ Phase16–19는 prospective에 정당화된 predictor가 없어 별도 prospecti
 ## 실행 방법
 
 아래는 존재하는 명령의 사용 예입니다. 분석·freeze 명령은 출력 파일을 만듭니다.
-Phase 11–19 명령은 연구 입력을 1–1245회로 제한하며 데이터 수집을 수행하지 않습니다.
+Phase 11–20 명령은 연구 입력을 1–1245회로 제한하며 데이터 수집을 수행하지 않습니다.
 
 ### 환경 설정
 

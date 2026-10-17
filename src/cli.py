@@ -105,6 +105,8 @@ def _parser():
     add_symmetry_commands(commands)
     from src.change_point_cli import add_commands as add_change_point_commands
     add_change_point_commands(commands)
+    from src.point_process_cli import add_commands as add_point_process_commands
+    add_point_process_commands(commands)
     evaluation=commands.add_parser('evaluate-freeze',help='Offline evaluation of a frozen snapshot and explicit local result JSON')
     evaluation.add_argument('snapshot',type=Path)
     evaluation.add_argument('result_file',type=Path)
@@ -328,6 +330,10 @@ def main(argv=None) -> int:
         if args.command == 'change-point':
             from src.change_point_cli import run as run_change_point
             run_change_point(args)
+            return 0
+        if args.command == 'point-process':
+            from src.point_process_cli import run as run_point_process
+            run_point_process(args)
             return 0
         if args.command in ('analyze-number-space','compare-number-space','freeze-number-space'):
             from src.number_space_cli import run as run_number_space
