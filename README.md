@@ -1,397 +1,303 @@
 # Lotto Pattern Lab
 
-A local Python research project for Korean Lotto 6/45 historical data. No web
-app or frontend. It provides data collection and validation, binary histories,
-frequency/gap statistics, exploratory calendar and periodicity analysis, and a
-reproducible random baseline backtester. It does **not** establish predictive performance.
+## 프로젝트 소개
 
-**Legacy research seal active:** older research commands retain draws1..1244.
-Dedicated Phase6–8 offline commands admit canonical draws1..1245 only; network
-collection remains blocked. Draw1245 is not a pristine holdout.
-Run `python main.py prize-eval` for gap robustness, candidate-pool concentration,
-and equal-budget virtual portfolios. See [the gap/prize research report](docs/gap-prize-research.md)
-for methods, uncertainty, results and the prior-phase access caveat.
+“로또 과거 데이터에 우리가 놓친 패턴이 있을까?”라는 질문에서 시작한
+Korean Lotto 6/45 연구 프로젝트입니다. 로또가 예측 가능하다고 가정하지 않습니다.
+무작위성이 강한 이산 데이터에서 눈에 띄는 구조와 실제 예측 근거를 구분합니다.
 
-Phase4 adds `hazard-analysis` and `compare-regime-models` for transparent hazard,
-Bayesian, small Bernoulli HMM and development-frozen ensemble experiments.
-See [methods and results](docs/regime-research.md). `freeze-next` is a separate
-offline snapshot capability: when explicitly invoked it may use local canonical
-draw1245 to target1246, without retrieving that result. It does not change the
-retrospective research seal or make1245 a pristine holdout.
+가설 → historical analysis → null / surrogate → global-max correction
+→ walk-forward → prospective freeze → 이후 명시적 결과 비교
 
-Phase5 upgrades `freeze-next` to the fixed six-track draw1246 experiment with
-full rankings, equal-budget portfolios, immutable manifests/hashes and a registry.
-`evaluate-freeze` accepts an explicit local result later; it never fetches one.
-See [the prospective protocol](docs/prospective-experiment.md). Existing freezes
-are never overwritten, and an already reserved target cannot be regenerated.
+로컬 Python CLI 프로젝트이며 웹 앱은 없습니다.
+전체 문서는 [문서 색인](docs/README.md), 가설별 결정은
+[연구 가설 노트](docs/research-ideas.md)에서 찾을 수 있습니다.
 
-## Quick start
+## 핵심 연구 질문
 
-Python 3.11 or newer is required. From this directory:
+- 개별 번호 자체에 반복 구조가 있는가?
+- 번호축을 따라 이동하는 구조가 있는가?
+- 특정 상태에서만 구조가 드러나는가?
+- 주변 숫자 공간에 activity가 존재하는가?
+- hand-crafted state 대신 hidden state를 표현하면 recurrence가 드러나는가?
+- symmetry / reflection transform에서 구조가 보이는가?
+- 서로 다른 약한 signal을 조합하면 더 강한 signal이 되는가?
+
+## 연구 원칙
+
+### No future leakage
+
+대상 회차 T의 입력은 완료된 1–T−1회뿐입니다.
+특징 계산, scaling, 상태 경계와 규칙 선택도 training history 안에서 수행합니다.
+
+### Pattern != prediction
+
+전체 과거에서 발견한 구조는 탐색 결과입니다.
+아직 보지 않은 결과를 더 잘 예측하는지는 별도로 검증합니다.
+
+### Search the null equally hard
+
+실제 자료에서 시도한 표현과 parameter 탐색을 각 surrogate에도 동일하게 적용합니다.
+surrogate도 자신의 최적 패턴을 찾을 수 있어야 합니다.
+
+### Global-max comparison
+
+선택된 local peak를 고정된 한 번의 검정처럼 해석하지 않습니다.
+동일한 전체 탐색의 null maximum과 비교하고 statistic family 보정도 보고합니다.
+
+### Development / evaluation separation
+
+설정 선택과 이후 평가를 분리합니다. 앞선 Phase에서 이미 사용한 역사 구간은
+새 Phase의 later period여도 pristine holdout이라고 부르지 않습니다.
+
+### Prospective freeze
+
+설정·데이터 해시·Git SHA·점수와 순위·티켓·seed를 결과 확인 전에 동결합니다.
+이후 결과 평가는 별도 파일에 기록합니다.
+
+### Negative results are results
+
+불확실하거나 부정적인 결과도 보존합니다.
+복잡한 모델이라는 이유로 예측력이 좋아졌다고 간주하지 않습니다.
+
+## 데이터
+
+canonical history는 **1–1245회**, **2002-12-07–2026-10-10**입니다.
+파일은 `data/raw/lotto_history.csv`이며 본번호 여섯 개와 bonus를 저장합니다.
+주요 예측 대상과 binary matrix에서는 bonus를 제외합니다.
+
+공개 GitHub mirror를 명시적으로 import한 자료입니다. schema 검증과 일부 대조를
+수행했지만 모든 회차의 공식 원본 대조를 완료한 자료는 아닙니다.
+출처·검증 규칙·해시 범위는 [데이터와 provenance](docs/data-provenance.md)를 참고하세요.
+
+기존 연구 명령은 1244회까지의 seal을 유지하며, 전용 Phase 6–10 명령은
+로컬 1245회까지 허용합니다. 1245회는 새로운 미사용 holdout이 아닙니다.
+
+## 현재까지의 핵심 결론
+
+- Random baseline은 이론적 기대값인 티켓당 평균 **0.8개** 근처에서 작동했습니다.
+- 개별 번호의 시간적 패턴과 periodicity / regime 모델은 신뢰할 예측 우위를 확립하지 못했습니다.
+- 2D translation은 global null correction을 통과하지 못했습니다.
+- Gap-conditioned 3D, recent-frequency-conditioned 3D와 gap × frequency interaction도
+  **TESTED / INCONCLUSIVE**입니다.
+- Number-space neighborhood / range-density도 **TESTED / INCONCLUSIVE**입니다.
+  선택된 neighborhood 설정은 smoothing이 없는 own-number control이었습니다.
+- Gap Logistic은 여러 역사 비교에서 약하게 양의 점추정치를 보였지만,
+  신뢰할 예측 우위를 확립하지 못했습니다.
+- 모델 복잡성의 증가는 성능 향상을 보장하지 않았습니다.
+
+수치·신뢰구간·검정 수·runtime은 아래 Phase 문서에 보존합니다.
+
+## 연구 가설 로드맵
+
+| ID | 가설 | 상태 |
+|---|---|---|
+| H1 | 개별 번호의 시간적 패턴 | TESTED / INCONCLUSIVE |
+| H2 | Gap / periodicity / regime | TESTED / INCONCLUSIVE |
+| H3 | 2D translational number patterns | TESTED / INCONCLUSIVE |
+| H4 | Gap-conditioned 3D | TESTED / INCONCLUSIVE |
+| H5 | Recent-frequency-conditioned 3D | TESTED / INCONCLUSIVE |
+| H6 | Gap × frequency interaction | TESTED / INCONCLUSIVE |
+| H7 | Full continuous 4D geometry | DEFERRED |
+| H8 | Spatial neighborhood / range-density | TESTED / INCONCLUSIVE |
+| H9 | Delay embedding / recurrence geometry | BACKLOG |
+| H10 | Wavelet / SSA multiscale structure | BACKLOG |
+| H11 | Mutual information / Transfer Entropy | BACKLOG |
+| H12 | Dynamic graph / Hypergraph | BACKLOG |
+| H13 | Modular / difference-space transforms | BACKLOG |
+| H14 | Entropy / compression / algorithmic randomness | BACKLOG |
+| H15 | Tensor decomposition | BACKLOG |
+| H16 | Symmetry / reflection structure | BACKLOG |
+| H17 | Validated weak-signal ensemble | BACKLOG |
+
+Phase와 H번호는 서로 다른 분류입니다. 옛 계획·동결 증거의 H번호는 보존합니다.
+대응 관계는 [번호 이관 안내](docs/research-ideas.md#번호-이관-안내)에 설명합니다.
+
+## Phase별 요약
+
+### Phase 1 — 데이터·기초 분석·Random baseline
+
+수집/import·검증·binary series·frequency/gap 통계와 RandomModel backtest를 만들었습니다.
+초기 Random 결과는 평가 pipeline 점검이며 예측 우위의 근거가 아닙니다.
+[방법과 초기 결과](docs/foundation-analysis.md)
+
+### Phase 2 — 개별 번호의 시간적 패턴
+
+calendar·rolling 통계, ACF·spectrum, periodicity score와 regime 진단을 조사했습니다.
+탐색에서 보이는 구조를 신뢰할 예측 근거로 확립하지 못했습니다.
+[방법과 결과](docs/temporal-analysis.md)
+
+### Phase 3 — Causal ranking·Gap robustness·prize-aware 비교
+
+Similarity·Logistic·feature ablation과 gap-only·candidate pool·동일 예산 티켓을 비교했습니다.
+Gap 계열의 약한 점추정치는 있으나 안정적인 예측 우위는 확립되지 않았습니다.
+[예측 실험](docs/predictive-experiments.md) · [Gap / prize 연구](docs/gap-prize-research.md)
+
+### Phase 4 — Hazard·Bayesian·HMM·고정 ensemble 실험
+
+hazard·Bayesian·Bernoulli HMM과 development에서 고정한 조합을 비교했습니다.
+복잡한 regime 모델의 안정적 개선 근거는 부족했습니다.
+[방법과 결과](docs/regime-research.md)
+
+### Phase 5 — Prospective freeze 체계
+
+여섯 track의 전체 순위·동일 예산 portfolio·manifest·registry·SHA-256을 동결했습니다.
+결과 평가는 명시적 로컬 입력으로 분리합니다.
+[현재 workflow](docs/prospective-workflow.md) · [당시 원본](docs/prospective-experiment.md)
+
+### Phase 6 — 2D Translation
+
+draw × number 공간의 shift·chain·Hough·FFT를 동일한 전체 null 탐색과 비교했습니다.
+보정 후 유의한 구조와 안정적인 walk-forward 우위를 확립하지 못했습니다.
+[방법](docs/spatiotemporal-analysis.md) · [결과](docs/phase6-results.md)
+
+### Phase 7 — Gap-conditioned 3D
+
+causal current gap 상태별 translation과 trajectory를 조사했습니다.
+상태 조건 추가로 신뢰할 예측 개선이 나타났다고 결론 내릴 수 없습니다.
+[방법](docs/gap3d-analysis.md) · [결과](docs/phase7-results.md)
+
+### Phase 8 — Recent-frequency-conditioned 3D
+
+W10/W26/W52 frequency 상태별 구조를 조사하고 각 surrogate의 상태를 다시 계산했습니다.
+전체 탐색 보정과 walk-forward에서 신뢰할 우위를 확립하지 못했습니다.
+[방법](docs/frequency3d-analysis.md) · [결과](docs/phase8-results.md)
+
+### Phase 9 — Gap × frequency interaction
+
+gap과 W26 frequency의 아홉 joint state를 단일 상태 parent와 비교했습니다.
+두 parent와 비기하학 baseline을 넘어선다는 근거는 부족했습니다.
+[방법](docs/joint-state-analysis.md) · [결과](docs/phase9-results.md)
+
+### Phase 10 — Number-space
+
+range-density·neighborhood smoothing·spacing·hot-zone 이동을 조사했습니다.
+H8은 TESTED / INCONCLUSIVE이며 neighbor 기여를 입증하지 못했습니다.
+[방법](docs/number-space-analysis.md) · [결과](docs/phase10-results.md)
+
+Phase 11의 H9 delay embedding / recurrence는 **계획 단계이며 실행되지 않았습니다**.
+핵심 질문은 “비슷한 과거 상태가 비슷한 미래 결과로 이어지는가?”입니다.
+
+## Prospective experiments
+
+여러 draw-1246 실험은 결과가 알려지기 전에 동결된 역사적 증거입니다.
+**1246회 결과는 현재 외부에 알려져 있으며 새로운 prospective 대상이 아닙니다.**
+원본의 FROZEN_UNEVALUATED는 당시 동결 상태로 보존하고 결과를 자동 평가하지 않습니다.
+
+향후 Phase 11의 역사 연구와 설정 고정이 끝난 뒤 진정한 prospective 대상은 **1247회**입니다.
+이번 문서 정리는 Phase 11 구현·1246회 import·새 freeze를 수행하지 않습니다.
+
+[Workflow와 보호 규칙](docs/prospective-workflow.md) ·
+[동결 기록 색인](docs/README.md#frozen-prospective-evidence)
+
+이 체크아웃에는 `reports/prospective/` 원본 파일이 없습니다.
+과거 해시 기록 보존과 실제 파일의 무결성 재검증을 구분해야 합니다.
+
+## 실행 방법
+
+아래는 존재하는 명령의 사용 예입니다. 분석·freeze 명령은 출력 파일을 만듭니다.
+이번 문서 정리에서는 테스트 외에 연구·수집·결과 평가·freeze를 실행하지 않습니다.
+
+### 환경 설정
+
+Python 3.11 이상이 필요합니다. optional ML 의존성은 별도입니다.
 
 ```powershell
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
-python main.py
+python main.py --help
 ```
 
-An interactive terminal shows a small menu. With redirected input, the same
-command prints dataset status and help without blocking. All work is also
-available through subcommands:
+### 데이터 검증
 
 ```powershell
-python main.py prize-eval
 python main.py validate
+```
+
+다른 CSV는 subcommand **앞에** `--data path/to/history.csv`로 지정합니다.
+검증 성공은 공식 원본 대조나 최신 회차 확보를 의미하지 않습니다.
+
+### 기본 분석
+
+```powershell
 python main.py inspect 17
 python main.py analyze-all --permutations 4999 --seed 42
 python main.py export-series
-python main.py backtest --mode checkpoints --checkpoints 100 --tickets 5 --repeats 10 --seed 42 --report reports/random_checkpoints
+```
+
+### Backtesting
+
+```powershell
 python main.py backtest --mode walk-forward --min-train 299 --seed 42 --report reports/random_walk_forward
+python main.py backtest --mode checkpoints --checkpoints 100 --tickets 5 --repeats 10 --seed 42 --report reports/random_checkpoints
+python main.py compare-models --ablations
+python main.py prize-eval
 python -m pytest -q
 ```
 
-Use `--data path/to/history.csv` **before** the subcommand to use another dataset.
-Relative output paths are relative to your working directory; default paths are
-relative to the project root. No command downloads data implicitly except
-`collect` without `--input`, which is disabled while the research seal is active.
-
-## Data and provenance
-
-Canonical file: `data/raw/lotto_history.csv`.
-
-Columns: `draw_no, draw_date, num1, num2, num3, num4, num5, num6, bonus`.
-Main numbers are sorted within each draw; draws are sorted ascending. Calendar
-fields (`year`, `month`, `iso_week`, `weekday`, Monday=0) are derived on loading.
-
-The first collected snapshot contains **1,245 draws**, from **2002-12-07
-(draw 1) through 2026-10-10 (draw 1245)**, with no missing draws. This is the
-available snapshot range, not a promise that a future run is up to date.
-
-The primary collector targets the [Donghaeng results website](https://www.dhlottery.co.kr/lt645/result)
-and its website endpoint:
-`https://www.dhlottery.co.kr/lt645/selectPstLt645InfoNew.do?srchDir=center&srchLtEpsd=1`.
-Its response is a batch in `data.list`, with `ltEpsd`, `ltRflYmd`,
-`tm1WnNo` through `tm6WnNo`, and `bnsWnNo`. This is an undocumented website
-endpoint, not a guaranteed public API. The old
-`common.do?method=getLottoNumber&drwNo=...` route was investigated but is not
-assumed to remain available after the website redesign.
-
-During implementation, direct Python HTTP requests to Donghaeng failed with
-connection refusal (WinError 10061) in the restricted environment. The live
-official JSON adapter therefore remains **unverified end to end**. Tests cover
-its expected schema and error handling; the collector reports retrieval failure
-and never interprets it as proof that all draws have been collected.
-
-To run the actual historical pipeline, public snapshots were retrieved using the
-available GitHub connector and explicitly imported:
-
-- Draws 1–1156: [hyomuel/Lotto/data.json](https://github.com/hyomuel/Lotto/blob/main/data.json).
-- Draws 1157–1245: individual files in
-  [johyunchol/lottogo-python](https://github.com/johyunchol/lottogo-python/tree/main/src/constant/draw_no).
-- Draws 1, 500 and 1156 were compared between the two snapshots and matched.
-  These are spot checks, not full independent official verification.
-
-`data/raw/sources.json` records source ranges, retrieval details and snapshot
-hashes. `lotto_history.metadata.json` records import/collection events, input
-hashes, the canonical CSV hash and missing/error diagnostics. The original
-normalized snapshots remain locally in `data/raw/snapshots/` (Git-ignored).
-These are third-party mirrors; valid schema and spot checks cannot prove all
-values match official results. There is no automatic silent mirror fallback.
-
-Explicit offline import, also useful in restricted environments:
+### Phase analyses
 
 ```powershell
-python main.py collect --input data/raw/snapshots/combined_history.csv --source-label "Public GitHub snapshots; see data/raw/sources.json"
-```
-
-Reruns merge by draw number. Identical rows collapse; conflicting outcomes stop
-the import and preserve the existing CSV. Invalid values are not repaired.
-Official collection skips existing draws, retrieves missing ones with bounded
-retries/timeouts and paced requests, and retains successful partial progress on
-source failure. Failures and missing draws are reported in JSON with exit code 1.
-CSV writes use a same-directory temporary file and atomic replacement. Run only
-one collector/import writer at a time; concurrent writers are not supported.
-
-Validation rejects null/fractional/boolean numbers, duplicate main numbers,
-numbers outside 1–45, a bonus in the main numbers, duplicate draw identifiers,
-and dates inconsistent with the weekly calendar starting 2002-12-07. Collection
-may store partial progress, but analysis and backtests refuse incomplete history.
-Missing draws are never converted into zero appearances. Completeness is checked
-through the stored/requested endpoint; it does not certify source freshness.
-
-## Descriptive analysis
-
-`binary_series(history)` returns a draw-indexed, 45-column `uint8` DataFrame.
-Exactly six entries per row are 1. **Bonus is excluded.** The exported file is
-`data/processed/number_series.csv`.
-
-`inspect_number(history, number)` reports total frequency, appearance rate,
-recent 26/52/104-draw frequency and rate, completed appearance intervals, mean,
-median, population variance/std, adjacent appearance pairs, longest/current run,
-and time since last appearance.
-
-An appearance interval is the distance between appearances: adjacent draws give
-an interval of 1. Current gap is the number of absent draws since the last
-appearance, so an appearance in the latest draw gives 0. If a number has never
-appeared, current gap is `None` and the observed absence length is a lower bound.
-Without two appearances, completed-gap statistics are `None`. Boundary gaps are
-censored and excluded. Recent-window output includes its actual denominator
-when fewer than N draws are available. Small completed-gap samples are flagged.
-
-## No future data leakage
-
-At target draw N, `run_backtest` supplies a fresh, unfitted model with a deep
-copy of **draws 1 through N−1 only**. Extra columns are removed before invoking
-models so precomputed future-dependent features cannot accidentally enter.
-Context contains only the target draw number and the next scheduled date derived
-from the final training draw. Actual target numbers are read only after the
-model returns a valid ticket.
-
-Models implement `score_numbers(history, target_draw_context)` and/or
-`predict(history, context=None, k=6, seed=None)`. `RandomModel` scores all numbers
-equally and samples six unique integers uniformly without replacement. The
-engine takes a model **factory**, never a shared fitted model. A new instance is
-created per ticket; no model is reused between checkpoints or repetitions.
-
-Future models must compute and normalize features entirely inside their supplied
-history, including any fitting or selection of similar regimes and their known
-outcomes. Model factories must return fresh, unfitted instances. The interface
-is not a security sandbox: models must not access global full-history files,
-prefitted state, or external future data. Full-history analysis exports are
-exploratory artifacts and must not be reused as prediction inputs.
-
-Tests inspect exact training boundaries, mutate target/future outcomes, check
-prediction invariance, attempt history mutation and verify fresh model instances.
-
-## Backtesting and interpretation
-
-- `--min-train 299` starts at target 300 with draws 1–299 as training data.
-- Walk-forward evaluates each eligible draw, including the final stored draw.
-- Checkpoints sample eligible targets without replacement using `--seed`.
-- `--start` and `--end` restrict evaluated target draws, not the training prefix.
-- `--tickets` produces tickets per target per repetition; `--repeats` repeats
-  ticket simulation on the same target set with independent deterministic seeds.
-- Ticket seeds depend on root seed, target, repetition and ticket index, so a
-  target's first ticket is reproducible even in a smaller evaluation range.
-- Tickets can coincide by chance; each ticket itself always has six distinct
-  numbers. Repetitions do not create additional historical draws.
-
-Reports contain per-ticket CSV audit trails and JSON summaries: average matches,
-0–6 distribution, 3+/4+/5+ rates, best match, per-repeat means, configuration,
-package versions, dataset hash/provenance and approximate 95% mean intervals.
-Intervals bootstrap target-draw averages, keeping tickets/repetitions for a draw
-together. They assume independent draws; adaptive strategies with serially
-dependent errors will need a temporal block bootstrap. Rare-event rate intervals
-and multiple-comparison adjustments are deferred.
-
-The exact uniform baseline is hypergeometric:
-`P(matches=m) = C(6,m) * C(39,6-m) / C(45,6)`.
-Its expected average is **0.8 matches per ticket**. This first pass compares
-RandomModel simulations with that theoretical baseline; comparisons among
-learned strategies will come after those strategies exist. The best ticket
-depends on how many tickets are generated and is not evidence of skill.
-
-Initial seed-42 verification:
-
-| Run                                     | Targets | Tickets | Mean matches | Approx. 95% CI    | Best |
-| --------------------------------------- | ------: | ------: | -----------: | ----------------- | ---: |
-| Walk-forward, draws 300–1245            |     946 |     946 |     0.788584 | 0.738901–0.837209 |    4 |
-| 100 checkpoints, 5 tickets × 10 repeats |     100 |   5,000 |     0.788800 | 0.767200–0.810205 |    4 |
-
-Both intervals contain the 0.8 random expectation. These runs verify the
-evaluation pipeline; **no predictive advantage is claimed**.
-
-## Research roadmap
-
-| Hypothesis                                                  | Status                |
-| ----------------------------------------------------------- | --------------------- |
-| H1 — Fixed-number temporal patterns                         | TESTED / INCONCLUSIVE |
-| H2 — Gap / periodicity / regime models                      | TESTED / INCONCLUSIVE |
-| H3 — 2D translational number patterns                       | TESTED / INCONCLUSIVE |
-| H4 — Gap-conditioned 3D translational patterns              | TESTED / INCONCLUSIVE |
-| H5 - Recent-frequency-conditioned 3D patterns | TESTED / INCONCLUSIVE |
-| H6 - Joint gap x recent-frequency interaction state | TESTED / INCONCLUSIVE |
-| H7 - Full continuous 4D trajectory geometry | DEFERRED - insufficient lower-dimensional evidence |
-| H8 - Delay / recurrence / tensor methods | BACKLOG |
-| H9 - Spatial neighborhood / range-density patterns | TESTED / INCONCLUSIVE |
-
-Phase6 tests bounded translations through draw and ordered number space against
-complete-search maxima from IID and exact-margin surrogate histories. It uses
-draws1–1245 only; draw1246 is not retrieved or evaluated. The Phase5 prospective
-experiment remains immutable. See [research ideas](docs/research-ideas.md) and
-[the predeclared Phase6 protocol](docs/superpowers/plans/2026-10-17-phase6.md).
-Formulas, limitations and output schemas are documented in
-[the spatiotemporal-analysis guide](docs/spatiotemporal-analysis.md).
-The completed199+199 surrogate searches found no structure surviving correction,
-and primary walk-forward paired intervals include zero. See
-[Phase6 results](docs/phase6-results.md). This motivated H4; it does not establish
-predictability or rule out every possible signal.
-
-```powershell
+python main.py hazard-analysis
+python main.py compare-regime-models
 python main.py analyze-2d --surrogates 199
 python main.py compare-2d
-python main.py compare-2d --cadence 13 --primary-only
-python main.py freeze-2d
-```
-
-Research outputs go to `reports/spatiotemporal/`. The last command creates an
-independent, non-overwritable experiment in `reports/prospective/phase6/` with its
-own registry. It never fetches results, and refuses a second freeze for the same
-Phase6 target. Old commands and defaults remain intact.
-
-## Structure and next phases
-
-Phase10 changes **representation**, treating1..45 as a finite one-dimensional
-number space. Activity around25 might hypothetically contribute to23/24/26/27,
-or an active22..27 region might matter more than its individual members.
-Numerical adjacency does NOT imply physical adjacency in the lottery machine.
-H9 began IN PROGRESS; complete IID/exact-margin searches and development-frozen
-later evaluation conclude TESTED / INCONCLUSIVE. In particular, development
-selected W52 with **no smoothing** for the neighborhood track, so that track is
-the own-number control and provides no evidence for neighbor contributions.
-See [methods](docs/number-space-analysis.md), [results](docs/phase10-results.md),
-and the [Phase10 protocol](docs/superpowers/plans/2026-10-17-phase10.md).
-
-```powershell
-python main.py analyze-number-space --surrogates 199
-python main.py compare-number-space
-python main.py compare-number-space --cadence 13
-python main.py freeze-number-space
-```
-
-Research outputs use `reports/number_space/`; prospective publication uses only
-`reports/prospective/phase10/`, with a separate registry and non-overwrite guard.
-All Phase5-9 prospective evidence remains immutable. No future results are fetched.
-No continuous4D, delay embedding, tensor decomposition or neural networks added.
-
-Phase9 tests the categorical **interaction** of causal gap LOW/MID/HIGH with
-W26 frequency COLD/NEUTRAL/HOT: nine joint states. A translation diluted globally
-or within either single state might concentrate in HIGH x HOT. This is exploratory;
-the larger search space increases false-discovery risk. No continuous4D vectors
-or arbitrary state sequences are added. H6 began IN PROGRESS and concludes
-TESTED / INCONCLUSIVE. See [methods](docs/joint-state-analysis.md) and
-[results](docs/phase9-results.md).
-
-```powershell
-python main.py analyze-joint --surrogates 199
-python main.py compare-joint
-python main.py compare-joint --cadence 13
-python main.py freeze-joint
-```
-
-Reports use reports/spatiotemporal_joint/; the three independent prospective
-tracks use their own reports/prospective/phase9/ registry and hashes. All
-Phase5/6/7/8 prospective evidence remains immutable.
-
-
-Phase8 replaces gap with **recent appearance frequency**, using only predeclared
-10/26/52-draw windows. Two numbers can have the same current gap while one had
-zero appearances in the10 draws before its latest appearance and the other had
-four. Their recent-frequency states differ. The exploratory question is whether
-a translation such as(+3 draws,+3 numbers) concentrates in a HOT source state.
-No gap/frequency combination or4D model is introduced.
-See [the Phase8 protocol](docs/superpowers/plans/2026-10-17-phase8.md).
-All Phase5/6/7 prospective artifacts remain immutable.
-
-```powershell
-python main.py analyze-frequency3d --surrogates 199
-python main.py compare-frequency3d
-python main.py compare-frequency3d --cadence 13
-python main.py freeze-frequency3d
-```
-
-These commands write research exports under `reports/spatiotemporal_frequency/`
-and one independent freeze under `reports/prospective/phase8/`. Existing
-experiments cannot be regenerated. See [Phase8 methods](docs/frequency3d-analysis.md).
-
-Phase7 tests only **causal current gap** as the third dimension. A translation
-may hypothetically concentrate in a gap state even when its pooled2D pattern is
-weak. This is a hypothesis, not evidence. `python main.py analyze-gap3d` writes
-complete conditional/trajectory searches and surrogate maxima under
-`reports/spatiotemporal3d/`. Every surrogate recomputes its own gaps and bins.
-See [the Phase7 methods](docs/gap3d-analysis.md),
-[results](docs/phase7-results.md), and [predeclared protocol](docs/superpowers/plans/2026-10-17-phase7.md).
-Phase5 and Phase6 prospective artifacts remain immutable; no future draw is accessed.
-The completed 199+199 null searches found no corrected structure. Adding gap
-conditioning did not establish predictive improvement over Random or the2D parents.
-The primary models and representation ablations retain their predeclared settings.
-
-```powershell
 python main.py analyze-gap3d --surrogates 199
 python main.py compare-gap3d
-python main.py compare-gap3d --cadence 13 --primary-only
-python main.py freeze-gap3d
+python main.py analyze-frequency3d --surrogates 199
+python main.py compare-frequency3d
+python main.py analyze-joint --surrogates 199
+python main.py compare-joint
+python main.py analyze-number-space --surrogates 199
+python main.py compare-number-space
 ```
 
-These isolated commands admit local draws1–1245 only. `freeze-gap3d` creates a
-separate Phase7 snapshot and refuses to regenerate a reserved/frozen target.
-It never retrieves or evaluates a result. Legacy command seals remain unchanged.
+### Prospective workflow
+
+기존 CLI의 사용법은 help로 확인할 수 있습니다.
+기존 명령이 미래의 Phase 11 / 1247회 freeze를 지원한다는 뜻은 아닙니다.
+이미 알려진 1246회를 새 prospective 실험으로 생성해서는 안 됩니다.
+
+```powershell
+python main.py freeze-next --help
+python main.py freeze-2d --help
+python main.py freeze-gap3d --help
+python main.py freeze-frequency3d --help
+python main.py freeze-joint --help
+python main.py freeze-number-space --help
+python main.py evaluate-freeze --help
+```
+
+## 프로젝트 구조
 
 ```text
-data/raw/             canonical CSV, provenance, local source snapshots
-data/processed/       derived binary series
-src/collect/          dataset validation, official source, collection/import
-src/analysis/         binary series and frequency/gap statistics
-src/models/           model interface and RandomModel
-src/backtest/         isolated evaluation and metrics
-src/cli.py            command-line interface
-tests/                offline validation, collection, analysis, leakage and CLI tests
-reports/              per-ticket CSVs and summary JSONs
-docs/                 design, implementation plan and execution record
-main.py               entry point
-requirements.txt      dependencies
+data/raw/           canonical CSV, metadata, sources
+data/processed/     파생 데이터 출력 위치
+src/collect/        수집·import·검증
+src/analysis/       표현·특징·탐색 분석
+src/models/         ranking 및 예측 모델
+src/backtest/       walk-forward·평가·portfolio
+src/*_cli.py        Phase별 CLI
+src/phase*_*.py     Phase별 동결·artifact 검증
+tests/              오프라인·누출 방지·무결성 테스트
+reports/            분석 출력; 현재는 일부 초기 보고서만 포함
+docs/               방법·결과·가설·역사 protocol
+main.py             CLI 진입점
+requirements.txt    기본 의존성
+requirements-ml.txt optional ML 의존성
 ```
 
-Phase 2 adds normalized year/month/year-month tables, 26/52/104-draw trailing
-statistics, guarded ACF/periodograms, a documented descriptive periodicity score,
-prior-history regime thresholds, recurrence diagnostics, conditional shuffle
-comparisons, and nine-panel matplotlib reports for any number. See
-[the temporal-analysis guide](docs/temporal-analysis.md) for exact formulas,
-output schemas, limitations, runtime and observed findings.
+## 데이터 출처 및 provenance
 
-`python main.py inspect 17` writes supporting reports to `reports/number_17/`
-and a plot to `reports/plots/number_17_temporal.png`. Use `--no-plots` to skip
-rendering and `--permutations 0` to skip null simulations. The default is 199
-shuffles per eligible fixed scope; `--permutations 4999` gives finer resolution.
-`analyze-all` writes aggregate CSVs and `reports/temporal_analysis.json`.
-Use `--reports-dir` to select another destination. With a non-default `--data`
-and no report override, outputs go into a `reports/` folder beside that dataset.
+공식 사이트 adapter는 구현 당시 제한 환경에서 연결에 실패하여 end-to-end 검증을
+완료하지 못했습니다. mirror import는 자동 fallback이 아닌 명시적 작업이었습니다.
+상세 출처는 [provenance 안내](docs/data-provenance.md), 원본 기록은
+[sources.json](data/raw/sources.json)과 [metadata](data/raw/lotto_history.metadata.json)에 있습니다.
 
-Phase 3 adds shared causal supervised features, same-number similarity,
-pooled regularized logistic regression, optional Random Forest/LightGBM/XGBoost
-adapters, ranking audits, chronological refitting, feature ablations and paired
-random comparisons. Run `python main.py compare-models --ablations`,
-`python main.py predict-current`, or `python main.py explain-number 17`.
-See [predictive experiments](docs/predictive-experiments.md) for the fixed
-protocol, formulas, dependency limitations and outputs. No predictive advantage
-is established. The original RandomModel backtester remains available unchanged.
+## 해석상의 주의사항
 
-Tests require no network. Test scratch directories inherit normal permissions
-because the Windows sandbox cannot reopen pytest's owner-only directories;
-pytest's optional cache is disabled for the same reason. The complete suite was
-run with Python 3.13.1. No commits or pushes were made.
-
-Phase8 complete-search null tests and walk-forward comparisons found no reliable
-advantage. H5 remains TESTED / INCONCLUSIVE. See [Phase8 results](docs/phase8-results.md).
-
-### H9 — Spatial neighborhood / range-density patterns
-
-Status: BACKLOG
-
-Hypothesis:
-Predictive structure may exist at the level of local number ranges rather
-than individual numbers.
-
-Instead of assigning probability only to a number itself, strong historical
-activity around a number may contribute partial weight to neighboring numbers.
-
-Planned methods:
-
-- sliding range density
-- 1D kernel smoothing over numbers 1–45
-- hot-zone detection
-- nearest-neighbor / spacing statistics
-- range-aware ticket generation
-- null-surrogate comparison
-- walk-forward evaluation
+수익성 있는 전략은 확립되지 않았습니다. 역사적 prize-equivalent 결과는 실제 구매나
+예측력의 증명이 아닙니다. Candidate pool에 당첨번호가 포함되는 사건과 실제 티켓 당첨도
+구분합니다. 탐색적 구조와 예측 증거는 별개이며 prospective freeze는 hindsight와
+cherry-picking을 막기 위한 절차입니다.

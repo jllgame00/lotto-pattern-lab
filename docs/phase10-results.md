@@ -1,39 +1,30 @@
-# Phase10 - Number-space neighborhood and range-density results
+# Phase 10 — Number-space 결과
 
+## 결론
 
+**H8: TESTED / INCONCLUSIVE.** IID·constrained complete search에서 corrected spatial structure가 없었고 development-frozen later 우위도 확립되지 않았습니다. 수치 인접성은 물리 인접성이 아니며 예측·수익성 주장은 없습니다. 과거 H9는 현재 H8이며 동결 원본의 번호는 보존합니다.
 
-**H9: TESTED / INCONCLUSIVE.** Complete-search IID and constrained-null comparisons found no corrected spatial structure. Development-frozen later evaluation did not establish superiority. Numerical adjacency is not physical adjacency in the lottery machine. No predictive/profitability claim is made.
+## 가설
 
+번호 하나보다 주변 activity와 국소 구간의 density가 유용한지 검증했습니다.
 
+## 데이터 및 검증 범위
 
-Actual data: canonical draws1..1245, ending2026-10-10. No draw1246 result was retrieved, searched for, inspected, imported or evaluated. All25 Phase5-9 prospective files were inventoried before work and remain protected. No commit or push.
+finite number-space activity를 시험했습니다. canonical 1..1245,마지막2026-10-10입니다. 당시1246 결과를 가져오기·검색·확인·import·평가하지 않았습니다. 이전 Phase 5-9의25 prospective 파일을 사전 inventory로 보호했고 commit/push는 없었습니다.
 
+## 방법과 정확한 탐색 범위
 
-
-## Protocol and exact search space
-
-
-
-The [predeclared protocol](superpowers/plans/2026-10-17-phase10.md) fixes windows10/26/52, widths3/5/7/9, four primary kernels and descriptive box radii1..4. Own, neighbor-only and smoothed signals are separated. Every score uses completed draws strictly before its target, finite1..45 boundaries and no wrapping.
-
-
+[당시 protocol](superpowers/plans/2026-10-17-phase10.md)은 window 10/26/52·width 3/5/7/9·primary kernel 네 개·box radii1..4를 고정합니다. own·neighbor-only·smoothed를 구분하고 score는 target 전 완료 draw·finite1..45·no wrap입니다.
 
 | range_density_cells | kernel_cells | zone_endpoint_cells | zone_movement_metrics | spacing_cells | motif_universe | range_configurations | primary_kernel_configurations | kernel_signal_configurations | families |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 584000 | 2463750 | 14600 | 144 | 83215 | 1086008 | 12 | 12 | 45 | 6 |
 
+이 수는 computational cells/records이며 독립 가설이 아닙니다. range/kernel configuration은 같은 cell을 가리키고 zone endpoint도 range에서 파생합니다. 여섯 family는 range density·neighborhood·persistence·movement·spacing/clustering·motif입니다. motif universe는 합44 이하인 ordered positive spacings 전체 C(44,5)이며 미관측도 포함합니다.
 
-These are computational cells/records, not independent hypotheses. Range and kernel configuration counts index the same cells; zone endpoints derive from the range search. The six calibrated families are range density, neighborhood, persistence, movement, spacing/clustering and spacing motifs. The motif universe contains all C(44,5) ordered positive spacings summing at most44, including unobserved patterns.
+## 주요 결과 — Spacing과 broad region
 
-
-
-## Baseline spacing and broad-region behavior
-
-
-
-Per-draw sorted numbers, ordered gaps, clustering metrics and broad-region counts are in spacing.csv. Broad regions are descriptive. Reference means/SDs use50,000 independent IID draws, not real-history estimates. The exact fair expected draw range is230/7=32.8571; exact expected mean adjacent gap46/7=6.5714. Reference Monte Carlo error explains small departures from these exact values.
-
-
+spacing.csv에 sorted number·ordered gap·cluster·broad region을 저장합니다. region은 descriptive입니다. reference mean/SD는 real과 별개인50,000 IID draws입니다. exact range expectation230/7=32.8571·mean adjacent gap 46/7=6.5714와 작은 차이는 Monte Carlo error입니다.
 
 | metric | reference_mean | reference_std | historical_mean |
 | --- | --- | --- | --- |
@@ -55,10 +46,7 @@ Per-draw sorted numbers, ordered gaps, clustering metrics and broad-region count
 | region_3 | 1.1948 | 0.9181 | 1.1888 |
 | region_4 | 1.2073 | 0.9243 | 1.2112 |
 
-
-## Strongest raw hot zones
-
-
+## Raw hot-zone 최대
 
 | end_draw | target_draw | window | width | start_number | end_number | occurrences | density | expected_density | lift | raw_z | support_draws |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -73,14 +61,9 @@ Per-draw sorted numbers, ordered gaps, clustering metrics and broad-region count
 | 697 | 698 | 10 | 7 | 33 | 39 | 20 | 0.2857 | 0.1333 | 2.1429 | 4.0357 | 10 |
 | 657 | 658 | 10 | 7 | 38 | 44 | 20 | 0.2857 | 0.1333 | 2.1429 | 4.0357 | 10 |
 
+W10 endpoint13은36..42 안에60 winning occurrences 중21개, density0.3000·lift2.25·z 4.4140입니다. selected maximum은 typical null maxima보다 약합니다. 겹친 range/endpoint는 독립 발견이 아니며 최신 positive Top3는 transitive grouping합니다.
 
-For example, W10 ending draw13 has21 of60 winning occurrences inside36..42: count density0.3000, lift2.25, raw z4.4140. This selected maximum is weaker than typical complete-search null maxima. Heavily overlapping ranges/endpoints are not independent discoveries; latest top3 positive ranges are grouped transitively.
-
-
-
-## Neighborhood peaks
-
-
+## Neighborhood peak
 
 | window | kernel | signal | end_draw | number | score | raw_z |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -95,14 +78,9 @@ For example, W10 ending draw13 has21 of60 winning occurrences inside36..42: coun
 | 26 | box1 | neighbor_only | 796 | 20 | 0.3462 | 4.5668 |
 | 10 | gaussian2 | smoothed | 697 | 34 | 0.3886 | 4.5606 |
 
+family 최대는 own-number control입니다. number21이 ending780의10 draws에 seven appearances입니다. 20 주변 neighbor-only peak는21 activity를 일부 상속합니다. null은 own/neighbor를 동등하게 탐색하며 local peak는 spatial mechanism의 증거가 아닙니다.
 
-The largest neighborhood-family peak is actually the **own-number** control: number21, seven appearances in10 completed draws ending780. Neighbor-only peaks around20 partially inherit activity at21. Full-search calibration includes own and neighbor variants equally; these local peaks are not evidence of a spatial mechanism.
-
-
-
-## Hot-zone persistence and movement
-
-
+## Hot-zone persistence와 movement
 
 | window | width | range_start | range_end | start_endpoint | end_endpoint | length |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -119,7 +97,6 @@ The largest neighborhood-family peak is actually the **own-number** control: num
 | 52 | 7 | 2 | 8 | 606 | 641 | 36 |
 | 52 | 9 | 34 | 42 | 162 | 210 | 49 |
 
-
 | window | width | latest_grouped_zones | identical_run | direction_run | mean_abs_movement | overlap_mean | positive_1_run | positive_2_run | positive_3_run | positive_4_run | negative_1_run | negative_2_run | negative_3_run | negative_4_run |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 10 | 3 | [(11, 13), (18, 20), (32, 34)] | 11 | 3 | 5.8761 | 0.5690 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
@@ -135,14 +112,9 @@ The largest neighborhood-family peak is actually the **own-number** control: num
 | 52 | 7 | [(25, 33)] | 36 | 2 | 2.8047 | 0.8310 | 1 | 1 | 1 | 1 | 2 | 1 | 1 | 1 |
 | 52 | 9 | [(24, 34)] | 49 | 2 | 1.9204 | 0.8775 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
 
+최장 identical strongest-range는 W52·20..22에서 ending400..455의56 endpoints입니다. rolling overlap으로 자연히 길어집니다. bounded direction run 최대는3 steps입니다. 두 family 모두 null을 통과하지 못했습니다. fixed-width trace는 adaptive expansion/contraction law가 아니며 grouped extent는 descriptive이고 movement predictor는 없습니다.
 
-The longest identical strongest-range run is56 rolling endpoints for20..22, W52, ending draws400..455. Overlapping windows naturally induce long persistence. The strongest bounded directional movement run is3 steps. No persistence or movement family survives null comparison. Fixed-width zone traces do not estimate an adaptive expansion/contraction law; grouped latest extents are exported descriptively, and no movement predictor is fitted.
-
-
-
-## Complete-search null results
-
-
+## Null / surrogate 비교
 
 | null_model | statistic | real_max | null_mean | null_q95 | exceedances | replicates | global_p | adjusted_p |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -159,42 +131,23 @@ The longest identical strongest-range run is56 rolling endpoints for20..22, W52,
 | iid | spacing_clustering | 5.8035 | 6.4611 | 7.8374 | 157 | 199 | 0.7900 | 1.0000 |
 | iid | spacing_motif | 1.0000 | 1.7085 | 2.0000 | 199 | 199 | 1.0000 | 1.0000 |
 
+199 IID·199 exact-margin마다 recent activity·neighborhood·zone·motion·spacing을 재계산해 전체 탐색합니다. six per draw·exact per-number count는 유지하나 finite curveball mixing은 근사입니다. p=(1+exceedances)/(199+1),null별 Bonferroni6이며 양쪽 모두 통과 family가 없습니다. local z는 local test가 아니며 resolution0.005/0.030입니다.
 
-Every one of199 IID and199 exact-margin histories reruns the full declared search and recomputes all recent activity, neighborhoods, hot zones, motion and spacing. Exact margins preserve six per draw and per-number counts; finite curveball mixing remains approximate. Empirical global p=(1+exceedances)/(199+1); adjusted p is Bonferroni across6 families within each null. No family survives correction under either null. Local raw z values are not local tests. Resolution is0.005 raw/0.030 adjusted.
+## Development-only 선택
 
+401..900만으로 range12·kernel 12·선택 neighborhood의 gap weights .25/.5/.75를 비교합니다. tie는 선언 순서이며 later 결과로 선택을 바꾸지 않았습니다.
 
+선택 range는 **W26,width 3**,neighborhood는 **W52,kernel=none**,gap weight는 **0.75**이며 나머지는 neighborhood percentile rank입니다.
 
-## Development-only choices
+**smoothing이 선택되지 않았습니다.** frozen NeighborhoodModel은 own-number W52 frequency control이고 조합은75% Gap Logistic rank +25% own W52 rank입니다. neighbor가 도움 된다는 증거로 읽으면 안 됩니다. 실제 smoothing/neighbor-only는 모두 ablation으로 보고합니다.
 
+frozen configuration SHA256은 `2ce1f1b9d9005e50089cc4be587bad9fec19550fd84d16a5b0aa13d507af3301`입니다.
 
+later 전에 selection을 저장하고 cadence 13은 재사용합니다. prospective publication 전 두 cadence의 development prefix hash·canonical descriptive hash·normalized full-input hash를 확인합니다. source-binding gate 누락은 독립 review에서 발견해 publication 전 failing/passing regression으로 수정했습니다.
 
-Development targets401..900 alone selected12 range configurations,12 primary kernel configurations, then gap weights.25/.5/.75 for the selected neighborhood. Ties retain the declared order. No later outcome changed any choice.
+## Walk-forward 결과 — Later901..1245
 
-
-
-Selected range: **W26, width3**. Selected neighborhood: **W52, kernel=none**. Gap combination weight **0.75**, with the remainder assigned to neighborhood percentile ranks.
-
-
-
-**No smoothing won development selection.** The frozen NeighborhoodModel is therefore an own-number W52 frequency control, and the combination is75% Gap Logistic rank +25% own W52 frequency rank. It must not be described as evidence that neighbors help. All true smoothing/neighbor-only variants remain reported as ablations.
-
-
-
-Frozen configuration SHA256: `2ce1f1b9d9005e50089cc4be587bad9fec19550fd84d16a5b0aa13d507af3301`.
-
-
-
-Selection was saved before later scoring; cadence13 reuses it without selection. The development prefix hash, canonical descriptive hash and normalized full-input hash in BOTH cadence protocols are checked before prospective publication. Independent review caught the missing source-binding gate; it was fixed with a failing/passing regression before publication.
-
-
-
-## Primary later historical results (901..1245)
-
-
-
-The later segment is excluded from Phase10 model selection, but is NOT pristine after previous phases. Full401..1245 results include selection optimism and are exploratory. Existing Random and Gap Logistic reproduce their Phase9 score/rank/cutoff/hit outputs exactly:1,690 rows at each cadence.
-
-
+later는 Phase 10 선택에서 제외했지만 이전 연구 이후 pristine holdout이 아닙니다. full401..1245는 selection optimism을 포함한 탐색치입니다. 기존 Random/Gap Logistic은 Phase 9의 cadence별1,690 rows를 score/rank/cutoff/hit까지 재현합니다.
 
 | model | targets | avg_hits | mean_winning_rank | recall_6 | recall_10 | recall_15 | hits_0 | hits_1 | hits_2 | hits_3 | hits_4 | hits_5 | hits_6 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -205,14 +158,9 @@ The later segment is excluded from Phase10 model selection, but is NOT pristine 
 | NeighborhoodModel | 345 | 0.7304 | 23.5005 | 0.1217 | 0.2068 | 0.3242 | 146 | 150 | 45 | 4 | 0 | 0 | 0 |
 | GapNeighborhoodModel | 345 | 0.7507 | 23.1720 | 0.1251 | 0.2155 | 0.3198 | 161 | 122 | 51 | 9 | 2 | 0 | 0 |
 
+### Paired 불확실성
 
-### Paired uncertainty
-
-
-
-Circular26-draw block bootstrap2,000, seed42. Intervals are exploratory and unadjusted for model search; positive hit differences favor the first model. Pool mean and3+/4+/5+/all6 comparisons against Random/Frequency26/Gap Logistic are also exported.
-
-
+circular26-draw block bootstrap 2,000,seed 42입니다. model search에 대해 unadjusted인 탐색 interval이며 positive hit difference는 첫 model 우세입니다. Random/Frequency26/Gap Logistic 대비 pool mean·3+/4+/5+/all6도 export합니다.
 
 | model | reference | difference | ci_low | ci_high |
 | --- | --- | --- | --- | --- |
@@ -226,18 +174,11 @@ Circular26-draw block bootstrap2,000, seed42. Intervals are exploratory and unad
 | GapNeighborhoodModel | Frequency26 | -0.0232 | -0.1304 | 0.0841 |
 | GapNeighborhoodModel | GapLogistic | -0.0725 | -0.1420 | -0.0058 |
 
+combination은 Gap Logistic보다 낮은 점추정치입니다. 간단한 baseline을 넘어서는 robust neighborhood/range 개선은 없습니다.
 
-The combination underperforms Gap Logistic by point estimate. There is no robust neighborhood/range improvement beyond the simple baselines.
+### Candidate-pool 결과
 
-
-
-### Candidate pools
-
-
-
-Complete0..6 distributions, mean pool winners,3+/4+/5+/all6 rates, exact hypergeometric references, marginal intervals and paired comparisons are in pools.csv. Rare events are not evidence by themselves.
-
-
+pools.csv는 full0..6·mean winner·3+/4+/5+/all6·exact hypergeometric·marginal/paired interval입니다. rare event만으로 증거가 아닙니다.
 
 | model | pool_size | count_3plus | count_4plus | count_5plus | count_6plus | exact_random_5plus | exact_random_6plus |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -266,18 +207,11 @@ Complete0..6 distributions, mean pool winners,3+/4+/5+/all6 rates, exact hyperge
 | GapNeighborhoodModel | 12 | 66 | 8 | 0 | 0 | 0.0033 | 0.000113 |
 | GapNeighborhoodModel | 15 | 105 | 23 | 0 | 0 | 0.0117 | 0.000614 |
 
+## Window·width·kernel ablation
 
-## Window, width and kernel ablations
-
-
-
-All configurations were declared before results. Later ablation outcomes are reported rather than used to select a replacement. Tables pair development/later average Top6 hits.
-
-
+모든 설정은 사전 선언했습니다. later 결과를 replacement 선택에 쓰지 않고 development/later 평균 Top6로 보고합니다.
 
 ### Raw frequency
-
-
 
 | model | development | later |
 | --- | --- | --- |
@@ -285,10 +219,7 @@ All configurations were declared before results. Later ablation outcomes are rep
 | Frequency26 | 0.7920 | 0.7739 |
 | Frequency52 | 0.8620 | 0.7304 |
 
-
-### Range widths and windows
-
-
+### Range width와 window
 
 | model | development | later |
 | --- | --- | --- |
@@ -305,10 +236,7 @@ All configurations were declared before results. Later ablation outcomes are rep
 | Range_W52_D7 | 0.8080 | 0.7739 |
 | Range_W52_D9 | 0.7720 | 0.7710 |
 
-
-### Primary smoothing kernels
-
-
+### Primary smoothing kernel
 
 | model | development | later |
 | --- | --- | --- |
@@ -325,10 +253,7 @@ All configurations were declared before results. Later ablation outcomes are rep
 | Neighborhood_W52_triangular1 | 0.8100 | 0.7623 |
 | Neighborhood_W52_triangular2 | 0.8000 | 0.7855 |
 
-
-### Neighbor-only controls
-
-
+### Neighbor-only control
 
 | model | development | later |
 | --- | --- | --- |
@@ -342,10 +267,7 @@ All configurations were declared before results. Later ablation outcomes are rep
 | NeighborOnly_W52_triangular1 | 0.7800 | 0.8522 |
 | NeighborOnly_W52_triangular2 | 0.7600 | 0.7855 |
 
-
-### Neighbor contribution versus own at the same W
-
-
+### 같은 W의 own 대비 neighbor 기여
 
 | window | kernel | signal | avg_hits | own_avg_hits | difference | ci_low | ci_high |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -368,22 +290,13 @@ All configurations were declared before results. Later ablation outcomes are rep
 | 52 | gaussian2 | neighbor_only | 0.8000 | 0.7304 | 0.0696 | -0.0493 | 0.1942 |
 | 52 | gaussian2 | own_plus_neighbors | 0.7739 | 0.7304 | 0.0435 | -0.0233 | 0.1130 |
 
+later performance로 새 winner를 고르지 않은 ablation입니다. positive unadjusted estimate도 global/robustness 근거가 필요하며 neighborhood 가설을 확립하지 못했습니다.
 
-These are postselection-excluded ablation reports, not additional winners selected after seeing later performance. Positive unadjusted estimates require global and robustness support; none establishes the neighborhood hypothesis.
+## 시작점·cadence robustness
 
+starts401/501/601/701/801/901은401 refit calendar를 유지합니다. 901 이전 start는 development와 겹치므로 독립 later validation이 아닙니다.
 
-
-## Start-point and cadence robustness
-
-
-
-Nested start slices401/501/601/701/801/901 retain the refit calendar from401. Starts before901 overlap development; they are descriptive, not independent later validation.
-
-
-
-### Cadence26 average hits by start
-
-
+### Cadence26 시작점별 평균 hit
 
 | model | 401 | 501 | 601 | 701 | 801 | 901 |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -394,10 +307,7 @@ Nested start slices401/501/601/701/801/901 retain the refit calendar from401. St
 | RandomModel | 0.8024 | 0.8054 | 0.7984 | 0.7761 | 0.7685 | 0.7681 |
 | RangeDensityModel | 0.7917 | 0.7839 | 0.7984 | 0.7963 | 0.8135 | 0.7652 |
 
-
-### Cadence13 average hits by start
-
-
+### Cadence13 시작점별 평균 hit
 
 | model | 401 | 501 | 601 | 701 | 801 | 901 |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -408,10 +318,7 @@ Nested start slices401/501/601/701/801/901 retain the refit calendar from401. St
 | RandomModel | 0.8024 | 0.8054 | 0.7984 | 0.7761 | 0.7685 | 0.7681 |
 | RangeDensityModel | 0.7917 | 0.7839 | 0.7984 | 0.7963 | 0.8135 | 0.7652 |
 
-
-### Later-period early/middle/recent blocks
-
-
+### Later early/middle/recent
 
 | model | block | start_draw | end_draw | targets | avg_hits | delta_vs_random |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -434,18 +341,11 @@ Nested start slices401/501/601/701/801/901 retain the refit calendar from401. St
 | GapNeighborhoodModel | middle | 1016 | 1130 | 115 | 0.8174 | -0.0087 |
 | GapNeighborhoodModel | recent | 1131 | 1245 | 115 | 0.7913 | 0.0870 |
 
+rolling104-target 성능도 export/plot합니다. era·cadence에 걸친 stable positive effect가 없습니다. range/neighborhood는 fitted temporal parameter가 없어 fixed-config 결과가 cadence-invariant이고 Gap Logistic/combination은 달라질 수 있습니다.
 
-Rolling104-target performance is exported and plotted. No stable positive effect appears across eras or cadence. Range/neighborhood scores have no fitted temporal parameters, so their fixed-config results are cadence invariant; Gap Logistic and its combination may change.
+## Candidate-pool / prize-aware — 동일 예산 virtual portfolio
 
-
-
-## Equal-budget virtual ticket portfolios
-
-
-
-All methods use identical target sets and budgets1/5/10/20, deterministic seed42+target, unique nested tickets. Model methods use Top15; uniform controls sample all45. This intentionally tests practical concentration versus broader coverage. All portfolios exist before actual and bonus evaluation; bonus never enters training. Range coverage rewards new five-subsets, then uncovered grouped zones/outside, then new pairs and seeded priority. No2+2 quota was introduced. Individual-number coverage is implicit through pairs, not an extra optimized reward.
-
-
+동일 target·budget1/5/10/20·seed 42+target·unique nested tickets입니다. model은Top15,uniform은 전체45로 practical concentration과 broad coverage를 비교합니다. 모든 portfolio 후 actual/bonus를 읽으며 bonus는 training에 넣지 않습니다. coverage는 new five-subsets→uncovered grouped zones/outside→new pairs→seeded priority입니다. 2+2 quota는 없고 individual coverage는 pair에 암묵 포함되며 별도 최적 reward가 아닙니다.
 
 | model | method | budget | mean_best_match | draws_ge4 | draws_ge5 | prize1_tickets | prize2_tickets | prize3_tickets | delta_best_vs_uniform | paired_ci_low | paired_ci_high |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -478,41 +378,38 @@ All methods use identical target sets and budgets1/5/10/20, deterministic seed42
 | Uniform45 | uniform | 10 | 2.0319 | 4 | 0 | 0 | 0 | 0 | 0.0000 | 0.0000 | 0.0000 |
 | Uniform45 | uniform | 20 | 2.3594 | 9 | 0 | 0 | 0 | 0 | 0.0000 | 0.0000 | 0.0000 |
 
+range-aware20-ticket mean best1.8725 대 uniform2.3594입니다. 정보 없는 작은 pool 제한은 coverage를 줄이며 range allocation의 우위를 확립하지 못했습니다. 별도 정당화된 전략으로 range-aware allocation을 동결하지 않습니다. 세 scoring track은 experimental weighted/coverage portfolio를 남기되 우위를 주장하지 않습니다.
 
-Range-aware20-ticket mean best match1.8725 versus uniform2.3594. Restricting tickets to an uninformative small pool reduces broad coverage; range allocation does not establish superiority. No range-aware allocation will be frozen as a separately justified strategy. The three scoring models still freeze normal experimental weighted/coverage portfolios as required, without claiming superiority.
-
-
-
-Prize-equivalent events are saved in portfolio_prize_events.csv for each cadence. Nested budgets are not independent events; the same successful ticket may appear at multiple budgets. An isolated five-main-number event does not establish skill.
-
-
+cadence별 portfolio_prize_events.csv를 저장했습니다. nested budget은 독립 event가 아니며 같은 ticket이 여러 budget에 나타납니다. five-main event 하나는 skill 증거가 아닙니다.
 
 | model | method | target_draw | budget | prize1 | prize2 | prize3 |
 | --- | --- | --- | --- | --- | --- | --- |
 | GapLogistic | weighted | 1225 | 20 | 0 | 0 | 1 |
 
+## 출력과 검증
 
-## Outputs and verification
+당시 finite-axis 분석·두 scoring model·frozen gap combination·development selection·matched evaluation/portfolio·offline CLI·isolated publisher를 추가했습니다. 기존 formula/default는 유지했습니다.
 
+명령은 `analyze-number-space`, `compare-number-space --cadence 26`, `compare-number-space --cadence 13`, `freeze-number-space`입니다. 연구 출력은 `reports/number_space/`이며11 plots에 rolling ranking·global null maxima도 포함됩니다. 전체45 score/rank/cutoff audit를 저장했습니다.
 
+당시 baseline265 passed,2 skips에서 최종 **289 passed,2 dependency skips in45.05s**였습니다. verification.json에 기록했고 새 timing·boundary·selection·seeded null·ticket·publication·score consistency·integrity 테스트는 synthetic입니다. dependency 설치·network는 필요하지 않았습니다.
 
-Code adds reusable finite-axis analysis, two scoring models plus the frozen gap combination, development selection, matched evaluation/portfolios, offline commands and an isolated immutable publisher. Existing formulas/defaults remain intact.
+398 complete search 포함 analysis237.3s,frozen-selection rerun26은63.4s·13은65.1s입니다. 최초 development/평가136.9s이며 verified rerun에서 재선택하지 않았습니다. concurrent workload 영향을 받는 runtime입니다.
 
+## Prospective experiment
 
+한 번 독립 동결한 뒤 [Phase 10 원본](phase10-prospective.md)을 기록했습니다. 이전 Phase 5-9를 보존했고 당시 실제1246 결과 접근·commit/push는 없었습니다.
 
-Commands: `analyze-number-space`, `compare-number-space --cadence 26`, `compare-number-space --cadence 13`, `freeze-number-space`. Reports live only under reports/number_space/;11 plots cover all requested views plus rolling ranking performance and global null maxima. Full45 score/rank/cutoff audit rows are preserved.
+한 번 생성한 ID는 **draw 1246_phase10_numberspace_20261017T100839079270_ccb21ee9**,상태는 **FROZEN_UNEVALUATED**입니다. [원본](phase10-prospective.md)에 ranking·ticket/artifact link·SHA256이 있습니다. 당시 이전25파일·canonical hash가 같았고 frozen prediction 확인 뒤 model/parameter 변경은 없었습니다.
 
+## 해석
 
+선택된 neighborhood는 smoothing 없는 own-number control입니다. 이를 neighbor contribution의 근거로 해석할 수 없습니다.
 
-Initial baseline:265 passed,2 dependency-related skips. Final full suite: **289 passed, 2 existing dependency skips in45.05s**; evidence is recorded in verification.json. All new timing, boundary, selection, seeded null, ticket, publication, score-consistency and integrity tests use synthetic outcomes. No dependency installation or network access was required.
+## 한계
 
+번호축 인접성의 의미, rolling overlap, finite mixing, development 선택과 역사 구간 재사용이 한계입니다.
 
+## 다음 단계
 
-Analysis including398 complete surrogate searches: 237.3s. Verified frozen-selection reruns: cadence26 63.4s, cadence13 65.1s. Original development selection plus first evaluation took136.9s; no selection was repeated in the verified reruns. Timings depend on concurrent workload.
-
-
-
-The [Phase10 prospective record](phase10-prospective.md) is written after the one-time independent freeze. All prior Phase5-9 evidence remains immutable. No real draw1246 result is accessed; no commit/push.
-
-
-Publication completed once: **draw1246_phase10_numberspace_20261017T100839079270_ccb21ee9**, status **FROZEN_UNEVALUATED**. The [prospective record](phase10-prospective.md) lists rankings, ticket/artifact links and SHA256. All25 earlier files and the canonical hash were verified unchanged after publication. No model design or parameters were changed after viewing frozen predictions.
+[방법](number-space-analysis.md)과 [가설 노트](research-ideas.md)를 참고합니다. 다음 Phase 11 / H9는 BACKLOG이며 아직 실행되지 않았습니다. 현재 1246회는 새 prospective 대상이 아닙니다.

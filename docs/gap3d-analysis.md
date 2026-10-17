@@ -1,125 +1,61 @@
-# Phase7: causal gap-conditioned translations
+# Phase 7 — Gap-conditioned 3D 방법
 
-This phase adds exactly one state variable: CURRENT GAP. No recent frequency,
-calendar, periodicity, HMM state, other third dimension, or4D predictor is added.
-The premise that pooling different states can hide a translation is a hypothesis,
-not evidence. Phase5/6 predictions remain immutable, and no future result is accessed.
+## 목적과 연구 가설
 
-## Timing and state representation
+추가 상태는 CURRENT GAP 하나입니다. recent frequency·calendar·periodicity·HMM state·다른 차원·4D predictor를 추가하지 않았습니다. 상태 pooling이 translation을 가린다는 것은 가설입니다. Phase 5/6 예측은 보존하며 당시 미래 결과를 사용하지 않았습니다. H4는 TESTED / INCONCLUSIVE입니다.
 
-For target draw t, `gap=t-1-last_appearance_draw`, using draws strictly before t.
-Last appearance100 implies gap3 for target104. If the number appears in104, that
-only resets the state for105. Never-seen numbers have NaN gap and encoded state-1;
-their first winning occurrences are excluded from conditioned searches. Relative
-gap additionally needs two prior appearances to define a completed historical
-mean interval. The mean is `(last-first)/(appearances-1)` using prior appearances.
+## 데이터 표현과 핵심 정의
 
-`causal_states(X)` returns arrays for target states1..T+1. `state_table` exports
-only labeled historical targets1..T, with `feature_cutoff=target_draw-1` and
-`appeared_next` denoting appearance in that explicitly named target draw. There
-is no dense3D cube. The existing binary draw×number matrix is retained unchanged.
+target t의 `gap=t-1-last_appearance_draw`이며 t 이전 draw만 씁니다. 마지막 출현 100이면 target 104의 gap은 3입니다. 104 출현은 105 상태부터 reset합니다. never-seen의 gap은 NaN, encoded state는 -1이며 첫 winning occurrence는 conditioned search에서 제외합니다. relative gap은 과거 출현 두 번으로 completed mean interval을 정의해야 합니다. 이전 출현으로 `(last-first)/(appearances-1)`을 계산합니다.
 
-The encoder fits training pre-states only:
+`causal_states(X)`는 target states 1..T+1 배열을 반환합니다. `state_table`은 labeled historical targets 1..T만 export하며 `feature_cutoff=target_draw-1`, `appeared_next`는 명시된 target draw의 출현입니다. dense 3D cube 없이 기존 binary draw×number matrix를 유지합니다.
 
-- Exact/clipped: integer gap capped at `min(26,ceil(training95th percentile))`.
-- Quantile: low/medium/high from training1/3 and2/3 quantiles, observation-based
-  `higher` convention. Boundary ties remain in the lower bin; empty bins remain
-  explicit and cannot acquire support by merging or retuning.
-- Relative: gap/causal historical mean interval, fixed bins `<=.5`, `(.5,1.5]`,
-  `>1.5`. Undefined means remain missing.
+encoder는 training pre-state에만 fit합니다.
 
-Predictive encoders are refitted only at training cutoffs, then held fixed
-between fits. Descriptive full-history bins are not reused in earlier forecasts.
-All real data pre-states give cap21 and coarse bins0–2,3–7,8+; these are descriptive
-values, not universal predictor constants.
+- Exact/clipped: integer gap cap은 `min(26,ceil(training95th percentile))`입니다.
+- Quantile: training 1/3·2/3 quantile의 `higher` convention으로 low/medium/high를 만듭니다. 경계 동률은 lower bin에 남기고 empty bin은 merge·retune하지 않습니다.
+- Relative: gap/causal mean interval을 `<=.5`, `(.5,1.5]`, `>1.5`로 나누며 undefined mean은 missing입니다.
 
-## Searches and denominators
+predictive encoder는 training cutoff에서 refit 후 다음 fit까지 고정합니다. descriptive full-history bin을 이전 forecast에 재사용하지 않습니다. 실제 전체 pre-state의 cap21과 coarse 0–2,3–7,8+는 기술값이며 predictor 상수가 아닙니다.
 
-Conditional pair search scans dt1..52 and dn±1..15 for all three state encodings.
-Zero number displacement is excluded by the predeclared translational scope;
-fixed-number temporal behavior belongs to the earlier H1/H2 research.
-An eligible opportunity is an observed source point with matching PRE-source gap
-and a destination inside the finite rectangle. Rate=matching destination ones /
-opportunities. No number wrapping. Minimum100 opportunities; sparse rows are
-exported but excluded from search maxima and predictive selection.
+## 계산 방법과 분모
 
-The raw statistic is `(matches-n*p)/sqrt(n*p*(1-p))`, p=6/45. Marginal Wilson
-intervals ignore dependence and selection. Neither is a significance test after
-searching. Geometric opportunity counts and full-search surrogate maxima address
-the boundary and multiple-search issues respectively.
+세 encoding 모두 dt1..52, dn±1..15를 탐색합니다. 사전 translation 범위에서 zero number displacement를 제외하며 fixed-number temporal은 H1/H2에 속합니다. PRE-source gap이 맞고 destination이 finite rectangle 안인 observed source만 opportunity입니다. Rate=matching destination ones / opportunities이며 wrapping은 없습니다. 최소 100 opportunities입니다. sparse row는 export하되 maximum·predictive selection에서 제외합니다.
 
-Destination analysis scans all3×3 coarse source/destination bin combinations
-over the same shifts. Destination pre-gap is known just before its own draw but
-not necessarily at the earlier source time. These tables are DESCRIPTIVE_ONLY;
-predictive models never use them. The true3D family scans dt1..13,dn±1..6 and
-clipped pre-gap difference-3..3 with minimum100 opportunities, also descriptive.
-Clipped-gap displacements are not raw-gap displacements in the saturated tail.
+raw statistic은 `(matches-n*p)/sqrt(n*p*(1-p))`, p=6/45입니다. marginal Wilson은 dependence·selection을 무시하므로 둘 다 탐색 후 유의성 검정이 아닙니다. geometry별 opportunity와 full-search surrogate maximum으로 경계·다중 탐색을 다룹니다.
 
-Trajectories use the smaller shift grid and either one constant coarse state or
-a repeated clipped-gap difference-3..3. For lengths3/4/5, continuation opportunities
-require the previous L-1 observed points to obey the rule and the final pre-draw
-state to be eligible. They do not require the final outcome. Minimum20 such
-opportunities for a continuation z statistic. The longest trajectory is separately
-calibrated without that support filter, including lengths beyond5 where geometric
-bounds permit. This prevents simply ignoring an unusually long rare path.
+destination 분석은 같은 shift의 3×3 coarse source/destination bin을 봅니다. destination pre-gap은 자기 회차 직전에 알아도 source 시점에는 모를 수 있습니다. DESCRIPTIVE_ONLY이며 predictor 입력이 아닙니다. true3D는 dt1..13,dn±1..6, clipped pre-gap difference -3..3, 최소 100 opportunities이며 역시 기술 분석입니다. saturated tail에서 clipped displacement는 raw-gap displacement와 다릅니다.
 
-Only maximal paths (no observed compatible predecessor) are exported, including
-raw and clipped starting gap, geometric maximum, endpoints, and suppressed nested
-fragment counts. Distinct parameterizations may still share points; no independence
-is asserted. Configuration counts include both rule/length tuples and all possible
-rule/length/start-position tests. Data-driven early pruning does not reduce the
-effective search space. A3D Hough intercept search is deliberately deferred: the
-optional extra family would expand a sparse search without a clearer hypothesis.
+trajectory는 작은 shift grid에서 일정 coarse state 또는 반복 clipped difference -3..3입니다. 길이 3/4/5 continuation은 이전 L-1 observed points와 마지막 pre-state를 요구하며 final outcome을 조건으로 쓰지 않습니다. continuation z는 최소 20 opportunities입니다. longest trajectory는 그 filter 없이 별도 calibration하고 기하학적으로 가능한 5 초과 길이도 포함합니다.
 
-## Surrogates and evidence
+compatible observed predecessor가 없는 maximal path만 export하며 raw/clipped start gap·geometric maximum·endpoints·억제한 nested fragment 수를 보존합니다. 서로 다른 parameter도 점을 공유하므로 독립성을 주장하지 않습니다. count에는 rule/length tuple과 모든 rule/length/start-position을 포함합니다. data-driven pruning으로 effective search를 줄이지 않습니다. sparse search 확장을 피하기 위해 3D Hough intercept는 보류했습니다.
 
-Each of199 IID and199 constrained histories undergoes the SAME search, including
-recomputed causal gap arrays and refitted cap/bin boundaries. Fixed-margin nulls
-perform20*T independent curveball trades, preserving six points per row and exact
-per-number totals. Finite mixing is approximate; exact margins do not prove exact
-uniform sampling of all constrained histories. The null does not attach real gap
-states to shuffled points.
+## Null / surrogate 설계와 Global search correction
 
-Five maximum families: conditional source state (all representations together),
-destination states, true3D displacement, trajectory continuation, longest trajectory.
-`p_global=(1+count(null_max>=real_max))/(B+1)`; Bonferroni across5 families is then
-applied separately for both nulls. Any evidence must survive both. For199 replicates,
-the raw resolution is.005, adjusted resolution.025. Configuration counts may vary
-slightly by surrogate because the clipping cap is learned by the same fixed recipe;
-those counts and seeds are retained.
+199 IID와 199 constrained history마다 causal gap·cap/bin을 다시 계산·fit한 뒤 동일 탐색을 합니다. fixed-margin은 20*T independent curveball trades로 row별 six points와 per-number totals를 보존합니다. finite mixing은 근사이며 exact uniform sampling을 보장하지 않습니다. 실제 gap state를 shuffled points에 붙이지 않습니다.
 
-The(+42,-5) conditional follow-up was chosen from Phase6 data. Local null comparisons
-by coarse state are exported, but are NOT independent preregistered evidence. The
-same rule is already included in the corrected global conditional search.
+다섯 maximum family는 모든 표현의 conditional source state·destination·true3D displacement·trajectory continuation·longest trajectory입니다. `p_global=(1+count(null_max>=real_max))/(B+1)` 뒤 각 null 안에서 5-family Bonferroni를 적용하며 두 null 모두 통과해야 합니다. 199 replicates에서 raw resolution은 .005, adjusted는 .025입니다. 동일 recipe로 학습하는 cap 때문에 surrogate별 configuration 수가 조금 변할 수 있어 count·seed를 보존합니다.
 
-## Predictive protocol and interpretation
+(+42,-5)는 Phase 6에서 선택한 follow-up입니다. coarse-state별 local null을 export하지만 독립 preregistered evidence는 아닙니다. 같은 rule은 global conditional search에 포함됩니다.
 
-The predeclared primary models use coarse source-gap bins. Pair and chain rules
-require minimum100 and20 training opportunities respectively, shrink with100 prior
-opportunities at6/45, and retain20 strongest positive excess rates. Chain prediction
-requires two observed predecessors and conditions on the most recent source's
-PRE-draw gap. Destination conditions and descriptive full-history discoveries are
-not predictor inputs. Ranking support is not a calibrated appearance probability.
+## Leakage 방지와 예측 protocol
 
-Both new models are compared with their unchanged Phase6 parents, unchanged Gap
-Logistic and the identical seeded Random baseline on targets401–1245, cadence26;
-primary sensitivity cadence13. Development ends900. The later901–1245 period is
-later in this protocol, not a pristine historical holdout after earlier phases.
-Starts401/501/601/701/801/901 slice one run and preserve its refit calendar. All
-three state representations are fixed ablations; no winner is selected on evaluation.
-New models also impose the requested sparse-support safeguards. Parent defaults
-are preserved, so this comparison measures the complete conditioned model change,
-not a mathematical isolation of conditioning from minimum-support filtering.
+primary는 사전 coarse source-gap bin입니다. pair / chain은 최소 100 / 20 training opportunities, 6/45의 prior 100으로 shrink하며 상위 20 positive excess를 남깁니다. Chain은 observed predecessor 두 개와 최근 source PRE-gap을 조건으로 씁니다. destination 조건과 full-history 발견은 입력이 아닙니다. ranking support는 calibrated probability가 아닙니다.
 
-Paired26-draw circular block bootstrap intervals use2000 replicates, versus both
-Random and the matching2D parent, for hits, ranks, recall and pool coverage. Higher
-winning-number rank is worse; lower is better. Intervals are exploratory and not
-multiplicity-corrected. Degenerate bootstrap intervals for zero rare events do not
-exclude future events. Pool containment is distinct from ticket prize events.
+동일 targets 401–1245, cadence 26에서 기존 Phase 6 parent·Gap Logistic·seeded Random과 비교하며 sensitivity cadence 13입니다. development는 900까지, later는 901–1245이며 pristine holdout이 아닙니다. starts 401/501/601/701/801/901은 한 실행을 slice하고 refit calendar를 유지합니다. 세 표현은 고정 ablation으로 evaluation에서 winner를 선택하지 않습니다. 새 모델에는 sparse-support filter도 있으므로 기존 parent와의 전체 model 비교이며 conditioning만 분리한 효과가 아닙니다.
 
-Only the two predeclared coarse-bin models are prospectively frozen. No ensemble
-is selected. Separate `reports/prospective/phase7/` files contain all scores/ranks,
-Top6/8/10/12/15, directTop6, deterministic weighted/coverage Top12 portfolios with
-nested1/5/10/20 budgets, configurations, encoder boundaries, fitted rules, source
-code, environment and integrity hashes. Original Phase5/6 hashes are recorded and
-verified before and after publication. No target result is fetched or evaluated.
+## 평가 지표
+
+2000회 paired 26-draw circular block bootstrap으로 Random·같은 2D parent 대비 hit·rank·recall·pool을 비교합니다. winning-number rank는 낮을수록 좋습니다. interval은 탐색적이며 multiplicity correction이 없습니다. zero rare-event bootstrap 퇴화는 미래 사건을 배제하지 않습니다. pool containment와 ticket prize를 구분합니다.
+
+## Prospective experiment
+
+사전 coarse-bin 두 모델만 동결하고 ensemble은 선택하지 않았습니다. 별도 `reports/prospective/phase7/`에 score/rank·Top6/8/10/12/15·direct Top6·Top12 weighted/coverage nested 1/5/10/20 portfolio·설정·encoder·rule·source·environment·integrity를 보존했습니다. 당시 Phase 5/6 hash를 전후 확인했고 target 결과를 가져오거나 평가하지 않았습니다. [당시 원본](phase7-prospective.md)은 그대로 보존합니다.
+
+## 출력 파일과 CLI
+
+출력은 `reports/spatiotemporal3d/`입니다. `python main.py analyze-gap3d`, `python main.py compare-gap3d`, sensitivity `--cadence 13 --primary-only`가 있습니다. 당시 동결 명령은 `freeze-gap3d`입니다.
+
+## 한계와 현재 결과
+
+희소 상태·경로 중첩·finite mixing·역사 구간 재사용이 한계입니다. [완료 결과](phase7-results.md)와 [현재 workflow](prospective-workflow.md)를 참고합니다.

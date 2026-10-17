@@ -1,12 +1,18 @@
-# Phase8 historical results
+# Phase 8 — Recent-frequency-conditioned 3D 결과
 
-This report records recent frequency as a replacement third dimension. Gap and frequency are not combined. No4D model or neural network is implemented. All actual historical inputs stop at1245; no draw1246 result is accessed. **H5: TESTED / INCONCLUSIVE.** No statistic family survives complete-search correction under either null, and leakage-safe prediction does not establish superiority. No combination or evaluation-selected window is promoted.
+## 결론
 
-## Causal state definitions and support
+frequency를 gap 대신 세 번째 차원으로 시험했으며 둘을 결합하지 않았습니다. 4D·neural network는 없습니다. 실제 history는1245까지이며 당시1246 결과를 사용하지 않았습니다. **H5: TESTED / INCONCLUSIVE.** 두 null의 complete-search 보정 후 통과 family나 leakage-safe 예측 우위는 없었습니다. 조합·evaluation-selected window를 승격하지 않았습니다.
 
-For target t, count_W sums draws t-W through t-1 only. A full window is required. Rate=count/W; the historical rate uses all completed draws before t. Relative frequency is recent_rate/historical_rate, missing if the denominator is zero. Missing states are excluded, never silently mapped to an ordinary state. Bonus numbers are excluded. The exported historical feature table has168,075 rows (1245 draws x45 numbers x3 windows).
+## 가설
 
-Raw counts and normalized rates are identical partitions within W and are searched once, with both values exported. Quantile boundaries are training-only1/3 and2/3 quantiles using higher, boundary ties lower. Relative bins use fixed0.5/1.5 boundaries. Descriptive full-history bins and observed ranges:
+W10/W26/W52의 source frequency 상태가 translation과 chain의 예측 가치를 높이는지 검증했습니다.
+
+## 데이터 및 검증 범위
+
+target t count_W는 t-W..t-1의 full window만 사용합니다. rate=count/W, historical rate는 t 이전 전체입니다. relative=recent_rate/historical_rate로 denominator zero면 missing입니다. missing을 ordinary state로 바꾸지 않고 제외하며 bonus도 제외합니다. export168,075 rows=1245 draws×45 numbers×3 windows입니다.
+
+count/rate는 W 안에서 같은 partition이므로 한 번만 탐색하고 둘 다 export합니다. training-only1/3·2/3 quantile,higher·boundary tie lower입니다. relative는0.5/1.5 고정이며 아래는 full-history descriptive 값입니다.
 
 | W | Possible counts | Observed counts | COLD | NEUTRAL | HOT |
 |---|---|---|---|---|---|
@@ -14,7 +20,7 @@ Raw counts and normalized rates are identical partitions within W and are search
 |26|0..26|0..12|0..3|4|5+|
 |52|0..52|0..17|0..6|7..8|9+|
 
-These descriptive thresholds are never reused in earlier predictions. Missing state -1 means insufficient past history. Counts below:
+이 threshold는 과거 예측에 재사용하지 않습니다. state-1은 history 부족이며 count는 다음과 같습니다.
 
 | window | representation | state | observations | winning_sources |
 |---|---|---|---|---|
@@ -31,23 +37,26 @@ These descriptive thresholds are never reused in earlier predictions. Missing st
 | 52 | quantile | 1 | 16090 | 2148 |
 | 52 | quantile | 2 | 13628 | 1831 |
 
+count tie를 유지해 support가 다릅니다. zero-support 가능 state까지 raw distribution·quantile·relative support를 export합니다. W10 counts 5+,W26 counts 8+,W52 counts 0..1/13+는 winning source100 미만이라 extreme rate여도 supported maximum이 될 수 없습니다.
 
-Coarse supports are unequal because count ties are retained. Full raw count distributions, including zero-support possible states, quantiles and relative-state supports are exported. Extreme raw states have fewer than100 winning sources: W10 counts5+, W26 counts8+, and W52 counts0..1 or13+. They cannot dominate supported maxima, even if their raw rates look extreme.
+## 방법
 
-## Exact search space
+causal frequency encoding과 동일한 전체 surrogate 탐색을 사용합니다.
 
-- Conditional configurations:175,708;67,447 meet minimum100 source opportunities. Includes dt1..52,dn-15..15 and all declared window/state representations. Zero displacement is an included fixed-number reference; predictive rules and translational leader summaries exclude zero.
-- Directional configurations:87,360;34,843 supported. Includes positive-minus-negative contrasts with separate boundary denominators and coarse HOT-minus-COLD interactions.
-- True count-displacement configurations:1,404; dt1..13,dn+/-1..6,delta_count-1..1. Destination conditions DESCRIPTIVE ONLY.
-- Trajectory length3/4/5 configurations:8,424, a subset of43,212 total geometrically possible rule/length tuples.
-- Total distinct parameter configurations:307,684. Do not add the length3/4/5 subset again.
-- Geometric trajectory rule/length/start-position candidates:1,095,903,536 before data pruning; these overlap and are not independent.
+## 정확한 탐색 범위
 
-All windows are pooled in the five global statistic families. Optional Hough3D was deferred because the extra sparse intercept family adds little interpretability.
+- conditional175,708 중67,447개가 support 100입니다. dt1..52,dn-15..15와 모든 window/state를 포함합니다. zero는 reference이며 predictive/leader에서 제외합니다.
+- directional87,360 중34,843 supported이며 각 boundary denominator와 HOT-minus-COLD를 포함합니다.
+- true displacement1,404개:dt1..13,dn+/-1..6,delta_count-1..1,destination은 DESCRIPTIVE ONLY입니다.
+- length3/4/5는8,424개로 전체43,212 geometric rule/length의 subset입니다.
+- unique307,684이며 length3/4/5를 더하지 않습니다.
+- pruning 전 start 후보1,095,903,536은 겹치며 독립 검정이 아닙니다.
 
-## Strongest raw conditional and trajectory findings
+전체 window를 다섯 global family에 pooling합니다. sparse intercept 추가의 해석 한계로 Hough3D는 보류했습니다.
 
-Translational leaders per window, across representations, requiring minimum100 opportunities:
+## 주요 결과
+
+각 window·모든 representation에서 support 100 이상인 translation leader입니다.
 
 | window | representation | state | delta_draw | delta_number | valid_opportunities | matches | match_rate | raw_z |
 |---|---|---|---|---|---|---|---|---|
@@ -55,8 +64,7 @@ Translational leaders per window, across representations, requiring minimum100 o
 | 26 | quantile | 2 | 12 | 6 | 1673 | 282 | 0.1686 | 4.2386 |
 | 52 | count | 4 | 18 | -11 | 435 | 86 | 0.1977 | 3.9493 |
 
-
-These are raw selected observations, not predictive discoveries. True bounded count-displacement leaders:
+raw selected observation이며 predictive discovery가 아닙니다. 다음은 bounded count-displacement leader입니다.
 
 | window | delta_draw | delta_number | delta_count | valid_opportunities | matches | raw_z |
 |---|---|---|---|---|---|---|
@@ -64,8 +72,7 @@ These are raw selected observations, not predictive discoveries. True bounded co
 | 52 | 11 | -5 | 0 | 724 | 125 | 3.1122 |
 | 26 | 10 | 6 | 0 | 1032 | 170 | 2.9669 |
 
-
-Strongest supported continuation statistics:
+최강 supported continuation입니다.
 
 | window | kind | rule | delta_draw | delta_number | chain_length | valid_opportunities | matches | raw_z |
 |---|---|---|---|---|---|---|---|---|
@@ -73,8 +80,7 @@ Strongest supported continuation statistics:
 | 26 | same_bin | 0 | 9 | -4 | 3 | 119 | 30 | 3.8113 |
 | 10 | same_bin | 0 | 11 | 2 | 4 | 22 | 9 | 3.8049 |
 
-
-Longest maximal paths:
+longest maximal path입니다.
 
 | window | kind | rule | start_draw | start_number | start_count | delta_draw | delta_number | chain_length | end_draw | end_number |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -85,12 +91,11 @@ Longest maximal paths:
 | 10 | same_bin | 0 | 1154 | 22 | 1 | 3 | -2 | 6 | 1169 | 12 |
 | 26 | same_bin | 2 | 563 | 32 | 6 | 8 | -6 | 6 | 603 | 2 |
 
+W10 COLD의289/number33/count 1→334/13은(+9,-4)의6 points이며 모두 count 1입니다. 같은 점이 COLD chain·zero-count-displacement 양쪽에 속하므로 독립 발견이 아닌 중첩 설명입니다. nested fragment를 억제합니다.
 
-A W10 COLD path from(draw289,number33,count1) through(draw334,number13) has6 points under(+9,-4), all with count1. The same points qualify as both a coarse COLD chain and zero-count-displacement chain; these are overlapping descriptions, not independent discoveries. Nested fragments are suppressed.
+## Walk-forward 결과
 
-## Identical-target walk-forward comparison
-
-Targets401..1245 (845 draws), expanding past-only fitting, cadence26, seed42. Existing baseline score/ranking/cutoff/hit records exactly reproduce all5,070 prior Phase7 rows at each of the26 and13 cadences. Every new model and reference uses the same target draws.
+401..1245의845 targets,expanding past-only fit,cadence 26,seed 42입니다. 기존 baseline은 Phase 7의26/13 cadence별5,070 rows의 score/rank/cutoff/hit를 정확히 재현했습니다. 모든 새 model/reference는 같은 targets입니다.
 
 | model | avg_hits | mean_winning_rank | recall_6 | recall_10 | recall_15 |
 |---|---|---|---|---|---|
@@ -107,10 +112,9 @@ Targets401..1245 (845 draws), expanding past-only fitting, cadence26, seed42. Ex
 | GapLogistic | 0.8426 | 22.8529 | 0.1404 | 0.2260 | 0.3389 |
 | RandomModel | 0.8024 | 23.0156 | 0.1337 | 0.2221 | 0.3327 |
 
+random Top6 expectation0.8입니다. 모든 frequency variant의 full-period Random 차이 interval은 zero를 포함합니다. frequency-chain 점추정치는2D parent보다 낮습니다. mean winning rank는 낮을수록 좋으며 full0..6·ranking/pool을 export합니다.
 
-Theoretical random Top6 expectation is0.8. Every frequency variant has a full-period hit difference versusRandom with an interval containing zero. Frequency-chain point estimates are lower than their2D parents. Mean winning rank is better when lower. Full0..6 hit distributions and ranking/pool metrics are exported.
-
-Paired new-model differences against all three required references,2000 circular26-draw block bootstrap replicates, seed42. Unadjusted exploratory intervals:
+세 reference 대비2000 circular26-draw block bootstrap,seed 42의 unadjusted exploratory interval입니다.
 
 | model | reference | difference | ci_low | ci_high |
 |---|---|---|---|---|
@@ -133,12 +137,11 @@ Paired new-model differences against all three required references,2000 circular
 | FrequencyConditionedChainModel_W52 | ChainModel | -0.0154 | -0.0970 | 0.0639 |
 | FrequencyConditionedChainModel_W52 | GapConditionedChainModel | 0.0107 | -0.0533 | 0.0757 |
 
+chain ablation은 state family뿐 아니라 eligibility도 바꿉니다. Phase 8은 두 predecessor의 동일 state,Phase 7은 최근 source 조건입니다. 기존 default를 보존한 전체 model 비교이며 모든 filter 차이를 분리한 것이 아닙니다.
 
-The direct chain ablation changes the declared source-state requirement as well as state family: Phase8 requires both predecessors in the same state; Phase7 gap chains condition on the most recent source. Earlier defaults are preserved. This is a complete-model comparison, not mathematical isolation of every eligibility change.
+## 시간 robustness와 window 선택
 
-## Historical robustness and window selection
-
-Multiple start points are nested slices of the original refit schedule, not a search for favorable new predictions:
+multiple start는 기존 refit schedule의 nested slice이며 유리한 새 prediction 탐색이 아닙니다.
 
 | evaluation_start | FrequencyConditionedChainModel | FrequencyConditionedTranslationModel | RandomModel |
 |---|---|---|---|
@@ -149,8 +152,7 @@ Multiple start points are nested slices of the original refit schedule, not a se
 | 801 | 0.7191 | 0.8247 | 0.7685 |
 | 901 | 0.7362 | 0.8348 | 0.7681 |
 
-
-Historical block boundaries are401..682,683..964,965..1245. Frequency-model averages and differences versusRandom vary through time:
+block은401..682,683..964,965..1245입니다. frequency의 평균·Random 차이는 시간에 따라 변합니다.
 
 | model | block | avg_hits | delta_vs_random |
 |---|---|---|---|
@@ -173,8 +175,7 @@ Historical block boundaries are401..682,683..964,965..1245. Frequency-model aver
 | FrequencyConditionedChainModel_W52 | middle | 0.7695 | -0.0071 |
 | FrequencyConditionedChainModel_W52 | recent | 0.7687 | 0.0036 |
 
-
-Cadence13 sensitivity refits all windows independently:
+cadence 13 sensitivity는 각 window를 별도 refit합니다.
 
 | model | evaluation_start | avg_hits | paired_ci_low | paired_ci_high |
 |---|---|---|---|---|
@@ -203,12 +204,11 @@ Cadence13 sensitivity refits all windows independently:
 | GapLogistic | 901 | 0.8203 | -0.0522 | 0.1652 |
 | RandomModel | 901 | 0.7681 | 0.0000 | 0.0000 |
 
+development-only401..900 selector의 tie는26→10→52입니다. cadence 26에서 W10 Translation(development 0.816,later 0.7855),W52 Chain(0.780,0.7768)을 골랐습니다. 901..1245는 선택에서 제외했어도 pristine holdout은 아닙니다. 신뢰할 우위나 사전 W26 대체를 정당화하지 못했고 조합도 없습니다. 두 cadence의 selection/later를 따로 export합니다.
 
-The development-only selector uses outcomes401..900, ties26 then10 then52. At cadence26 it selected W10 Translation (development0.816; later0.7855) and W52 Chain (development0.780; later0.7768). The later901..1245 period is excluded from selection, but is not a pristine holdout after earlier project phases. These choices do not establish reliable superiority and do not replace the prospectively predeclared W26 tracks. No combination was added. Selection decisions and later metrics are exported at both cadences.
+## Candidate-pool / prize-aware 결과
 
-## Candidate-pool concentration
-
-Full-period counts for at least5 main winners and all6, by pool size. These are candidate-pool containment events, not ticket prize wins:
+full-period pool별 >=5·all6 count입니다. ticket prize가 아닌 containment입니다.
 
 | model | Top8_5plus | Top8_all6 | Top10_5plus | Top10_all6 | Top12_5plus | Top12_all6 | Top15_5plus | Top15_all6 |
 |---|---|---|---|---|---|---|---|---|
@@ -225,18 +225,17 @@ Full-period counts for at least5 main winners and all6, by pool size. These are 
 | GapLogistic | 0 | 0 | 2 | 0 | 5 | 0 | 10 | 0 |
 | RandomModel | 0 | 0 | 0 | 0 | 2 | 0 | 8 | 0 |
 
+Top8/10/12/15 exact P>=5는0.000258/0.001109/0.003322/0.011675,845 draws 기대0.218/0.937/2.807/9.865입니다. primary W26 Translation은0/1/4/7·all6 없음,Chain은1/1/2/6·Top15 all6 두 번입니다. 희귀 count는 우위 증거가 아닙니다. 모든 분포·expectation·marginal/paired interval을 저장하며 zero-event 퇴화·multiplicity·nested dependence를 주의합니다.
 
-Exact random P(pool>=5) is0.000258/0.001109/0.003322/0.011675 for Top8/10/12/15. Over845 draws these imply expected counts0.218/0.937/2.807/9.865. The primary W26 translation produced0/1/4/7 events and no all6 containment. W26 chain produced1/1/2/6 five-plus events and two Top15 all6 events. These rare counts are not proof of an advantage; all pool distributions, exact expectations, marginal intervals and paired intervals are exported. Zero-event bootstrap intervals can degenerate. Multiplicity and nested-pool dependence remain important.
+## 출력과 재현
 
-## Files and reproducibility
+[방법](frequency3d-analysis.md)·[당시 protocol](superpowers/plans/2026-10-17-phase8.md). `reports/spatiotemporal_frequency/`는 causal state·support·conditional/directional/displacement·maximal paths·surrogate maxima/seeds·follow-up·rolling/era·plots·walk_forward_26/·walk_forward_13/ audit를 저장합니다.
 
-[Methods](frequency3d-analysis.md); [predeclared protocol](superpowers/plans/2026-10-17-phase8.md). Reports are under reports/spatiotemporal_frequency/: causal historical states, count/quantile/relative support, conditional/directional/displacement tables, maximal paths, complete surrogate maxima/seeds, follow-up tables, rolling/era stability, static plots, and walk_forward_26/ plus walk_forward_13/ audits and metrics.
+실제 input은1245까지,canonical SHA-256 `b3de32b409c9edd3da5525ad0280d3f59cd21bf0618feda16d3947686c27a11e`,당시 HEAD `d6fde72b65e7311f5c6d532938db26a1ff353bdf`입니다. 전체245 tests·2 dependency skips,39.35s였습니다. 독립 scalar synthetic review로 search/predictor count·score·isolation을 확인했고 complete rolling window가 없는 short history도 처리합니다.
 
-All actual inputs stop at1245, canonical SHA-256 `b3de32b409c9edd3da5525ad0280d3f59cd21bf0618feda16d3947686c27a11e`. HEAD before Phase8: `d6fde72b65e7311f5c6d532938db26a1ff353bdf`. The full suite passed245 tests with2 existing dependency skips in39.35s. Independent synthetic scalar review matched search and predictor counts/scores and verified artifact isolation. The complete pipeline also handles short histories without complete rolling windows.
+## Null / surrogate 비교
 
-## Completed global-null evidence
-
-All199 IID and199 fixed-margin searches completed, recomputing states and quantile boundaries each time. Every surrogate used the same307,684 configurations and1,095,903,536 potential trajectory start-position candidates. No family survives correction.
+199 IID·199 fixed-margin 모두 state·quantile을 재계산해 같은307,684 configurations·1,095,903,536 potential starts를 탐색했습니다. 보정 후 통과가 없습니다.
 
 | null_model | statistic | real_max | global_p | adjusted_p |
 |---|---|---|---|---|
@@ -251,9 +250,9 @@ All199 IID and199 fixed-margin searches completed, recomputing states and quanti
 | iid | trajectory | 3.9064 | 0.3200 | 1 |
 | iid | longest_trajectory | 6.0000 | 0.8950 | 1 |
 
-The five families pool ALL windows and representations; Bonferroni5 is applied within each null. All adjusted p-values are1.0. The six-point longest chain is very common among random histories' best chains: global p0.895 IID and0.870 fixed margins. Raw attractive trajectories and local peaks therefore supply no unusual structure under this search.
+다섯 family는 전체 window/representation을 합치고 null별 Bonferroni5입니다. adjusted p는 모두1.0입니다. six-point chain도 random best에서 흔하며 global p는 IID0.895·fixed0.870입니다. 눈에 띄는 raw path/local peak가 unusual structure를 제공하지 못합니다.
 
-The Phase6(+42,-5) follow-up has COLD/NEUTRAL/HOT match rates:
+Phase 6의(+42,-5) follow-up COLD/NEUTRAL/HOT rate입니다.
 
 | window | state_label | match_rate | local_followup_p |
 |---|---|---|---|
@@ -267,13 +266,24 @@ The Phase6(+42,-5) follow-up has COLD/NEUTRAL/HOT match rates:
 | 52 | NEUTRAL | 0.1401 | 0.1900 |
 | 52 | HOT | 0.1533 | 0.0100 |
 
-COLD is strongest forW10; COLD andHOT are similar forW26/W52, with lower NEUTRAL rates. This is not an exclusive HOT-state relationship. Several local p-values reach0.005, but the shift was chosen in Phase6 and the complete conditional maximum has global p0.330/0.380. It is not independent preregistered evidence. Both-null local details are retained in the CSV.
+W10은 COLD 최대,W26/W52는 COLD·HOT가 비슷하고 NEUTRAL이 낮습니다. HOT만의 관계가 아닙니다. 일부 local p 0.005여도 Phase 6 선택이고 complete maximum global p 0.330/0.380이라 독립 preregistration이 아닙니다. 두 null local detail은 CSV에 있습니다.
 
-Complete descriptive/null/export/plot runtime: 1039.3s (about17.3 minutes). Walk-forward cadence26 took77.0s; cadence13 took99.1s, including features and reports. Eight static plots were saved and representative heatmaps/trajectories inspected. Rolling curves suppress windows below100 source opportunities; the CSV retains their counts/rates/eligibility.
+전체 descriptive/null/export/plot1039.3s(약17.3 minutes),walk-forward26은77.0s,13은99.1s로 feature/report 포함입니다. 8 static plots와 대표 heatmap/path를 확인했습니다. rolling plot은 support 100 미만을 숨기나 CSV는 count/rate/eligibility를 남깁니다.
 
-## Prospective decision
+## Prospective experiment
 
-Historical selection is complete. Exactly the two predeclared quantileW26 tracks were frozen independently. No model redesign, window promotion, ensemble or threshold adjustment follows the historical results. The optional development-selected diagnostics do not justify an additional prospective track. The [prospective record](phase8-prospective.md) links the single new snapshot, exact tickets, registry and hashes. Earlier Phase5/6/7 evidence remains immutable.
+historical selection 후 사전 quantileW26 두 track만 독립 동결했습니다. model 재설계·window 승격·ensemble·threshold 변경은 없었습니다. optional development 진단도 추가 track을 정당화하지 못했습니다. [원본 기록](phase8-prospective.md)에 snapshot·exact tickets·registry·hash가 있고 이전 Phase 5/6/7은 보존합니다.
 
+snapshot은2026-10-17T09:18:15.127269+09:00에 한 번 생성해 당시 FROZEN_UNEVALUATED를 검증했습니다. 당시 이전15파일·canonical hash는 같았고 commit/push·target result 접근은 없었습니다.
 
-The Phase8 snapshot was created once at 2026-10-17T09:18:15.127269+09:00; verified FROZEN_UNEVALUATED. All15 earlier files and canonical SHA-256 are unchanged after publication. No commit/push or target-result access occurred.
+## 해석
+
+일부 local follow-up과 rare pool event는 전체 탐색에서 선택된 결과이므로 독립적인 예측 증거가 아닙니다.
+
+## 한계
+
+희소 상태, count 동률, window 선택, 겹치는 경로와 역사 구간 재사용이 한계입니다.
+
+## 다음 단계
+
+후속 [Phase 9는 완료](phase9-results.md)되었습니다. 현재 1246회는 알려졌으며 [현재 workflow](prospective-workflow.md)와 당시 기록을 구분합니다.

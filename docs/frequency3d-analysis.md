@@ -1,149 +1,61 @@
-# Phase8 methods: recent-frequency-conditioned translations
+# Phase 8 — Recent-frequency-conditioned 3D 방법
 
-Frequency replaces gap as the third state dimension. They are different summaries:
-two numbers with gap2 can have different counts of appearances before their latest
-occurrence. This phase asks whether source COLD/NEUTRAL/HOT frequency state
-conditions a draw/number translation. It is exploratory. Gap is used only by the
-unchanged, separately evaluated historical baseline models. It is never an input
-to a frequency-conditioned predictor. No4D model, neural network, or additional
-state family is implemented.
+## 목적과 연구 가설
 
-## Causal states and missing observations
+세 번째 상태를 gap에서 frequency로 바꿉니다. gap 2가 같아도 최근 출현 전의 빈도는 다를 수 있습니다. source COLD/NEUTRAL/HOT가 draw/number translation을 조건화하는지 탐색합니다. gap은 기존 별도 baseline에서만 사용하고 frequency predictor에는 넣지 않습니다. 4D·neural network·추가 state family는 구현하지 않았습니다. H5는 TESTED / INCONCLUSIVE입니다.
 
-For target t, W is exactly10,26,52. Count uses draws t-W through t-1, inclusive;
-rate=count/W. State t is unchanged when outcome t is altered. Earlier than W
-completed draws, both count and rate are missing, encoded-1 and excluded from
-conditioned source searches. Partial windows are not divided by W.
+## 데이터 표현과 핵심 정의
 
-The prior number rate is appearances in all completed draws before t divided by
-t-1. Relative frequency is recent_rate/prior_rate; zero prior rate makes the
-relative state missing. It is not replaced with zero or infinity. Zero recent
-count with a positive prior denominator is a legitimate cold observation.
-The feature table includes deviations from6/45 and from the prior historical
-rate. Bonus numbers are excluded. The labeled table uses target_draw t and
-feature_cutoff t-1; appeared_next denotes appearance in that explicitly named
-target. There is no dense cube or actual future target label.
+target t의 W는 10,26,52이며 t-W..t-1을 포함해 count, rate=count/W를 계산합니다. 결과 t를 바꿔도 state t는 같습니다. 완료 draw가 W 미만이면 count/rate는 missing, encoded -1로 source search에서 제외합니다. partial window를 W로 나누지 않습니다.
 
-Count0..W and normalized rate0..1 are bijective within a window. Both are exposed
-and exported, but their identical partitions are searched once under `count`.
-Quantile states fit training-prestate1/3 and2/3 count quantiles using `higher`;
-edge ties go to the lower bin. Unequal supports or an empty bin caused by ties
-are retained, not repaired by threshold optimization. Relative bins have fixed
-boundaries0.5 and1.5. Full-history descriptive bins never enter historical
-predictions; each model has its own training-prefix encoder, frozen between fits.
+prior number rate는 t 이전 전체 appearances/(t-1)입니다. relative frequency=recent_rate/prior_rate이며 prior가 0이면 missing입니다. zero·infinity로 대체하지 않습니다. positive prior에서 recent count 0은 유효한 cold observation입니다. feature에는 6/45와 historical rate 대비 deviation을 포함하고 bonus는 제외합니다. target_draw t, feature_cutoff t-1, appeared_next는 해당 target의 출현입니다. dense cube·실제 미래 label은 만들지 않습니다.
 
-## Complete descriptive search
+count 0..W와 rate 0..1은 window 안에서 bijective이므로 둘 다 export하지만 동일 partition은 `count`로 한 번만 탐색합니다. training-prestate 1/3·2/3 quantile에 `higher`를 사용하고 경계 동률은 lower bin입니다. 불균등 support·empty bin을 그대로 두며 threshold를 최적화하지 않습니다. relative bin 경계는 0.5·1.5입니다. full-history descriptive bin은 과거 예측에 쓰지 않고 모델별 training encoder를 refit 사이에 고정합니다.
 
-Conditional pairs use dt1..52 and dn-15..15, including zero as a fixed-number
-reference. Translational leader summaries and predictive rules exclude zero.
-Every opportunity is an observed winning source in a supported causal state
-with destination inside the finite draw/number rectangle. No number wrapping.
-Rate=matches/opportunities; baseline6/45; lift=rate/(6/45). Minimum100 source
-opportunities. Sparse rows are exported but cannot win supported maxima.
+## 계산 방법
 
-Raw z=(matches-n*p)/sqrt(n*p*(1-p)). Wilson intervals are marginal diagnostics
-that ignore dependence and selection. They are not corrected significance tests.
+conditional pair는 dt1..52, dn-15..15이며 zero는 fixed-number reference입니다. translational leader와 predictive rule은 zero를 제외합니다. causal state가 있고 destination이 finite rectangle 안인 winning source가 opportunity이며 wrapping은 없습니다. Rate=matches/opportunities, baseline6/45, lift=rate/(6/45), 최소 100 opportunities입니다. sparse row는 export하되 supported maximum이 될 수 없습니다.
 
-Directional pairs normalize positive and negative displacement separately using
-their own geometric opportunity counts. The raw contrast divides rate difference
-by sqrt(p*(1-p)*(1/n_positive+1/n_negative)); both directions must have support100.
-The coarse HOT-minus-COLD interaction subtracts these directional rate differences
-and sums their reference variances. Overlap and dependence invalidate a simple
-normal p-value, so absolute contrast maxima are calibrated against full null runs.
+raw z=(matches-n*p)/sqrt(n*p*(1-p))입니다. Wilson interval은 dependence·selection을 무시한 marginal 진단이며 보정된 유의성 검정이 아닙니다.
 
-True count-displacement search uses dt1..13,dn±1..6,delta_count-1..1. Destination
-pre-count relationships are DESCRIPTIVE_ONLY. Predictors do not consume those
-tables or conditions. Same-state trajectories use coarse bins; count trajectories
-use the same bounded repeated count increments. There is no arbitrary categorical
-state progression. Tested geometric arithmetic is reused from Phase7, with
-frequency-count arrays; no gap history is computed by that search.
+directional pair는 양·음 displacement의 분모를 따로 정규화합니다. rate difference/sqrt(p*(1-p)*(1/n_positive+1/n_negative))이며 두 방향 모두 support 100이 필요합니다. coarse HOT-minus-COLD interaction은 방향별 차이를 빼고 reference variance를 합칩니다. overlap·dependence 때문에 단순 normal p-value 대신 absolute contrast maximum을 전체 null로 calibration합니다.
 
-Continuation counts for lengths3/4/5 require the previous L-1 observed points and
-the final pre-state condition, but not the final outcome. Minimum20 opportunities.
-The longest path is separately calibrated, including all geometrically possible
-lengths beyond5. Exported paths are maximal under their rule: nested fragments
-are suppressed and counted. Different parameterizations can still overlap, and
-neither configurations nor paths are asserted independent. Search counts include
-all parameter tuples and geometric rule/length/start-position candidates before
-data-driven pruning. Optional3D Hough search is deferred: the added sparse
-intercept family offers little interpretability beyond these declared tests.
+true count displacement는 dt1..13,dn±1..6,delta_count-1..1입니다. destination pre-count 관계는 DESCRIPTIVE_ONLY이며 predictor가 쓰지 않습니다. same-state trajectory는 coarse bin, count trajectory는 같은 bounded count increment를 사용합니다. 임의 categorical progression은 없습니다. Phase 7의 geometry를 frequency-count array에 적용하며 gap history는 계산하지 않습니다.
 
-## Nulls and multiplicity
+길이 3/4/5 continuation은 이전 L-1 observed points와 마지막 pre-state만 요구하고 final outcome은 요구하지 않습니다. 최소 20 opportunities입니다. longest path는 5 초과를 포함한 전체 가능한 길이로 별도 calibration합니다. rule별 maximal path만 export하고 nested fragment를 억제·집계합니다. 다른 parameter도 중첩될 수 있어 독립성을 주장하지 않습니다. count에는 pruning 전 모든 tuple과 rule/length/start-position이 포함됩니다. sparse intercept family의 해석 한계로 3D Hough는 보류했습니다.
 
-Every one of199 IID histories has exactly six unique uniform numbers per draw.
-Every one of199 constrained histories preserves both row sums and number totals,
-using20*T curveball trades. Finite mixing is approximate; exact margins do not
-establish uniform sampling of every possible fixed-margin history. Seed80042
-generates explicit independent child seeds retained in reports.
+## Null / surrogate 설계와 Global search correction
 
-For each surrogate, recompute all W10/26/52 causal frequency histories, prior
-number rates and quantile boundaries. Run the SAME complete search. Real states
-are never attached to randomized points. Five statistic families pool ALL
-windows/representations: conditional overlap, directional contrast, true count
-displacement, trajectory continuation, longest trajectory.
+199 IID history는 매 draw에 uniform unique six numbers, 199 constrained history는 20*T curveball trades로 정확한 row/column sums를 보존합니다. finite mixing은 근사이며 exact margins가 모든 history의 uniform sampling을 뜻하지 않습니다. seed 80042의 독립 child seed를 보고서에 보존합니다.
 
-`p_global=(1+count(null_max>=real_max))/(199+1)`. Bonferroni5 is applied across
-the major families within each null; evidence must survive both nulls. The raw
-Monte Carlo resolution is0.005; adjusted resolution0.025. Per-window maxima are
-stored as diagnostic detail, never used to sidestep all-window correction.
-The Phase6-selected(+42,-5) follow-up gets matching per-window/state local null
-comparisons. Those are not independently preregistered evidence and do not
-override the complete conditional search correction.
+surrogate마다 W10/26/52 causal frequency·prior rates·quantile boundaries를 다시 계산하고 같은 전체 탐색을 합니다. 실제 state를 randomized point에 붙이지 않습니다. 다섯 family는 모든 window/representation을 합친 conditional overlap·directional contrast·count displacement·trajectory continuation·longest trajectory입니다.
 
-## Predictors and evaluation
+`p_global=(1+count(null_max>=real_max))/(199+1)` 뒤 각 null 안에서 Bonferroni5를 적용하며 두 null 모두 통과해야 합니다. raw resolution0.005, adjusted0.025입니다. window별 maximum은 진단용이며 전체 보정을 우회하지 않습니다. Phase 6의 (+42,-5) follow-up에는 window/state별 local null을 붙이지만 독립 preregistration이 아니며 global correction을 대신하지 않습니다.
 
-FrequencyConditionedTranslationModel learns positive source-state translation
-excesses, requiring100 training opportunities. FrequencyConditionedChainModel
-requires two observed predecessors with the SAME pre-frequency state and20
-training opportunities; it does not condition on the candidate destination state.
-Both shrink with100 prior opportunities at6/45, retain20 positive excess rules,
-and use dt1..52,dn±1..15. All rules, encoders and scaling are training-only.
-At scoring, only the unchanged fitted prefix plus completed later observations
-before the target are accepted. Scores are weighted rule support, not calibrated
-appearance probabilities. Diagnostics expose source draw/number/count/state,
-training opportunities and per-rule contribution. Exact score ties use smaller
-number first.
+## Leakage 방지와 예측 모델
 
-The direct ablation preserves earlier model defaults. Phase8 chains require both
-predecessor states to match, while the Phase7 gap chain conditions its most recent
-source only. New models also impose sparse-support filtering. Thus this compares
-the declared complete models; it does not mathematically isolate state choice
-from every other eligibility difference.
+FrequencyConditionedTranslationModel은 최소 100 training opportunities의 양의 source-state excess를 학습합니다. FrequencyConditionedChainModel은 같은 pre-frequency state의 predecessor 두 개와 최소 20 opportunities를 요구하고 destination state는 조건으로 쓰지 않습니다. 둘 다 6/45의 prior 100·top20 positive rule·dt1..52,dn±1..15를 씁니다. rule·encoder·scaling은 training-only입니다. scoring에는 바뀌지 않은 fitted prefix와 target 전 완료 draw만 허용합니다. score는 weighted rule support이며 calibrated probability가 아닙니다. source draw/number/count/state·opportunities·rule contribution을 노출하고 tie는 작은 번호 우선입니다.
 
-W26 was predeclared as the primary prospective hypothesis before inspecting any
-Phase8 result. W10 andW52 are independent fixed ablations. No representation,
-threshold or window is selected using draw1246 or the complete evaluation period.
-An explicitly development-only selector maximizes mean Top6 hits on401..900,
-ties26 then10 then52; its later performance is exported separately. It does not
-replace the two predeclared prospective tracks or create an ensemble.
+direct ablation은 이전 default를 유지합니다. Phase 8 chain은 두 predecessor state 일치를 요구하지만 Phase 7 gap chain은 최근 source만 조건화합니다. sparse-support filter도 추가되므로 state choice만의 순수 효과가 아니라 선언된 전체 모델을 비교합니다.
 
-Historical evaluation uses identical targets401..1245, expanding training,
-cadence26 and sensitivity13, seed42. Unchanged Random, Gap Logistic,2D parents and
-gap3D models share the exact target draws. Multiple starts401/501/601/701/801/901
-are nested slices preserving the original refit schedule. The later901..1245
-period is later than development but is not pristine after earlier phases.
-Results are not characterized as untouched prospective evidence.
+W26은 Phase 8 결과 전에 primary prospective 가설로 선언했습니다. W10·W52는 고정 ablation입니다. 1246회나 전체 evaluation으로 representation·threshold·window를 선택하지 않았습니다. 별도 development-only selector는 401..900의 평균 Top6를 최대화하고 tie는 26→10→52입니다. later 성능은 별도 export하며 사전 두 prospective track을 대체하거나 ensemble을 만들지 않습니다.
 
-Paired circular26-draw block bootstrap intervals use2000 replicates and shared
-seed42 versusRandom, matching2D parent and matching gap3D model. Metrics cover
-hits, winning-number rank, recalls and candidate pools. Intervals are exploratory,
-not multiple-model corrected. Degenerate zero-event bootstrap intervals cannot
-establish an event is impossible. Legacy comparison exports keep their existing
-bootstrap streams; common-seed parent comparisons have their own explicit file.
-Exact hypergeometric pool expectations and full0..6 distributions are exported.
-Pool concentration and actual six-number ticket prize outcomes remain distinct.
+## 평가 지표와 Walk-forward
 
-## Isolated prospective publication
+동일 targets 401..1245, expanding training, cadence 26 / sensitivity13, seed 42입니다. 기존 Random·Gap Logistic·2D parent·gap3D와 같은 draw를 사용합니다. starts401/501/601/701/801/901은 원래 refit 일정의 nested slice입니다. later 901..1245는 development 이후이지만 앞선 Phase가 사용했으므로 pristine prospective evidence가 아닙니다.
 
-Only two predeclared W26 models are frozen under reports/prospective/phase8/.
-No Phase8 combination is justified merely by an attractive historical estimate.
-The snapshot archives45 scores/ranks, Top6/8/10/12/15, exact ties, directTop6,
-Top12 weighted/coverage portfolios, seed42 and unique nested1/5/10/20 budgets.
-It also includes encoder/rules, model/source versions, source hashes, protocol,
-environment, currentGit state, dataset hash/cutoff and prior-artifact hashes.
+2000회 paired circular26-draw block bootstrap, shared seed 42로 Random·matching2D·matching gap3D 대비 hit·rank·recall·pool을 비교합니다. interval은 탐색적이며 multiple-model correction이 없습니다. zero-event 퇴화는 불가능성을 뜻하지 않습니다. legacy export는 기존 bootstrap stream, common-seed parent 비교는 별도 파일입니다. exact hypergeometric과 full0..6 분포를 내보내며 pool concentration과 실제 six-number ticket prize를 구분합니다.
 
-Publication checks all15 earlier files before and after writing only its own
-directory and registry. It prevalidates and renders before reserving an ID, uses
-exclusive creation, and refuses regeneration. Snapshot/manifest integrity is
-recorded separately. Validation is tied to the versioned contract rather than
-future mutable model defaults. No command fetches or evaluates a future result.
+## Prospective experiment
+
+사전 W26 두 모델만 `reports/prospective/phase8/`에 동결했습니다. 좋은 역사 점추정치만으로 조합을 정당화하지 않습니다. 45 score/rank·Top6/8/10/12/15·ties·direct Top6·Top12 weighted/coverage·seed 42·unique nested1/5/10/20 budget을 보존합니다. encoder/rules·source versions/hashes·protocol·environment·Git·dataset cutoff/hash·prior hashes도 포함합니다.
+
+당시 이전 15개 파일을 전후 검사하고 자기 directory·registry에만 썼습니다. ID reservation 전 validation/rendering, exclusive creation, regeneration 거부를 사용합니다. snapshot/manifest integrity는 별도 기록이며 validation은 버전 계약을 따릅니다. 당시 미래 결과를 가져오거나 평가하지 않았습니다. [원본 기록](phase8-prospective.md)은 보존합니다.
+
+## 출력 파일과 CLI
+
+`reports/spatiotemporal_frequency/`에 저장합니다. `python main.py analyze-frequency3d --surrogates 199`, `python main.py compare-frequency3d`, `--cadence 13` sensitivity가 있습니다. 당시 동결 명령은 `freeze-frequency3d`입니다.
+
+## 한계와 현재 결과
+
+count tie·희소 상태·겹치는 경로·finite mixing·과거 구간 재사용이 한계입니다. [완료 결과](phase8-results.md)와 [현재 workflow](prospective-workflow.md)를 참고합니다.

@@ -1,14 +1,12 @@
-# Predictive experiments
+# Phase 3 — Causal ranking 예측 실험
 
-Historical Phase3 report. The subsequent fixed research seal now limits CLI
-analysis to draws1..1244 and blocks canonical current prediction. See
-[gap/prize research](gap-prize-research.md) for the active protocol and caveats.
+## 결론과 현재 경계
 
-These are exploratory chronological ranking experiments. A fitted score is not
-evidence that Lotto can be predicted. There is no hyperparameter search, final
-draw optimization, neural network, HMM, or web frontend.
+Phase 3 역사 결과입니다. 이후 fixed research seal은 CLI를1..1244회로 제한하고 canonical current prediction을 막습니다. 현재 protocol·한계는 [Gap / prize](gap-prize-research.md)를 참고합니다. H2는 TESTED / INCONCLUSIVE입니다.
 
-## Run
+chronological ranking 탐색이며 fitted score는 Lotto 예측 가능성의 증거가 아닙니다. hyperparameter search·마지막 draw 최적화·neural network·HMM·web frontend는 추가하지 않았습니다.
+
+## CLI
 
 ```powershell
 python main.py compare-models --ablations --tickets 20
@@ -17,161 +15,67 @@ python main.py explain-number 17 --neighbors 10
 python -m pytest -q
 ```
 
-Optional tree backends: `python -m pip install -r requirements-ml.txt` in an
-environment with package access. If LightGBM cannot be installed, install
-XGBoost explicitly; the adapter prefers LightGBM when both exist. The CLI
-reports missing libraries in the console and experiment metadata, never as
-zero performance or a substitute tree classifier. SciPy logistic regression
-and similarity need only the existing core requirements.
+optional tree backend는 package access가 있을 때 `python -m pip install -r requirements-ml.txt`입니다. LightGBM을 쓸 수 없으면 XGBoost를 명시 설치하며 둘 다 있으면 LightGBM 우선입니다. missing library는 console/metadata에 기록하고 zero performance나 다른 classifier로 대체하지 않습니다. SciPy logistic·similarity는 core requirements만 필요합니다.
 
-During implementation scikit-learn, LightGBM and XGBoost were absent. Pip was
-configured with no package index; an HTTPS probe to PyPI also failed with
-WinError 10061. Environment restrictions were not disabled. Random Forest and
-boosting adapters therefore cannot be evaluated here; their integration tests
-skip explicitly. This is an outstanding validation limitation.
+당시 scikit-learn·LightGBM·XGBoost가 없었고 pip index가 비활성화되어 PyPI HTTPS도 WinError10061로 실패했습니다. 환경 제한을 해제하지 않았습니다. Random Forest·boosting은 평가하지 못했고 integration test는 명시 skip했습니다. 이 검증 한계는 유지합니다.
 
-## Protocol fixed before results
+## 데이터 및 사전 평가 protocol
 
-104 draws of feature history; first supervised target 105. Evaluation starts
-at draw 601 and ends at the penultimate canonical draw (1244 in this snapshot).
-Draw 1245 is reserved from comparisons. Every 26 evaluation targets, refit on
-all labeled opportunities with `target_draw < current_target`; reuse that fit
-between retraining points while updating current features. CLI `--start`,
-`--end`, `--cadence`, and `--seed` are explicit. No random row splitting.
+feature history104 draws, 첫 supervised target 105입니다. evaluation601..penultimate1244이며1245는 comparison에서 제외했습니다. 매26 targets마다 `target_draw < current_target`의 모든 label로 refit하고 그 사이 current feature만 갱신합니다. `--start`, `--end`, `--cadence`, `--seed`는 명시하며 random row split은 없습니다.
 
-At target 601, training labels end at 600 and current features end at 600.
-Targets 602 through 626 retain the fit/scaler/neighbors through 600 while their
-features update through their respective preceding draw. Target 627 refits
-through 626. Every model receives the same features. No target outcomes are
-passed to `score_rows`. The original stateless RandomModel engine is unchanged.
+target 601은 label·feature cutoff600입니다. 602..626은 fit/scaler/neighbors600을 유지하고 feature는 직전 draw까지 갱신합니다. 627은626까지 refit합니다. 모든 모델에 같은 feature를 주고 `score_rows`에 target outcome을 넘기지 않습니다. 기존 stateless RandomModel engine은 그대로입니다.
 
-`predict-current` trains on all available labeled opportunities, including
-the comparison-reserved draw, to describe the next scheduled draw. This does
-not evaluate or tune against that next draw. Its default is fixed logistic
-regression, not the winner of the historical comparison.
+당시 `predict-current`는 reserved draw까지 포함한 모든 labeled opportunity로 다음 scheduled draw를 기술했습니다. 다음 결과로 평가·tune한 것이 아니며 default는 fixed Logistic, 역사 winner가 아닙니다. 현재 seal 때문에 canonical 실행은 차단됩니다. 1246회는 현재 알려진 결과로 새 prospective 대상이 아닙니다.
 
-## Canonical features
+## 데이터 표현과 핵심 feature
 
-`src.analysis.features.build_features` validates the source and returns one
-row per target and number. Only main numbers are positive. Features are computed
-before joining labels. Prefix invariance and target poisoning are regression
-tested. No retrospective calendar tables or merged retrospective regimes enter
-the feature dataset.
+`src.analysis.features.build_features`는 source 검증 후 target/number별 row를 만듭니다. 본번호만 positive이며 label join 전에 feature를 계산합니다. prefix invariance·target poisoning을 테스트하고 retrospective calendar/regime table을 입력에 합치지 않습니다.
 
-The default full set has 31 predictor columns: categorical number identity;
-12 frequency features (counts and rates for 5/10/26/52/104, 10-to-104 rate ratio,
-two immediately preceding appearances); six gap features (current gap,
-ever-appeared flag, complete historical mean/median/population std, current/mean
-ratio); eight periodicity/regime features; and four cyclic calendar features.
-Count and rate pairs are intentionally exported and retained in the initial
-fixed feature groups; they are redundant scaled representations, not independent
-evidence. No interactions or hyperparameter search are added.
+full set은31 predictor columns입니다. categorical identity, frequency12개(count/rate 5/10/26/52/104·10-to-104 ratio·직전 두 출현), gap 6개(current·ever-appeared·completed mean/median/population std·current/mean), periodicity/regime8개, cyclic calendar4개입니다. count/rate는 scaled redundancy이며 독립 근거가 아닙니다. interaction·hyperparameter search는 없습니다.
 
-The periodicity features use only the trailing 104 draws and Phase 2 safeguards.
-Unsupported metrics stay missing. A strong regime requires three consecutive
-scores above the 90th percentile of at least 52 *earlier* supported scores.
-Regime age begins at zero on the third qualifying endpoint, never on a
-retroactively inferred start. Time since strong regime is missing until a
-confirmed endpoint has occurred, zero during confirmed strong endpoints, then
-counts subsequent draws. `strong_regime=0` means not confirmed, including when
-there is insufficient history. These are causal descriptors, not recurrence
-predictions.
+periodicity는 trailing104와 Phase 2 guard만 사용하고 unsupported는 missing입니다. 최소52 earlier supported scores의90th percentile 초과가 세 번 연속일 때 strong regime입니다. age는 세 번째 endpoint에서 zero부터 시작하며 과거 start로 소급하지 않습니다. time-since는 최초 confirmed 전에는 missing, confirmed 중 zero, 이후 draw 수입니다. `strong_regime=0`에는 history 부족도 포함됩니다. causal descriptor이며 recurrence prediction이 아닙니다.
 
-Gap std requires at least two complete gaps. A never-observed number's current
-gap is the observed absence lower bound, distinguished by `has_appeared=0`.
-Missing values use training-only medians, or zero when the entire training
-column is missing, then training-only population z-scores. Fixed categorical
-number vocabulary 1..45 becomes 45 one-hot columns; no ordinal identity slope.
-Month and ISO week use sine/cosine encodings; raw month/week remain in exports.
+gap std는 completed gap 두 개가 필요합니다. never-seen current gap은 absence lower bound이며 `has_appeared=0`으로 구분합니다. training-only median imputation, 전부 missing이면 zero, 이후 training population z-score입니다. vocabulary1..45는45 one-hot으로 바꾸고 ordinal slope를 쓰지 않습니다. month/ISO week는 sine/cosine, raw 값은 export에 남깁니다.
 
-Metadata columns include target number/date, feature cutoff, month/week and
-`appeared_next`. Selecting feature groups explicitly excludes labels and draw
-IDs. The 31 raw predictor columns become 75 transformed columns in the full
-model due to identity encoding. Calendar-only pooled scores tie for all 45
-numbers on a target, so that ablation's deterministic tie break is a fixed
-ticket, not a learnable per-number seasonal effect.
+metadata는 target number/date·cutoff·month/week·`appeared_next`이며 feature group은 label·draw ID를 제외합니다. 31 raw predictor는 identity encoding 후75 columns입니다. calendar-only pooled score는 target의45번호가 동률이라 deterministic tie의 고정 ticket이며 번호별 seasonal effect를 학습한 것이 아닙니다.
 
-## Models
+## 계산 방법 — 모델
 
-- Similarity: same number only; its own training medians/scales; 30 nearest
-  prior labeled states by Euclidean distance. Configurable feature subset, K,
-  Euclidean/Manhattan metric and uniform/distance weights. Distance weights
-  `1/(1+d)` rescale to sum to the neighbor count; score is
-  `(weighted appearances + 2)/(neighbor count + 15)` (fixed mean 6/45 prior).
-  Neighbor target draw/date, state cutoff, distance and outcome are explainable.
-  Frozen neighbors between refits deliberately omit newly observed outcomes.
-- Pooled logistic: SciPy L-BFGS minimizes mean binary log loss plus
-  `||w||²/(2*C*n)`, C=1, unpenalized intercept, no class weighting. Convergence
-  failure raises instead of silently exporting scores. Standardized signed
-  coefficients are exported, not interpreted as causal importance.
-- Random Forest adapter: sklearn RandomForestClassifier, 100 trees, depth 4,
-  minimum leaf 50, square-root feature sampling, one thread, fixed seed.
-- Boosting adapter: LightGBM 100 trees, learning rate .03, 7 leaves, depth 3,
-  minimum leaf 100, L2=1, one thread and deterministic settings. Explicit
-  XGBoost fallback uses 100 trees, .03 rate, depth 3, minimum child weight 15,
-  L2=1, histogram trees, one thread, fixed seed.
+- Similarity: 같은 번호만 비교하며 training median/scale·Euclidean30 neighbors를 사용합니다. feature subset·K·Euclidean/Manhattan·uniform/distance 설정이 있습니다. `1/(1+d)` weight 합을 neighbor 수로 맞추며 score는 `(weighted appearances + 2)/(neighbor count + 15)`, prior mean6/45입니다. neighbor target/date·cutoff·distance·outcome을 설명하고 refit 사이 새 outcome은 neighbor에 넣지 않습니다.
+- Pooled Logistic: SciPy L-BFGS로 mean binary log loss + `||w||²/(2*C*n)`, C=1, unpenalized intercept, no class weighting입니다. convergence failure는 error이며 signed standardized coefficient는 causal importance가 아닙니다.
+- Random Forest: sklearn100 trees·depth4·min leaf50·sqrt feature·one thread·fixed seed입니다.
+- Boosting: LightGBM100 trees·rate .03·7 leaves·depth3·min leaf100·L2=1·one thread·deterministic입니다. 명시 XGBoost fallback은100 trees·.03·depth3·min child weight15·L2=1·histogram·one thread·fixed seed입니다.
 
-Tree importance is exported for every fitted cutoff when dependencies exist.
-No SHAP or cross-number similarity variant is included.
+의존성이 있으면 cutoff마다 tree importance를 export합니다. SHAP·cross-number similarity는 추가하지 않았습니다.
 
-## Evaluation and uncertainty
+## 평가 지표와 불확실성
 
-All 45 numbers are ranked. Top 6 ties use increasing number for predictive
-models; RandomModel uses a seeded uniform ticket plus random ordering within
-and outside that ticket. The baseline's uniform scores and sampled ranking
-are both recorded; its ranking is not produced by a deterministic tie break.
+45번호를 ranking합니다. predictive model의 Top6 tie는 작은 번호 우선, RandomModel은 seeded uniform ticket과 ticket 안/밖 random order입니다. uniform score와 sampled ranking을 모두 기록하며 Random ranking에 deterministic tie를 쓰지 않습니다.
 
-Metrics: mean hits, 0..6 histogram, 3+/4+/5+ rates, best, mean winning rank,
-Recall@6/10/15. Under uniform random selection the expected mean hits is 0.8,
-mean winning rank 23, and Recall@k is k/45.
+mean hits·0..6 histogram·3+/4+/5+ rate·best·winning mean rank·Recall@6/10/15입니다. uniform expectation은 hit0.8, rank23, Recall@k=k/45입니다.
 
-The optional weighted tickets are a separate stream: normalize nonnegative
-scores, add a 0.1% uniform mixture to permit six selections even for sparse
-scores, sample without replacement with explicit target/ticket seeds. They
-never replace deterministic ranking metrics. Scores are not externally
-calibrated probabilities; weighted sampling is not probability calibration.
+weighted ticket은 별도 stream입니다. nonnegative score 정규화 후0.1% uniform mixture로 sparse score에서도 여섯 개를 고르고 target/ticket seed로 without replacement sampling합니다. deterministic ranking metric을 대체하지 않습니다. score는 externally calibrated probability가 아니고 sampling도 calibration이 아닙니다.
 
-Random reference simulations generate 2,000 runs of exact hypergeometric
-ticket hits across the same target count. Target draws are paired against one
-fixed empirical seeded RandomModel. Mean-hit and paired-difference intervals
-use 2,000 circular moving-block bootstrap replicates with block length 26.
-Early/middle/recent blocks are reported. Intervals are descriptive and not
-familywise corrected; random-reference tails also have a Bonferroni column
-across compared learned specifications. The random reference describes a
-random policy, not a general test proving a learned policy's predictability.
-Small differences or isolated favorable blocks are insufficient evidence.
+같은 target 수의 exact hypergeometric hit로 random2,000 runs를 만듭니다. target별 seeded RandomModel과 paired 비교하며 mean-hit·difference는 block26의 circular moving-block bootstrap 2,000회입니다. early/middle/recent도 보고합니다. interval은 familywise 보정 전 기술값이고 random tail에는 learned specification별 Bonferroni도 표시합니다. random policy reference이지 learned predictability의 일반 증명은 아닙니다. 작은 차이·좋은 한 block은 충분하지 않습니다.
 
-All seven feature ablations use the same protocol and fixed logistic model.
-`ablation_differences.csv` directly pairs frequency+gap+periodicity against
-frequency+gap, including mean-hit bootstrap interval and ranking differences.
-This is the predeclared incremental periodicity comparison; no best group is
-selected for subsequent tuning or the latest draw.
+일곱 feature ablation은 같은 protocol·fixed Logistic입니다. `ablation_differences.csv`는 frequency+gap+periodicity 대 frequency+gap의 mean-hit paired interval·ranking 차이를 저장합니다. 사전 incremental 비교이며 best group을 후속 tuning·latest draw에 선택하지 않습니다.
 
-## Artifacts
+## 출력 파일
 
-Default directory: `reports/prediction/` (override with `--reports-dir`).
+default는 `reports/prediction/`, override는 `--reports-dir`입니다.
 
-- `features.csv`: full supervised table; `feature_sample.csv`: first 10 targets.
-- `comparison.csv`: rankings and uncertainty; `time_blocks.csv`: temporal stability.
-- `prediction_audit.csv`: per-model/target scores for 45 numbers, full ranking,
-  top 6, actual main numbers, hits, feature cutoff, fit cutoff, seeds/config.
-  `--no-audit` omits verbose scores/outcomes/config but retains target metrics.
-- `feature_importance.csv`: fitted cutoff and signed coefficients/tree importance.
-- `ablation_differences.csv`: paired incremental periodicity results.
-- `experiment.json`: protocol, source hash, availability, package versions,
-  dimensions, runtime, bootstrap and simulation settings, cautions.
+- `features.csv`: supervised 전체, `feature_sample.csv`: 첫10 targets입니다.
+- `comparison.csv`: ranking/uncertainty, `time_blocks.csv`: 시기 안정성입니다.
+- `prediction_audit.csv`: model/target별45 scores·ranking·Top6·actual·hits·feature/fit cutoff·seed/config입니다. `--no-audit`는 상세 score/outcome/config를 생략하되 target metric은 유지합니다.
+- `feature_importance.csv`: cutoff별 signed coefficient/tree importance입니다.
+- `ablation_differences.csv`: incremental periodicity입니다.
+- `experiment.json`: protocol·source hash·availability·versions·dimensions·runtime·bootstrap/simulation·주의사항입니다.
 
-Canonical data and provenance paths are protected against report overwrites.
-Reports are local ignored generated artifacts. No commit or push is performed.
+canonical/provenance 경로는 report overwrite에서 보호합니다. report는 로컬 Git-ignored 산출물이며 당시 commit/push는 없었습니다.
 
-## Observed first experiment (2026-10-17)
+## 주요 결과 — 최초 실행 (2026-10-17)
 
-Command: `python main.py compare-models --ablations --tickets 20`.
-The source remained 1,245 draws, 2002-12-07 through 2026-10-10, SHA256
-`b3de32b409c9edd3da5525ad0280d3f59cd21bf0618feda16d3947686c27a11e`.
-The export has 51,345 supervised rows and 37 total columns (31 predictors).
-All comparisons use 644 targets, draws 601..1244, 25 expanding fits per learned
-specification. Draw 1245 is not evaluated. No configurations were tuned.
+명령은 `python main.py compare-models --ablations --tickets 20`입니다. source1,245 draws, 2002-12-07–2026-10-10, SHA256 `b3de32b409c9edd3da5525ad0280d3f59cd21bf0618feda16d3947686c27a11e`를 유지했습니다. 51,345 supervised rows·37 total columns(31 predictors), 601..1244의644 targets·specification별25 expanding fits입니다. 1245는 평가하지 않았고 configuration tuning도 없었습니다.
 
 | Model/group | Mean hits | Recall@6 | Recall@10 | Recall@15 | Mean winning rank |
 |---|---:|---:|---:|---:|---:|
@@ -185,46 +89,20 @@ specification. Draw 1245 is not evaluated. No configurations were tuned.
 | Logistic, frequency + gap + periodicity | .796584 | .132764 | .227484 | .336957 | 22.671066 |
 | Logistic, full | .796584 | .132764 | .221532 | .329451 | 22.981884 |
 
-Random Forest and both boosting packages were unavailable and **not evaluated**.
-The logistic results use the explicitly documented SciPy implementation.
+Random Forest·두 boosting package는 사용 불가로 평가하지 않았습니다. Logistic 수치는 위 SciPy 구현입니다.
 
-Every learned specification's paired 95% interval for mean-hit difference
-versus RandomModel includes zero. Gap-only has the largest observed mean,
-but its difference is +.051242 with interval [-.035714, .139790]. Its upper-tail
-random-reference fraction is .055972, Bonferroni .447776. This is not a finding
-of predictive advantage. Its early/middle/recent differences versus baseline
-are -.046512, +.097674, +.102804; superiority is not consistent across blocks.
-Similarity differences are -.139535, +.060465, +.018692 across those blocks.
-Full logistic differences are -.088372, +.088372, -.004673.
+모든 learned specification의 Random 대비 paired95% hit interval은 zero를 포함합니다. gap-only 최대 평균의 차이는 +.051242, interval[-.035714,.139790], upper-tail .055972·Bonferroni .447776입니다. 예측 우위가 확립되지 않았습니다. gap의 early/middle/recent 차이는 -.046512,+.097674,+.102804, similarity는 -.139535,+.060465,+.018692, full Logistic은 -.088372,+.088372,-.004673입니다. 안정적 우위가 아닙니다.
 
-The predeclared periodicity increment (frequency+gap+periodicity minus
-frequency+gap) is +.015528 hits, 95% paired interval [-.054348, .090062].
-The three block differences are +.013953, +.074419, -.042056. Mean winning rank
-improves by .353778 ranks (lower is better), but its difference interval
-[-.711704, .002899] also includes zero. Recall@6/10/15 incremental intervals
-all include zero. These are uncorrected descriptive intervals across several
-metrics; **no reliable incremental periodicity value is established**.
+사전 periodicity increment는 +.015528 hit, paired95%[-.054348,.090062]입니다. block 차이는 +.013953,+.074419,-.042056입니다. mean winning rank는 .353778 개선(낮을수록 좋음)했지만 interval[-.711704,.002899]도 zero를 포함합니다. Recall@6/10/15 incremental interval도 모두 zero를 포함합니다. 여러 metric의 uncorrected interval이며 신뢰할 incremental value는 확립되지 않았습니다.
 
-The 2,000 repeated random runs average .799244 hits (theory .8), with a 95%
-range for a 644-ticket run of [.737578, .860248]. Full match histograms and
-3+/4+/5+ rates are in comparison.csv; the best observed deterministic result
-was four hits, with no five- or six-hit tickets in these nine specifications.
+random2,000 runs 평균은 .799244(theory .8),644-ticket run의95% range[.737578,.860248]입니다. 전체 histogram·3+/4+/5+는 comparison.csv에 있습니다. 아홉 specification의 best deterministic은 four hits, five/six-hit ticket은 없었습니다.
 
-Completed experiment runtime: **163.349 seconds**, including 47.380s feature
-generation, 35.562s similarity and 29.911s full logistic. Other logistic
-ablations each took 4.2..11.4s. A diagnostic-heavy earlier attempt was canceled
-before results; replacing unnecessary neighbor explanations in the scoring path
-preserved exact scores and improved runtime without changing the protocol.
-The later added ranking-metric bootstrap columns were calculated from the
-unchanged saved audit, without model refitting or selecting new specifications.
+runtime은 **163.349 seconds**, feature47.380s·similarity35.562s·full Logistic29.911s, 나머지 ablation4.2..11.4s입니다. 이전 diagnostic-heavy 시도는 결과 전에 취소했습니다. scoring에서 불필요한 neighbor explanation을 제거해 score·protocol은 유지했습니다. 이후 ranking bootstrap column도 저장 audit로 계산했고 refit·새 selection은 없었습니다.
 
-Exports: 5,796 audited model-target rows, 3,725 coefficient rows, 27 time-block
-rows, and 115,920 separate seeded weighted tickets summarized per model-target.
-An independent artifact check reconstructed all outcomes/hits, confirmed 45
-scores/ranks and six unique choices for every target, and verified every fit
-cutoff against the 26-draw schedule. Latest-draw reservation remained intact.
+model-target audit5,796 rows·coefficient3,725·time-block27·별도 weighted tickets115,920개를 저장했습니다. 당시 독립 artifact 확인으로 outcome/hit·45 scores/ranks·six unique choices·26-draw fit cutoff를 재구성했고 reserved draw를 유지했습니다.
 
-`predict-current --model logistic` also completed on real data, using cutoff
-1245 for scheduled target 1246, in 55.17s. It is experimental output, not a
-recommended or validated ticket. Real-data `explain-number 17 --neighbors 5`
-was also exercised. No source data was changed.
+당시 `predict-current --model logistic`은 cutoff1245·scheduled1246으로55.17s에 실행했습니다. 권장·검증 ticket이 아닌 실험 출력입니다. `explain-number 17 --neighbors 5`도 확인했으며 source data는 바꾸지 않았습니다. 현재는 위 seal과 [prospective workflow](prospective-workflow.md)를 따릅니다.
+
+## 해석·한계·다음 단계
+
+초기 optional backend 검증 한계와 historical selection/multiplicity를 유지합니다. 수익성의 근거가 아닙니다. 이후 완료된 robustness·pool·prize 비교는 [Gap / prize](gap-prize-research.md), regime은 [Phase 4](regime-research.md)에 있습니다.

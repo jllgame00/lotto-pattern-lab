@@ -1,31 +1,28 @@
-# Phase 6 results: TESTED / INCONCLUSIVE
+# Phase 6 — 2D Translation 결과
 
-Canonical input: draws1–1245, 1,245×45 binary main-number matrix; six ones per
-row. SHA-256: `b3de32b409c9edd3da5525ad0280d3f59cd21bf0618feda16d3947686c27a11e`.
-No draw1246 or later result was retrieved, inspected, or evaluated. Phase5 files
-and registry retain their original hashes. No commit or push was made.
+## 결론
 
-## Descriptive findings and full-search nulls
+H3는 **TESTED / INCONCLUSIVE**입니다. 전체 null-search 보정 후 구조와 안정적 예측 우위를 확립하지 못했습니다.
 
-The strongest raw shift is (+42 draws, -5 numbers):960 matches/6,426 eligible
-source points, rate.149393, IID expectation.133333, lift1.120448, raw z3.787162.
-The next strongest are (+1,+8),895/6,131, and (+38,+14),731/4,969. These are
-full-history exploratory selections, not rules used retrospectively in backtests.
+## 가설
 
-The (+42,-5) conditional rates are.152827 in draws1–415, .146293 in416–830,
-and.147117 in831–1245. This same-sign pattern is descriptive and selection-biased;
-the complete-search corrected test below remains inconclusive. Rolling260-draw
-plots and all top10 candidates' era tables are exported.
+번호축과 회차축을 함께 이동하는 패턴이 무작위 자료보다 강하고 다음 회차 예측에도 유용한지 검증했습니다.
 
-The longest maximal chains have7 points. Examples: draw873/number3 to
-draw903/number21 at (+5,+3), and draw280/number37 to draw334/number13 at (+9,-4).
-All398 surrogate histories contain chains at least as long; random longest
-chains averaged approximately7.8. Overlapping subchains are not independent discoveries.
+## 데이터 및 검증 범위
 
-The strongest Hough line has displacement(+9,-2),12 observed points out of23
-eligible positions, density.521739, from draw498/number45 to draw696/number1.
-Its raw z5.479667 is ordinary among complete surrogate searches. The largest
-2D spectral normalized power is.0003561; it also is ordinary under both nulls.
+ordered number label의 translation을 시험했습니다. canonical 1–1245회,1,245×45 binary 본번호 matrix, row별 six ones입니다. 당시 SHA-256은 `b3de32b409c9edd3da5525ad0280d3f59cd21bf0618feda16d3947686c27a11e`입니다. 당시1246 이후 결과를 가져오거나 확인·평가하지 않았고 Phase 5 파일·registry hash를 보존했습니다. 당시 commit/push는 없었습니다.
+
+## 방법과 주요 결과
+
+최강 raw shift는(+42 draws,-5 numbers),960 matches/6,426 opportunities, rate .149393, IID .133333, lift1.120448, z 3.787162입니다. 다음은(+1,+8),895/6,131과(+38,+14),731/4,969입니다. 전체 과거에서 선택한 탐색 결과이며 backtest에 소급 적용한 rule이 아닙니다.
+
+(+42,-5) rate는1–415에서 .152827,416–830에서 .146293,831–1245에서 .147117입니다. 같은 부호도 selection-biased 기술값이며 corrected test는 inconclusive입니다. rolling260과 top10 era table을 export했습니다.
+
+최장 maximal chain은7 points입니다. 예:873/number3→903/21의(+5,+3),280/37→334/13의(+9,-4)입니다. 398 surrogate 모두 같은 길이 이상이며 random longest 평균은 약7.8입니다. overlapping subchain은 독립 발견이 아닙니다.
+
+Hough 최대는(+9,-2),23 positions 중12, density .521739, draw 498/45→696/1입니다. raw z 5.479667은 전체 surrogate 탐색에서 보통입니다. 2D spectral maximum .0003561도 두 null에서 보통입니다.
+
+## Null / surrogate 비교
 
 | Search statistic | IID global p | Fixed-margin global p | IID six-family adjusted p | Fixed-margin adjusted p |
 |---|---:|---:|---:|---:|
@@ -36,19 +33,11 @@ Its raw z5.479667 is ordinary among complete surrogate searches. The largest
 | Hough line | .375 | .405 | 1 | 1 |
 | Spectral concentration | .795 | .725 | 1 | 1 |
 
-199 histories per null, seed60042. Both null families changed about23.1% of
-matrix cells on average. Fixed-margin trades preserve exact number frequencies
-and row sums; finite mixing remains a limitation. No tested structure survives
-search correction. Absence of evidence in this bounded search is not proof that
-every conceivable structure is absent.
+각 null199 histories, seed 60042이며 matrix cell 평균 약23.1%가 바뀌었습니다. exact-margin은 row sums·number frequencies를 보존하나 finite mixing 한계가 있습니다. 보정 후 통과 family는 없습니다. 제한된 탐색의 근거 부재이지 모든 구조 부재의 증명은 아닙니다.
 
-## Walk-forward ranking
+## Walk-forward 결과
 
-All model settings were declared before results. Development401–900, later
-evaluation901–1245, cadence26. Later means later than this phase's development;
-earlier project phases already used these historical draws. Paired intervals
-below are2000-replicate26-draw circular block bootstrap intervals, not corrected
-for the many comparisons.
+설정은 사전 선언했습니다. development 401–900, later 901–1245, cadence 26입니다. earlier Phase가 사용한 history라 later도 pristine holdout이 아닙니다. interval은2000-replicate26-draw circular block bootstrap이며 많은 비교를 보정하지 않았습니다.
 
 | Model | All401–1245 avg Top6 | Later901–1245 avg Top6 | Later difference vs Random | Paired95% interval |
 |---|---:|---:|---:|---|
@@ -66,20 +55,13 @@ for the many comparisons.
 | Combination |22.8744|.137198|.222222|.336232|
 | Gap Logistic |23.0478|.137198|.218357|.330918|
 
-Every primary paired hit interval includes zero across starts401/501/601/701/801/901.
-Translation's early/middle/recent average hits are.8546/.8298/.7616, while Chain's
-are.7482/.8121/.8221. Their relative behavior changes across periods.
-Cadence13 later results are Translation.7681, Chain.8029, combination.8116,
-Gap Logistic.8203, Random.7681; all paired intervals still include zero.
+start401/501/601/701/801/901의 primary hit interval은 모두 zero를 포함합니다. early/middle/recent는 Translation .8546/.8298/.7616, Chain .7482/.8121/.8221입니다. cadence 13 later는 Translation .7681, Chain .8029, combination .8116, Gap Logistic .8203, Random .7681이며 모두 paired interval이 zero를 포함합니다.
 
-Later-period ablations: Translation positive.7594, negative.8522, short.8638,
-long.7623; Chain positive.8406, negative.8029, short.7739, long.8087. All their
-paired hit intervals also include zero. The highest observed ablation is not
-promoted to the prospective model after examining this evaluation period.
+later ablation은 Translation positive .7594·negative .8522·short .8638·long .7623, Chain .8406/.8029/.7739/.8087입니다. 모두 zero를 포함하므로 evaluation을 본 뒤 최고 ablation을 prospective 모델로 승격하지 않았습니다.
 
-## Candidate pools and rare events
+## Candidate-pool / prize-aware 결과
 
-Counts of pools containing at least5 winners over all845 targets:
+전체845 targets에서 본번호5개 이상 포함한 pool 수입니다.
 
 | Model | Top8 | Top10 | Top12 | Top15 | Top15 all6 |
 |---|---:|---:|---:|---:|---:|
@@ -89,46 +71,32 @@ Counts of pools containing at least5 winners over all845 targets:
 | Combination |0|0|2|7|0|
 | Gap Logistic |0|2|5|10|0|
 
-The Chain all-six Top15 event occurred at draw466, in development. It is a
-candidate-pool event, not an actual six-number ticket prize. Under uniform
-ranking,845 targets yield about9.87 Top15 >=5 events and.519 all-six events on
-average. One all-six event amid many searches is not evidence of predictability.
+Chain의 Top15 all-six는 development draw 466입니다. pool event이며 실제 six-number ticket prize가 아닙니다. uniform ranking의845 targets 기대는 Top15 >=5 약9.87·all-six .519입니다. 여러 탐색 중 한 all-six가 예측력의 증거는 아닙니다.
 
-On later345 targets, Top15 >=5 counts are Translation3, Chain1, combination3,
-Gap3, Random0; Top12 counts are1/0/1/1/0; Top10 counts0/0/0/1/0; Top8 all zero.
-All-six pools are absent there. The zero events in this one seeded Random
-control do not imply zero random probability. Exact >=5 rates are.000258 for
-Top8, .001109 forTop10, .003322 forTop12, .011675 forTop15.
-Exports contain full0..6 distributions, >=3/4/5/6 rates, exact baselines,
-marginal intervals and paired block intervals. Degenerate all-zero bootstrap
-intervals are explicitly flagged and do not rule out rare outcomes.
+later 345 targets의 Top15 >=5는 Translation3·Chain1·combination3·Gap3·Random0, Top12는1/0/1/1/0, Top10은0/0/0/1/0, Top8은 모두0입니다. all-six도 없습니다. seeded Random zero는 random probability zero가 아닙니다. exact >=5는 Top8 .000258,Top10 .001109,Top12 .003322,Top15 .011675입니다. export는 full0..6·>=3/4/5/6·exact reference·marginal/paired interval을 포함하며 all-zero 퇴화를 flag합니다.
 
-## Validation, runtime and prospective separation
+## 검증과 runtime
 
-The full regression suite is run after implementation, including synthetic
-known paths, exact margin invariants, complete-search maxima equivalence,
-target poisoning for both models, unchanged Gap Logistic scores, deterministic
-portfolios, immutable artifact publication and registry-integrity corruption.
-Final result: **183 passed,2 dependency-related skipped**,48.78 seconds.
+당시 전체 regression은 synthetic path·exact margins·full-search maximum·두 모델 target poisoning·기존 Gap Logistic 동일성·deterministic portfolio·immutable publication·registry corruption을 검증했습니다. **183 passed,2 dependency-related skipped**,48.78 seconds였습니다.
 
-Complete199+199 null searches took approximately465.5 seconds, measured between
-the first raw export and final surrogate export while other jobs ran concurrently.
-A final plot-label formatting failure was reproduced and fixed; plots were
-rendered from the completed saved searches, without rerunning or selecting nulls.
-Cadence26 backtest including features and summaries took108.9 seconds;
-cadence13 primary sensitivity took85.6 seconds. Pool uncertainty was subsequently
-expanded from saved per-target predictions without changing predictions.
+199+199 search는 다른 작업과 병행해 raw 첫 export부터 마지막 null까지 약465.5 seconds였습니다. plot-label 오류는 재현·수정하고 saved search로 render했으며 null 재선택은 없었습니다. cadence 26은108.9 seconds, cadence 13은85.6 seconds였습니다. pool interval 확장은 saved prediction에서 계산하고 prediction은 바꾸지 않았습니다.
 
-The independent Phase6 freeze uses Translation, Chain, and the predeclared
-equal-rank combination, full rankings/scores and fixed-seed Top12 portfolios.
-Combination development average.854 exceeds each component's point estimate,
-but supplies no validated advantage; it remains experimental. Exact portfolios,
-configuration, fitted rules, source code and hashes are in the new manifest/JSON.
-Phase5 is not changed, and no prospective outcome is evaluated.
+## Prospective experiment
 
-See `reports/spatiotemporal/global_null_comparison.csv`, `surrogate_maxima.csv`,
-`walk_forward_26/`, `walk_forward_13/`, and `plots/` for machine-readable evidence.
-H3 is **TESTED / INCONCLUSIVE**. H4 remains planned; no3D model was implemented.
+당시 Translation·Chain·사전 equal-rank combination을 독립 동결하고 full score/rank·fixed-seed Top12 portfolio를 보존했습니다. development combination .854가 component 점추정치보다 높아도 검증된 우위가 아니며 실험 track입니다. exact portfolio·configuration·rules·source/hash는 원본 manifest/JSON에 있습니다. Phase 5는 바꾸지 않았고 prospective 결과는 평가하지 않았습니다.
+
+## 해석
+
+출력 경로는 `reports/spatiotemporal/global_null_comparison.csv`, `surrogate_maxima.csv`, `walk_forward_26/`, `walk_forward_13/`, `plots/`입니다. [방법](spatiotemporal-analysis.md)과 함께 읽습니다. H3는 **TESTED / INCONCLUSIVE**입니다. 당시 후속 H4의3D는 아직 구현 전이었으나 현재는 [Phase 7 완료 결과](phase7-results.md)가 있습니다. 현재1246회는 알려진 결과이며 아래 원본의 FROZEN_UNEVALUATED는 당시 상태입니다. 원본 파일 가용성은 [현재 workflow](prospective-workflow.md)를 참고합니다. 아래 frozen record 구역은 byte-for-byte 보존합니다.
+
+
+## 한계
+
+ordered label의 의미, 중첩된 탐색, finite mixing과 기존 역사 구간 재사용이 한계입니다.
+
+## 다음 단계
+
+H3의 완료 상태를 유지합니다. 후속 H4는 이미 Phase 7에서 검증했으며 아래 동결 기록은 당시 원문으로 보존합니다.
 
 ## Frozen experiment record
 

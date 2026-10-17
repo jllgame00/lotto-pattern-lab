@@ -1,10 +1,10 @@
-# Regime, Bayesian and frozen-ensemble research
+# Phase 4 — Hazard·Bayesian·HMM·고정 ensemble 연구
 
-This phase tests different statistical assumptions, not whether visually
-interesting patterns can be turned into a profitability claim. The existing
-gap/prize experiment and its defaults remain unchanged.
+## 목적과 연구 가설
 
-## Reproduce
+서로 다른 통계 가정을 비교하며 시각적 패턴을 수익성 주장으로 바꾸지 않습니다. 기존 gap/prize default는 유지합니다. H2는 TESTED / INCONCLUSIVE이며 최종 H17 validated ensemble은 아직 BACKLOG입니다.
+
+## CLI
 
 ```powershell
 python main.py hazard-analysis
@@ -12,151 +12,55 @@ python main.py compare-regime-models
 python -m pytest -q
 ```
 
-Outputs go to `reports/regime_research/`, with selected-number plots under
-`plots/`. Reports are generated artifacts and ignored by Git. The fixed
-retrospective loader stops before actual draw1245. Nothing fetches new results.
-The supplied canonical dataset still ends at1245; prior Phase3 access means
-1245 must not be described as a pristine final holdout.
+출력은 `reports/regime_research/`, selected-number plot은 `plots/`이며 Git-ignored입니다. fixed retrospective loader는 실제1245 전에서 멈추고 새 결과를 가져오지 않습니다. canonical은1245까지이나 앞선 Phase 3 접근 때문에 pristine final holdout이라고 부르지 않습니다.
 
-## Protocol and assumptions
+## 데이터·검증 범위와 Leakage 방지
 
-The primary comparison covers601-1244 with26-draw retraining. All models
-consume the same causal feature rows and labels beginning at draw105. Each fit
-ends strictly before its target. The shared tables have51,300 rows through1244.
-Current features update every draw. HMM parameters freeze between fits while
-the forward state observes only the last completed draw; Bayesian counts also
-update causally between fits. Repeated scoring is idempotent and skipped or
-backward online targets are rejected.
+primary601-1244, cadence 26입니다. 모든 모델은 target 105부터 같은 causal feature/label을 사용하고 fit은 target 전에 끝납니다. 1244까지51,300 rows입니다. current feature는 매 draw 갱신합니다. HMM parameter는 refit 사이 고정하고 forward state는 last completed draw만 관측하며 Bayesian count도 causally 갱신합니다. repeated scoring은 idempotent이고 skip/backward online target은 거부합니다.
 
-Ensemble weight selection uses601-900. We evaluate frozen weights on901-1244.
-This later block is untouched by this phase's weight selection, **not by all
-previous research**. Results from earlier phases already examined those draws.
-There is no genuinely pristine historical evaluation block available here.
-Fixed robustness runs use starts501 and701 at cadence26, and601 at cadence13.
-These overlap and are not independent replications. No settings were selected
-to improve the latest draw or the later evaluation results.
+ensemble weight 선택은601-900, frozen 평가901-1244입니다. latter는 이번 weight selection에서만 제외했으며 앞선 연구가 이미 사용해 pristine holdout은 없습니다. robustness는 start501/701 cadence 26,601 cadence 13이며 중첩되어 독립 반복이 아닙니다. latest draw·later 결과를 높이기 위한 설정 선택은 없었습니다.
 
-### Gap hazards
+### 핵심 정의 — Gap hazard
 
-Exact gap is the number of consecutive completed draws without an appearance;
-zero means the number appeared in the last draw. Fixed bucket boundaries are
-`[1,3,5,8,13,20,30]`. Relative-gap boundaries are
-`[.25,.5,1,1.5,2,3,4]`; standardized gap is
-`(current_gap+1-mean_gap)/gap_std` with boundaries`[-1,-.5,0,.5,1,2,3]`.
-Zero/undefined gap standard deviation is unsupported rather than fabricated.
-Reports contain observations, successes, empirical probabilities, deviations
-from6/45, Jeffreys95% marginal intervals, and an adequacy flag (at least200 rows),
-for all history and three chronological eras. Exact rare gaps remain visible
-with inadequate-sample flags. Rows across numbers in a draw are dependent;
-these marginal intervals are descriptive, not corrected significance tests.
+exact gap은 완료된 연속 absent draws로 마지막 출현이면 zero입니다. 고정 bucket은 `[1,3,5,8,13,20,30]`, relative `[.25,.5,1,1.5,2,3,4]`, standardized `(current_gap+1-mean_gap)/gap_std`의 경계는 `[-1,-.5,0,.5,1,2,3]`입니다. zero/undefined std는 unsupported입니다. 전체·세 era의 observations·successes·probability·6/45 deviation·Jeffreys95% marginal interval·adequacy200 rows flag를 보고하고 exact rare gap도 남깁니다. 회차 안 번호 row는 의존하므로 marginal interval은 보정 전 기술값입니다.
 
-GapHazardModel pools numbers within the fixed current-gap buckets. Its score
-is`(successes+75*6/45)/(observations+75)` from training labels only. Empty bins
-return the fair-number prior. It does not assume that absence raises hazard.
-Alternate ratio/zscore bins are supported explicitly; the default experiment
-does not search these for the best result.
+GapHazardModel은 고정 current-gap bucket에서 pooling하고 training label의 `(successes+75*6/45)/(observations+75)`를 씁니다. empty bin은 fair prior이며 absence 증가가 hazard를 높인다고 가정하지 않습니다. ratio/zscore bin은 지원하지만 default 실험은 best bin을 탐색하지 않습니다.
 
-### Bayesian tendencies
+### Bayesian 경향
 
-Each number has a fixed Beta(2,13) prior. Static posterior parameters are
-`alpha=2+successes`, `beta=13+failures`; score is the posterior mean.
-The recency variant discounts observations by`2**(-age/52)` before adding the
-same prior. Its fractional-count Beta intervals describe the chosen model;
-they are not empirically calibrated confidence statements about Lotto bias.
-The45 marginal models do not model the joint six-without-replacement outcome.
-No empirical-Bayes tuning or cross-number prior fitting is performed.
+번호별 Beta(2,13) prior, static `alpha=2+successes`, `beta=13+failures`의 posterior mean입니다. recency는 `2**(-age/52)`로 discount 후 같은 prior를 더합니다. fractional-count Beta interval은 모델 설명이며 Lotto bias의 calibrated interval이 아닙니다. 45 marginal model은 joint six-without-replacement를 모델링하지 않습니다. empirical-Bayes·cross-number prior tuning은 없습니다.
 
 ### Bernoulli HMM
 
-No suitable HMM dependency is installed. The small NumPy implementation batches
-45 independent2-state or3-state Bernoulli models, using the last260 available
-supervised observations (minimum104). It is not a general-purpose HMM library.
-EM uses scaled forward/backward recursion for training, two deterministic
-initializations, at most40 iterations, and relative objective tolerance1e-5.
-The initial state distribution is fixed uniform. Transition pseudocounts are8
-on the diagonal and1 off-diagonal; emission success/failure pseudocounts are2/13.
-Equivalently these updates maximize a penalized likelihood with Dirichlet
-parameters pseudocount+1 and Beta(3,14) emission priors. They are not the same
-estimation operation as the Bayesian model's Beta(2,13) posterior mean.
+적절한 HMM 의존성이 없어 작은 NumPy 구현으로45 independent2-state/3-state Bernoulli를 batch합니다. supervised 최근260(최소104) observations이며 일반 HMM library가 아닙니다. scaled forward/backward EM, deterministic initializations 두 개, 최대40 iterations, tolerance1e-5, initial uniform입니다. transition pseudocount는 diagonal8·off1, emission2/13입니다. penalized likelihood 관점에서 Dirichlet=pseudocount+1·Beta(3,14) emission prior와 같으며 Bayesian Beta(2,13) posterior mean과 같은 추정이 아닙니다.
 
-The best penalized objective is chosen separately for each number. Probabilities
-are clipped to[1e-6,1-1e-6]. States are sorted by emission probability after fitting
-and labeled cold/hot or cold/neutral/hot. Labels imply no verified real regime.
-Fit exports include transition matrices, emissions, state probabilities,
-likelihood, convergence, iteration count and initialization sensitivity.
-Predictive state exports and plots use **forward filtering with past-fitted
-parameters**, not retrospective smoothing or full-history fitted parameters.
+번호별 best penalized objective를 고르고 probability는[1e-6,1-1e-6]로 clip합니다. emission 순으로 cold/hot 또는 cold/neutral/hot label을 붙이지만 검증된 real regime을 뜻하지 않습니다. transition·emission·state probability·likelihood·convergence·iteration·initialization sensitivity를 export합니다. prediction/plot은 past-fitted parameter의 forward filtering이며 retrospective smoothing·full-history parameter를 쓰지 않습니다.
 
-For numbers7/17/34, count-preserving permutations of the final260 open labeled
-observations compare emission spread, mean diagonal transition probability and
-log-likelihood improvement over a constant Bernoulli model. There are39 shuffles
-per number and configuration. The18 diagnostics receive Bonferroni adjustment.
-The minimum attainable raw p-value is.025: this inexpensive diagnostic cannot
-provide strong corrected evidence. Its purpose is to expose artificial structure.
-Correlations of causal hot/cold probabilities with frequency, gap, periodicity
-score and causal heuristic strong-regime flags are exploratory Spearman summaries.
-No correlation p-values or predictive causal interpretation are assigned.
+번호7/17/34의 최종260 open labeled observations를 count-preserving shuffle해 emission spread·mean diagonal transition·constant Bernoulli 대비 log-likelihood를 비교합니다. number/config별39 shuffles,18 diagnostics에 Bonferroni입니다. raw minimum .025라 강한 corrected evidence를 낼 수 없는 저비용 artificial-structure 진단입니다. causal hot/cold와 frequency·gap·periodicity·strong-regime의 Spearman은 탐색 요약이며 correlation p·causal 해석을 부여하지 않습니다.
 
-### Ensembles and evaluation
+### Ensemble 계산과 평가
 
-Cross-sectional rank normalization uses average ranks for ties, mapped to0-1.
-Score normalization uses per-target min/max, also0-1. Constant scores map to.5.
-Both use only the45 scores already emitted for the target. They are ranking
-utilities, not calibrated appearance probabilities.
+rank normalization은 tie-average rank를0-1로, score normalization은 target min/max를0-1로 바꿉니다. constant는 .5이며 이미 출력한45 scores만 사용합니다. ranking utility이지 calibrated probability가 아닙니다.
 
-Equal weights are tested for Gap+Bayesian, Gap+HMM, Bayesian+HMM, all three,
-all components, all except periodicity, and all except Similarity, under each
-normalization. The small development search compares equal weights with doubling
-just one component, using development Top6 hits only; ties prefer the first
-configuration. Weights are frozen before any later outcome is evaluated.
-"All" means all prespecified research components, not all validated signals.
+각 normalization에서 Gap+Bayesian·Gap+HMM·Bayesian+HMM·세 가지·all·periodicity 제외·Similarity 제외의 equal weight를 비교합니다. 작은 development search는 equal 대 한 component만 두 배이며 development Top6만 선택하고 tie는 첫 설정입니다. later outcome 전에 weight를 동결합니다. All은 prespecified components이며 validated signals 전체라는 뜻이 아닙니다.
 
-Ranking, candidate pools and fixed-budget portfolios reuse the previous phase's
-implementations. Top6/8/10/12/15 pool reports include full winner distributions,
-exact hypergeometric references, empirical simulations, rare-event intervals and
-multiple-testing adjustment. Later-period portfolios use Top12,1/5/10/20 unique
-tickets, weighted and five-subset coverage construction, three deterministic
-seeds, and equal-budget RandomTop12 and unrestricted Uniform45 references.
-Bonus is used only after ticket construction for prize classification.
-Paired ranking/portfolio intervals use2000 circular moving-block bootstraps
-with26-draw blocks. They are descriptive, unadjusted intervals across many
-experiments. Individual prize events are not evidence of an advantage.
+이전 ranking·pool·portfolio 구현을 재사용합니다. Top6/8/10/12/15의 전체 분포·exact hypergeometric·simulation·rare interval·multiple correction을 저장합니다. later는 Top12·unique1/5/10/20·weighted/five-subset coverage·세 seed·RandomTop12/Uniform45 동일 예산입니다. bonus는 ticket 후에만 읽습니다. paired interval은2000 circular26-draw block bootstrap이며 많은 실험의 unadjusted 기술값입니다. 개별 prize event는 우위의 증거가 아닙니다.
 
-## Prospective capability
+## Prospective capability — 당시 protocol
 
 ```powershell
 python main.py freeze-next
 ```
 
-This is a separate, offline command. It reads at most the locally supplied
-header and1245 canonical rows, never the next row; it does not access the network.
-With the current full dataset its target would be1246. It is **not invoked on
-the real dataset during this phase**, and no prediction for1246 is made here.
-Synthetic tests exercise it without revealing any held-out actual outcome.
+별도 offline 명령으로 local header와1245 canonical rows까지만 읽고 다음 row·network는 읽지 않습니다. 당시 full data의 target은1246이었지만 이 Phase에서는 실제로 호출하지 않았고 실제1246 prediction을 만들지 않았습니다. synthetic test만 수행했습니다. 현재1246은 알려진 결과이며 새 prospective 대상이 아닙니다.
 
-Each call creates a new exclusive timestamped/UUID JSON file under
-`reports/prospective/`. It records the exact bounded-source byte hash, latest
-draw/date, next target, UTC timestamp, Git SHA/dirty flag, implementation hashes,
-dependency versions, configurations, seeds,45 scores, Top6/10/12/15 rankings,
-and20-ticket weighted/coverage portfolios whose prefixes define smaller budgets.
-It never silently overwrites an existing snapshot. Local files are not a trusted
-timestamp service or a cryptographic proof that an outcome was unknown.
+호출마다 `reports/prospective/`의 timestamp/UUID JSON을 exclusive 생성합니다. bounded-source byte hash·latest draw/date·next target·UTC·Git SHA/dirty·implementation hash·versions·config/seed·45 scores·Top6/10/12/15·20-ticket weighted/coverage와 smaller-budget prefix를 남깁니다. overwrite하지 않습니다. local file은 trusted timestamp나 outcome unknown의 cryptographic proof가 아닙니다.
 
-The fixed snapshot policies are static/recency Bayesian, HMM2/3 and Frequency52.
-They are separately versioned policies, not automatically selected winners of
-this experiment; no ensemble or Logistic winner is silently chosen. Bayesian
-snapshots use local observations from draw1, explicitly recorded in their
-configuration; retrospective Bayesian comparisons start105. Consequently the
-snapshot policy is not claimed to be identical to those historical experiments.
-Only a target independently known to be unseen at freeze time can later be
-treated as a genuine prospective test. Its result must be retrieved separately
-after freezing; this command never does so.
+fixed snapshot은 static/recency Bayesian·HMM2/3·Frequency52이며 별도 versioned policy입니다. 이 연구 winner·Logistic·ensemble을 자동 선택하지 않습니다. snapshot Bayesian은 draw 1부터, retrospective는105부터라 같은 policy라고 주장하지 않습니다. freeze 시 unseen임을 독립 확인한 target만 진정한 prospective로 볼 수 있고 결과는 별도로 가져와야 합니다. 이 명령은 결과를 가져오지 않습니다.
 
-## Results of the fixed run
+## 주요 결과
 
-No reliable predictive advantage was established. The primary comparison uses
-644 targets,601-1244. Differences below compare each model with the same seeded
-RandomModel targets; brackets are95% paired26-draw-block bootstrap intervals.
+신뢰할 예측 우위는 확립되지 않았습니다. 601-1244의644 targets이며 seeded Random 대비 차이와95% paired26-draw block bootstrap interval입니다.
 
 | Model | Average Top6 hits | Difference vs Random [95% interval] | Mean winner rank |
 |---|---:|---:|---:|
@@ -170,12 +74,9 @@ RandomModel targets; brackets are95% paired26-draw-block bootstrap intervals.
 | Frequency52 | .7842 |-.0140 [-.1134,.0807]|23.1294|
 | Similarity | .7780 |-.0202 [-.1102,.0715]|23.3103|
 
-Theoretical uniform expectation is.8 hits and mean winning rank23. All intervals
-include zero. Bootstrap Monte Carlo endpoints can differ from the earlier
-gap-specific report because this report uses the common ranking-summary stream
-across a different ordered model list; old commands/results are unchanged.
+uniform expectation은 .8 hit·mean rank23입니다. 모든 interval이 zero를 포함합니다. 다른 ordered model list의 공통 stream 때문에 이전 gap report와 bootstrap endpoint가 다를 수 있으며 기존 결과는 바뀌지 않았습니다.
 
-### What the hazard and regime diagnostics show
+### Null / surrogate와 hazard·regime 진단
 
 | Current gap | Observations | Appearance rate | Marginal95% interval |
 |---|---:|---:|---:|
@@ -188,22 +89,11 @@ across a different ordered model list; old commands/results are unchanged.
 |20-29|2286|.12555|[.11244,.13960]|
 |30+|794|.12720|[.10540,.15173]|
 
-Every broad-bin interval contains6/45. There is no monotone overdue-number
-increase. Exact-gap, relative-gap, z-score and era tables are in`hazard.csv`.
-The smoothed model's out-of-sample result does not give the earlier gap Logistic
-uplift a robust interpretable basis; sampling variation remains plausible.
+모든 broad-bin interval은6/45를 포함하며 단조 overdue 증가가 없습니다. exact/relative/z-score/era는 `hazard.csv`입니다. smoothed model의 out-of-sample 결과가 이전 gap Logistic uplift에 robust한 근거를 주지 못했고 sampling variation이 가능합니다.
 
-HMM2/3 median emission spreads across fits are.00312/.00116: many fits almost
-collapse to one Bernoulli rate. Mean spreads are.02584/.01547, with occasional
-larger separations. Convergence fractions are99.82%/99.91%; exceptions remain
-flagged in exports, not silently called converged. Mean initialization-dependent
-spread ranges are.000758/.002218. Persistent transition estimates alone are not
-evidence because the transition prior encourages persistence.
+HMM2/3 median emission spread는 .00312/.00116로 많은 fit이 한 Bernoulli rate에 가깝습니다. mean .02584/.01547이며 일부 큰 분리도 있습니다. convergence99.82%/99.91%, 예외는 flag로 남깁니다. initialization spread range 평균 .000758/.002218입니다. transition prior가 persistence를 유도하므로 persistent estimate만으로 증거가 되지 않습니다.
 
-All18 selected-number null comparisons have corrected p=1.0 (raw minimum.225).
-Real sequences did not show unusually strong fitted state structure relative
-to count-preserving shuffles in this inexpensive diagnostic.
-Across45 numbers, median hot-state Spearman correlations are:
+18 selected-number null 모두 corrected p=1.0(raw minimum .225)입니다. 이 저비용 진단에서 count-preserving null보다 특이한 fitted state는 없었습니다. 45번호의 median hot-state Spearman은 다음과 같습니다.
 
 | Feature | HMM2 | HMM3 |
 |---|---:|---:|
@@ -212,16 +102,11 @@ Across45 numbers, median hot-state Spearman correlations are:
 |Periodicity score|-.014|-.008|
 |Causal strong-periodicity flag|-.036|-.024|
 
-These descriptive associations suggest the fitted states mostly track recent
-appearance behavior, with little broad correspondence to periodicity regimes.
-Plots for7/17/34 and per-number relationships are exported.
+이 기술적 연관은 state가 주로 recent appearance를 따르고 periodicity regime과 넓은 대응은 약함을 시사합니다. 7/17/34 plot과 per-number 관계를 export했습니다.
 
-### Later-period ensembles and ablations
+### Later-period ensemble·ablation
 
-The frozen weight search chose Gap Logistic weight.2 and each of the other eight
-components weight.1. It achieved.8433 Top6 hits in development, then.7849 on the
-344 later targets901-1244. Later RandomModel averaged.7674, with theoretical
-expectation still.8. The paired difference is+.0174 [-.0843,.1193].
+frozen 선택은 Gap Logistic weight .2, 나머지 여덟 개 각각 .1입니다. development hit .8433,901-1244의344 targets에서 .7849, Random .7674(theory .8), paired 차이+.0174[-.0843,.1193]입니다.
 
 | Later model | Avg hits | Mean winner rank | Recall6 | Recall10 | Recall15 |
 |---|---:|---:|---:|---:|---:|
@@ -234,15 +119,9 @@ expectation still.8. The paired difference is+.0174 [-.0843,.1193].
 |HMM3|.7674|22.9850|.1279|.2209|.3314|
 |Development-weight ensemble|.7849|23.2902|.1308|.2122|.3203|
 
-All later model/ensemble average-hit paired intervals include zero. Equal-rank
-all-component averaging gives.7297; removing periodicity increases it to.7558,
-and removing Similarity increases it to.7471. Equal normalized-score averaging
-gives.7936; those removals instead decrease it to.7616/.7645. Thus component
-benefits depend on the combination rule and are not robust. Full15-ensemble
-ablations, hit distributions and era results are in the later CSVs. None is
-adopted as a demonstrated improvement.
+later 모든 hit interval은 zero를 포함합니다. equal-rank all은 .7297, periodicity 제외 .7558, Similarity 제외 .7471입니다. normalized-score all .7936에서는 제외 시 .7616/.7645로 내려갑니다. component 이득은 조합에 의존해 robust하지 않습니다. full15 ablations·histogram·era를 저장하며 입증된 개선으로 채택하지 않습니다.
 
-### Robustness
+### 시간·시작점 robustness
 
 | Model |501-1244, cadence26|601-1244, cadence26|701-1244, cadence26|601-1244, cadence13|
 |---|---:|---:|---:|---:|
@@ -254,18 +133,11 @@ adopted as a demonstrated improvement.
 |HMM2|.7769|.7873|.7721|.7609|
 |HMM3|.7688|.7873|.7555|.7748|
 
-All corresponding paired average-hit intervals include zero. Bayesian results
-are cadence-invariant at the same start because exact online count updates match
-refitting. HMMs are not consistently better across starts or cadences. In the
-primary early/middle/recent blocks, HMM2 scores.786/.870/.706 and HMM3
-.781/.842/.738 versus Random.856/.772/.766. The middle-block uplift reverses in
-other blocks. New individual models, plus Gap Logistic, receive these extra
-fits; ensembles do not establish a promising advantage warranting further
-adaptive weight/cadence searches. Every later ensemble has separate time blocks.
+해당 paired hit interval 모두 zero를 포함합니다. Bayesian은 causal count update가 refit과 같아 같은 start에서 cadence-invariant입니다. HMM은 start/cadence별 일관된 개선이 없습니다. primary early/middle/recent는 HMM2 .786/.870/.706, HMM3 .781/.842/.738, Random .856/.772/.766입니다. middle 이득이 다른 block에서 뒤집힙니다. individual models·Gap Logistic에 추가 fit을 했으며 ensemble의 추가 adaptive weight/cadence search를 정당화할 근거는 없었습니다. later ensemble time block도 별도입니다.
 
-### Candidate concentration and portfolios
+### Candidate-pool / prize-aware 결과
 
-Counts of later draws with at least five main winners in the candidate pool:
+later에서 pool이 본번호 다섯 개 이상 포함한 draw 수입니다.
 
 | Model |Top8|Top10|Top12|Top15|
 |---|---:|---:|---:|---:|
@@ -279,13 +151,9 @@ Counts of later draws with at least five main winners in the candidate pool:
 |Development-weight ensemble|0|0|0|4|
 |Exact random expected count,344 draws|.089|.381|1.143|4.016|
 
-All these models have zero all-six pool events. The only all-six event among
-all tested policies is the old mean-reversion heuristic at Top15. Every corrected
-later pool test has p=1.0. The empirical random run's zero rare events does not
-replace the positive exact expectations. The complete reports include0-6 winner
-distributions,3+/4+ rates, intervals and all pool sizes.
+이 모델들은 all-six zero입니다. 전체 policy 중 유일한 all-six는 기존 mean-reversion Top15입니다. corrected later pool p는 모두1.0입니다. seeded Random의 zero event로 positive exact expectation을 대체하지 않습니다. full0-6·3+/4+·interval·모든 pool size를 저장했습니다.
 
-Later mean best match per draw across three seeds (weighted Top12 portfolios):
+세 seed 평균 later mean best match, weighted Top12 portfolio입니다.
 
 | Policy |1 ticket|5 tickets|10 tickets|20 tickets|
 |---|---:|---:|---:|---:|
@@ -293,54 +161,22 @@ Later mean best match per draw across three seeds (weighted Top12 portfolios):
 |RandomModel Top12|.8072|1.3624|1.4884|1.5746|
 |Uniform45 unrestricted|.8333|1.7665|2.1095|2.4099|
 
-At20 tickets, ensemble coverage yields1.5078 versus matched random coverage1.5862.
-The ensemble's paired mean-best difference is-.0795 [-.1996,.0475] for weighted
-and-.0785 [-.2016,.0485] for coverage. The candidate restriction lowers broad
-ticket coverage; unrestricted random portfolios are a necessary practical
-reference. None of the new models demonstrates better prize-aware performance.
-The recency-Bayesian portfolio is worse than matched random in some unadjusted
-intervals; this is a diagnostic, not a corrected inferiority claim.
+20 tickets에서 ensemble coverage1.5078 대 matched Random1.5862입니다. paired mean-best는 weighted -.0795[-.1996,.0475], coverage -.0785[-.2016,.0485]입니다. pool restriction은 broad coverage를 낮추므로 unrestricted Random이 필요합니다. 새 model의 prize-aware 개선은 확립되지 않았습니다. recency-Bayesian 일부 unadjusted interval 악화는 corrected inferiority 주장이 아닌 진단입니다.
 
-Across all30 model policies, both methods, three seeds and the Uniform45 control,
-there are1,259,040 maximum-budget ticket instances (smaller budgets reuse their
-prefixes). They produce27 rare-event occurrences, representing15 distinct
-draw/ticket pairs on9 draws: **0 first,1 second,14 third-prize equivalents**.
-The second-equivalent ticket is[10,12,18,39,42,43] at942, with five main winners
-and bonus39, repeated across three Bayesian+HMM construction variants. It is
-one distinct historical event, not three independent successes. The frozen
-development-weight ensemble and the individual Bayesian/HMM models produce no
-five-main-match tickets here. GapHazard produces a third-equivalent at1123.
-All individual prize counts and nonzero uncertainty bounds for zero-event
-samples are retained in`portfolio_replicates.csv`.
+30 policies·두 방법·세 seed·Uniform45에서 maximum-budget1,259,040 instances이며 작은 budget은 prefix입니다. rare27 occurrences는9 draws의15 distinct pairs로 **first0·second1·third14 equivalents**입니다. second ticket[10,12,18,39,42,43]은 draw 942·bonus39로 Bayesian+HMM 세 variant에 반복된 한 사건입니다. independent successes 세 개가 아닙니다. frozen ensemble·individual Bayesian/HMM에는 five-main ticket이 없고 GapHazard는1123에서 third-equivalent였습니다. zero-event의 nonzero uncertainty와 개별 prize는 `portfolio_replicates.csv`에 있습니다.
 
-## Verification and dependencies
+## 검증·의존성·한계
 
-Full suite: **136 passed,2 skipped** in21.67s, including all original114 passing
-tests. The skips are optional tree dependencies. Independent code review found
-no blocking causal or mathematical defect and reproduced one HMM EM update by
-exhaustive state-path enumeration within2.78e-17. A missing-Git provenance case
-was fixed with a failing-then-passing regression: unknown status is JSON null,
-never falsely clean. Synthetic snapshot tests forbid network connections.
+당시 전체 **136 passed,2 skipped**,21.67s이며 기존114개 포함입니다. skip은 optional tree입니다. 독립 review는 blocking causal/math defect를 찾지 않았고 한 HMM EM update를 exhaustive path로2.78e-17 이내 재현했습니다. missing-Git 경우 regression을 추가해 unknown을 false clean 대신 JSON null로 저장합니다. synthetic snapshot test는 network를 금지합니다.
 
-The complete default experiment took291.34s, including null diagnostics,
-portfolios and the additional robustness fits. Primary HMM2/HMM3 took8.62/8.81s
-for644 targets each. The final combined comparison CSV was assembled from saved
-results without refitting or changing any predictions.
+전체291.34s에 null·portfolio·robustness가 포함됩니다. primary HMM2/HMM3는 각각644 targets에8.62/8.81s입니다. 최종 CSV는 saved result로 조립하고 refit·prediction 변경은 없었습니다.
 
-Artifact checks independently reconstructed9660 individual and10320 later
-ranking records,99900 candidate-pool counts,251808 fixed-budget rows,57960
-filtered-state probability rows and all27 rare ticket occurrences against the
-bounded open dataset. Training cutoffs, target boundaries, nested budgets,
-state normalization, prize classifications and the open-prefix hash agree.
+당시 artifact 검증은 individual9660·later 10320 ranking records, pool99900·budget251808·filtered-state57960 rows·rare27를 bounded dataset에서 재구성했습니다. cutoff·target·nested budget·state normalization·prize·prefix hash가 일치했습니다.
 
-`hmmlearn`,scikit-learn,LightGBM andXGBoost remain absent. `PIP_NO_INDEX=1`
-blocks index lookup; the configured proxy127.0.0.1:9 refused the authorized Git
-push in this session (connection refused). No network bypass, package-install
-retry campaign, tree replacement, or future-result request was attempted.
+당시 `hmmlearn`·scikit-learn·LightGBM·XGBoost는 없었습니다. `PIP_NO_INDEX=1`과 proxy127.0.0.1:9로 당시 허가된 Git push도 connection refused였습니다. network 우회·설치 반복·tree replacement·미래 결과 요청은 없었습니다.
 
-The requested checkpoint already existed as clean commit
-`5b66beed885de7ee4d240e06100e474c03609497`, with message
-`feat: add prize-aware validation and gap signal audit`. It was reverified with
-114 passed,2 skipped before Phase4 edits. Push failed at the proxy; remote
-authentication could not be established. No duplicate checkpoint, history
-rewrite, second commit or Phase4 push was performed.
+당시 checkpoint는 commit `5b66beed885de7ee4d240e06100e474c03609497`, message `feat: add prize-aware validation and gap signal audit`였습니다. Phase 4 전114 passed,2 skipped로 재확인했습니다. push는 proxy에서 실패해 remote auth를 확인하지 못했습니다. 당시 duplicate checkpoint·history rewrite·second commit·Phase 4 push는 없었습니다. 이는 과거 이력이며 이번 문서 작업의 commit/push가 아닙니다.
+
+## 해석과 다음 단계
+
+HMM state label·local 진단·가상 당첨을 예측력과 구분합니다. H17 validated ensemble은 완료되지 않았습니다. 이후 동결 체계는 [Phase 5 원본](prospective-experiment.md)과 [현재 workflow](prospective-workflow.md)를 참고합니다.
