@@ -107,7 +107,7 @@ canonical history는 **1–1245회**, **2002-12-07–2026-10-10**입니다.
 | H13 | Modular / difference-space transforms | TESTED / INCONCLUSIVE |
 | H14 | Entropy / compression / algorithmic randomness | TESTED / INCONCLUSIVE |
 | H15 | Tensor decomposition | TESTED / INCONCLUSIVE |
-| H16 | Symmetry / reflection structure | BACKLOG |
+| H16 | Symmetry / reflection structure | TESTED / INCONCLUSIVE |
 | H17 | Validated weak-signal ensemble | BACKLOG |
 
 Phase와 H번호는 서로 다른 분류입니다. 옛 계획·동결 증거의 H번호는 보존합니다.
@@ -232,6 +232,16 @@ H15는 **TESTED / INCONCLUSIVE**입니다. 개발 gate 실패로 TensorFactorMod
 **PREDICTIVE_MODEL_NOT_JUSTIFIED**이며 예측·ensemble 후보·Phase17 prospective 기능을 만들지 않았습니다.
 [방법](docs/tensor-analysis.md) · [결과·결정·검증](docs/phase17-results.md)
 
+### Phase 18 — Symmetry / Reflection Structure
+
+중심23의 mirror(n)=46−n,9lags,22pairs,rolling activity와 제한된 secondary shift를 검증했습니다.
+IID199/fixed-margin199 전체 검색에서 일곱 family 모두 보정 p=1이었습니다.
+개발에서 고정한 MirrorModel의 이후 평균Top6는.8261이었지만 Gap.8348을 넘지 못했고
+주요 paired 구간은0을 포함했습니다. H16은 **TESTED / INCONCLUSIVE**입니다.
+Mirror는 낮은 순위 상관과 약한 양의 점추정치를 보존하는 탐색적 **ENSEMBLE CANDIDATE**입니다.
+예측 우위나 prospective 발행의 정당화는 아니며 H17 ensemble은 만들지 않았습니다.
+[방법](docs/symmetry-analysis.md) · [결과·결정·검증](docs/phase18-results.md)
+
 ## Prospective experiments
 
 여러 draw-1246 실험은 결과가 알려지기 전에 동결된 역사적 증거입니다.
@@ -239,7 +249,7 @@ H15는 **TESTED / INCONCLUSIVE**입니다. 개발 gate 실패로 TensorFactorMod
 원본의 FROZEN_UNEVALUATED는 당시 동결 상태로 보존하고 결과를 자동 평가하지 않습니다.
 
 Phase 11–15의 역사 연구와 설정은 고정했으며 다음 prospective 대상은 **1247회**입니다.
-Phase16–17은 정당화된 predictor가 없어 별도 prospective capability를 생성하지 않았습니다.
+Phase16–18은 prospective에 정당화된 predictor가 없어 별도 prospective capability를 생성하지 않았습니다.
 기존 archive가 없어 **PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION** 상태입니다.
 1247 준비 gate만 구현했고 1246회 import·새 prospective snapshot 발행은 수행하지 않았습니다.
 

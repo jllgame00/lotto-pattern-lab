@@ -101,6 +101,8 @@ def _parser():
     add_complexity_commands(commands)
     from src.tensor_cli import add_commands as add_tensor_commands
     add_tensor_commands(commands)
+    from src.symmetry_cli import add_commands as add_symmetry_commands
+    add_symmetry_commands(commands)
     evaluation=commands.add_parser('evaluate-freeze',help='Offline evaluation of a frozen snapshot and explicit local result JSON')
     evaluation.add_argument('snapshot',type=Path)
     evaluation.add_argument('result_file',type=Path)
@@ -316,6 +318,10 @@ def main(argv=None) -> int:
         if args.command == 'tensor':
             from src.tensor_cli import run as run_tensor
             run_tensor(args)
+            return 0
+        if args.command == 'symmetry':
+            from src.symmetry_cli import run as run_symmetry
+            run_symmetry(args)
             return 0
         if args.command in ('analyze-number-space','compare-number-space','freeze-number-space'):
             from src.number_space_cli import run as run_number_space

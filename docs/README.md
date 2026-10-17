@@ -111,10 +111,20 @@ IID199/fixed-margin199에서 완전히 검색했습니다. 모든 family는 보�
 [방법](tensor-analysis.md) · [결과·결정·검증](phase17-results.md) · [실행 계획](superpowers/plans/2026-10-18-phase17.md)
 기존 prospective archive는 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION입니다.
 
+## Phase 18 — Symmetry / Reflection
+
+H16: TESTED / INCONCLUSIVE. 중심23·22pairs·9lags·제한된 shift를 IID199/fixed199에서
+동일하게 검색했으며 전체3862개 후보의 일곱 family 보정 p는 모두1이었습니다.
+MirrorModel 이후Top6=.8261,Gap=.8348이며 주요 paired 구간은0을 포함했습니다.
+낮은 Gap/Graph 순위 상관의 탐색적 ENSEMBLE CANDIDATE로 보존하되 예측 우위를 주장하지 않습니다.
+PairModel/Phase18 prospective 기능/H17 ensemble은 만들지 않았습니다.
+[방법](symmetry-analysis.md) · [결과·결정·검증](phase18-results.md) · [실행 계획](superpowers/plans/2026-10-18-phase18.md)
+기존 prospective archive는 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION입니다.
+
 ## 향후 연구 가설
 
 [가설 노트](research-ideas.md)의 H7은 DEFERRED,
-H16–H17은 BACKLOG입니다. symmetry / reflection, validated ensemble을 별도 가설로 관리합니다.
+H17은 BACKLOG입니다. validated ensemble 연구는 별도로 남아 있습니다.
 
 ## Historical protocol archive
 

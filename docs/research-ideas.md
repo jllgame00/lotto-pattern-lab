@@ -34,7 +34,7 @@ Current active documentation uses the canonical H1–H17 numbering below.
 | H13 | Modular / difference-space transforms | TESTED / INCONCLUSIVE |
 | H14 | Entropy / compression / algorithmic randomness | TESTED / INCONCLUSIVE |
 | H15 | Tensor decomposition | TESTED / INCONCLUSIVE |
-| H16 | Symmetry / reflection structure | BACKLOG |
+| H16 | Symmetry / reflection structure | TESTED / INCONCLUSIVE |
 | H17 | Validated weak-signal ensemble | BACKLOG |
 
 ## H1 — 개별 번호의 시간적 패턴
@@ -575,7 +575,7 @@ rank 탐색, rotation / scaling 모호성, factor 해석의 사후 선택, 전�
 
 **상태**
 
-BACKLOG
+TESTED / INCONCLUSIVE
 
 **핵심 아이디어**
 
@@ -587,15 +587,22 @@ ordered label 표현의 symmetry / anti-symmetry를 제한된 transform으로 �
 
 **검증 방법**
 
-same-draw mirrored pairs, lagged mirror relationships, draw-level symmetry score와 MirrorModel을 사전 선언한다. IID / fixed-margin global-max tests를 사용하고 고정 중심 23부터 시작한다.
+same-draw22mirror pairs,9lags,3activity windows,3regime windows와5secondary shifts를 사전 고정했다.
+3862개 전체 후보를 IID199/fixed-margin199에서 재구성하고 각 family의 자체 global maximum을 비교했다.
+개발401–900에서48개 Mirror 설정을 비교해 고정하고901–1245에서 causal ranking을 평가했다.
 
 **현재까지 결과**
 
-미실행이며 MirrorModel은 아직 구현하지 않았다.
+일곱 family 모두 전체 corrected p=1이었다. MirrorModel의 이후 평균Top6=.8261은
+Random=.7681/Frequency=.7739보다 높았지만 Gap=.8348보다 낮고 주요 paired 구간은0을 포함했다.
+Gap/Graph Spearman=.0072/.0245의 낮은 상관과 약한 양의 점추정치를 탐색적 ENSEMBLE CANDIDATE로 보존한다.
+이는 statistical evidence 또는 H16 PROMISING 판정이 아니다. 최근 성능과 block 민감도가 남는다.
 
 **다음 결정**
 
-고정 중심 증거가 확장을 정당화할 때만 dynamic centers를 고려한다.
+MirrorPairModel·shift predictor·dynamic center·H17 ensemble은 만들지 않았다.
+prospective에 정당화된 모델이 없어 draw1247_phase18_symmetry capability도 만들지 않았다.
+기존 archive는 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION이다.
 
 **주요 false-positive 위험**
 
@@ -603,7 +610,7 @@ same-draw mirrored pairs, lagged mirror relationships, draw-level symmetry score
 
 **관련 문서**
 
-[연구 원칙](../README.md#연구-원칙)
+[Phase18 방법](symmetry-analysis.md) · [결과·검증](phase18-results.md)
 
 ## H17 — Validated weak-signal ensemble
 
