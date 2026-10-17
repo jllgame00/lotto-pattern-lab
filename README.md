@@ -194,25 +194,26 @@ depends on how many tickets are generated and is not evidence of skill.
 
 Initial seed-42 verification:
 
-| Run | Targets | Tickets | Mean matches | Approx. 95% CI | Best |
-|---|---:|---:|---:|---|---:|
-| Walk-forward, draws 300–1245 | 946 | 946 | 0.788584 | 0.738901–0.837209 | 4 |
-| 100 checkpoints, 5 tickets × 10 repeats | 100 | 5,000 | 0.788800 | 0.767200–0.810205 | 4 |
+| Run                                     | Targets | Tickets | Mean matches | Approx. 95% CI    | Best |
+| --------------------------------------- | ------: | ------: | -----------: | ----------------- | ---: |
+| Walk-forward, draws 300–1245            |     946 |     946 |     0.788584 | 0.738901–0.837209 |    4 |
+| 100 checkpoints, 5 tickets × 10 repeats |     100 |   5,000 |     0.788800 | 0.767200–0.810205 |    4 |
 
 Both intervals contain the 0.8 random expectation. These runs verify the
 evaluation pipeline; **no predictive advantage is claimed**.
 
 ## Research roadmap
 
-| Hypothesis | Status |
-|---|---|
-| H1 — Fixed-number temporal patterns | TESTED / INCONCLUSIVE |
-| H2 — Gap / periodicity / regime models | TESTED / INCONCLUSIVE |
-| H3 — 2D translational number patterns | TESTED / INCONCLUSIVE |
-| H4 — Gap-conditioned 3D translational patterns | TESTED / INCONCLUSIVE |
-| H5 — Recent-frequency-conditioned 3D translational patterns | IN PROGRESS |
-| H6 — Multi-state / 4D patterns | BACKLOG |
-| H7 — Delay embeddings / tensor methods | BACKLOG |
+| Hypothesis                                                  | Status                |
+| ----------------------------------------------------------- | --------------------- |
+| H1 — Fixed-number temporal patterns                         | TESTED / INCONCLUSIVE |
+| H2 — Gap / periodicity / regime models                      | TESTED / INCONCLUSIVE |
+| H3 — 2D translational number patterns                       | TESTED / INCONCLUSIVE |
+| H4 — Gap-conditioned 3D translational patterns              | TESTED / INCONCLUSIVE |
+| H5 - Recent-frequency-conditioned 3D patterns | TESTED / INCONCLUSIVE |
+| H6 - Joint gap x recent-frequency interaction state | TESTED / INCONCLUSIVE |
+| H7 - Full 4D trajectory geometry | BACKLOG |
+| H8 - Delay embedding / tensor methods | BACKLOG |
 
 Phase6 tests bounded translations through draw and ordered number space against
 complete-search maxima from IID and exact-margin surrogate histories. It uses
@@ -239,6 +240,26 @@ own registry. It never fetches results, and refuses a second freeze for the same
 Phase6 target. Old commands and defaults remain intact.
 
 ## Structure and next phases
+
+Phase9 tests the categorical **interaction** of causal gap LOW/MID/HIGH with
+W26 frequency COLD/NEUTRAL/HOT: nine joint states. A translation diluted globally
+or within either single state might concentrate in HIGH x HOT. This is exploratory;
+the larger search space increases false-discovery risk. No continuous4D vectors
+or arbitrary state sequences are added. H6 began IN PROGRESS and concludes
+TESTED / INCONCLUSIVE. See [methods](docs/joint-state-analysis.md) and
+[results](docs/phase9-results.md).
+
+```powershell
+python main.py analyze-joint --surrogates 199
+python main.py compare-joint
+python main.py compare-joint --cadence 13
+python main.py freeze-joint
+```
+
+Reports use reports/spatiotemporal_joint/; the three independent prospective
+tracks use their own reports/prospective/phase9/ registry and hashes. All
+Phase5/6/7/8 prospective evidence remains immutable.
+
 
 Phase8 replaces gap with **recent appearance frequency**, using only predeclared
 10/26/52-draw windows. Two numbers can have the same current gap while one had
@@ -329,3 +350,24 @@ run with Python 3.13.1. No commits or pushes were made.
 
 Phase8 complete-search null tests and walk-forward comparisons found no reliable
 advantage. H5 remains TESTED / INCONCLUSIVE. See [Phase8 results](docs/phase8-results.md).
+
+### H9 — Spatial neighborhood / range-density patterns
+
+Status: BACKLOG
+
+Hypothesis:
+Predictive structure may exist at the level of local number ranges rather
+than individual numbers.
+
+Instead of assigning probability only to a number itself, strong historical
+activity around a number may contribute partial weight to neighboring numbers.
+
+Planned methods:
+
+- sliding range density
+- 1D kernel smoothing over numbers 1–45
+- hot-zone detection
+- nearest-neighbor / spacing statistics
+- range-aware ticket generation
+- null-surrogate comparison
+- walk-forward evaluation
