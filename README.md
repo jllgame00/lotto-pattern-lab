@@ -104,7 +104,7 @@ canonical history는 **1–1245회**, **2002-12-07–2026-10-10**입니다.
 | H10 | Wavelet / SSA multiscale structure | TESTED / INCONCLUSIVE |
 | H11 | Mutual information / Transfer Entropy | TESTED / INCONCLUSIVE |
 | H12 | Dynamic graph / Hypergraph | TESTED / INCONCLUSIVE |
-| H13 | Modular / difference-space transforms | BACKLOG |
+| H13 | Modular / difference-space transforms | TESTED / INCONCLUSIVE |
 | H14 | Entropy / compression / algorithmic randomness | BACKLOG |
 | H15 | Tensor decomposition | BACKLOG |
 | H16 | Symmetry / reflection structure | BACKLOG |
@@ -206,13 +206,22 @@ H12는 **TESTED / INCONCLUSIVE**입니다. Graph는 낮은 rank 상관과 약한
 탐색적 **ENSEMBLE CANDIDATE**, Hypergraph는 **NOT CURRENTLY JUSTIFIED**입니다. 최종 ensemble은 만들지 않았습니다.
 [방법](docs/graph-hypergraph-analysis.md) · [결과·동결 설정·검증](docs/phase14-results.md)
 
+### Phase 15 — Modular / Difference-Space Transforms
+
+moduli2–7과 lag1/2/3/4/8/13/26의 residue·absolute distance·gap shape를199 IID +199 fixed-margin 전체 검색과 비교했습니다.
+다섯 family 모두 보정 후 유의하지 않았습니다. 이후 평균Top6는 Modular0.786, Difference0.777,
+GapShape0.838, Gap Logistic0.835이며 주요 paired 구간은0을 포함했습니다.
+H13은 **TESTED / INCONCLUSIVE**입니다. Modular·Difference는 **NOT CURRENTLY JUSTIFIED**,
+GapShape는 K 민감도를 남긴 탐색적 **ENSEMBLE CANDIDATE**입니다. 최종 ensemble은 만들지 않았습니다.
+[방법](docs/transformed-space-analysis.md) · [결과·동결 설정·검증](docs/phase15-results.md)
+
 ## Prospective experiments
 
 여러 draw-1246 실험은 결과가 알려지기 전에 동결된 역사적 증거입니다.
 **1246회 결과는 현재 외부에 알려져 있으며 새로운 prospective 대상이 아닙니다.**
 원본의 FROZEN_UNEVALUATED는 당시 동결 상태로 보존하고 결과를 자동 평가하지 않습니다.
 
-Phase 11–14의 역사 연구와 설정은 고정했으며 다음 prospective 대상은 **1247회**입니다.
+Phase 11–15의 역사 연구와 설정은 고정했으며 다음 prospective 대상은 **1247회**입니다.
 기존 archive가 없어 **PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION** 상태입니다.
 1247 준비 gate만 구현했고 1246회 import·새 prospective snapshot 발행은 수행하지 않았습니다.
 
@@ -225,7 +234,7 @@ Phase 11–14의 역사 연구와 설정은 고정했으며 다음 prospective �
 ## 실행 방법
 
 아래는 존재하는 명령의 사용 예입니다. 분석·freeze 명령은 출력 파일을 만듭니다.
-Phase 11–13 명령은 연구 입력을 1–1245회로 제한하며 데이터 수집을 수행하지 않습니다.
+Phase 11–15 명령은 연구 입력을 1–1245회로 제한하며 데이터 수집을 수행하지 않습니다.
 
 ### 환경 설정
 
@@ -284,6 +293,7 @@ python main.py recurrence --help
 python main.py multiscale --help
 python main.py information-flow --help
 python main.py graph-hypergraph --help
+python main.py transformed-space --help
 ```
 
 ### Prospective workflow

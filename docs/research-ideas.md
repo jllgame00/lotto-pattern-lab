@@ -31,7 +31,7 @@ Current active documentation uses the canonical H1–H17 numbering below.
 | H10 | Wavelet / SSA multiscale structure | TESTED / INCONCLUSIVE |
 | H11 | Mutual information / Transfer Entropy | TESTED / INCONCLUSIVE |
 | H12 | Dynamic graph / Hypergraph | TESTED / INCONCLUSIVE |
-| H13 | Modular / difference-space transforms | BACKLOG |
+| H13 | Modular / difference-space transforms | TESTED / INCONCLUSIVE |
 | H14 | Entropy / compression / algorithmic randomness | BACKLOG |
 | H15 | Tensor decomposition | BACKLOG |
 | H16 | Symmetry / reflection structure | BACKLOG |
@@ -456,7 +456,7 @@ community resolution 탐색, 희소 hyperedge, 동일 회차의 음의 의존성
 
 **상태**
 
-BACKLOG
+TESTED / INCONCLUSIVE
 
 **핵심 아이디어**
 
@@ -468,15 +468,20 @@ modulo transforms·sorted-number differences·spacing sequences로 표현을 바
 
 **검증 방법**
 
-modulus·정렬·차분 정의를 사전 제한하고 동일 변환 탐색을 null에도 적용한다.
+moduli{2,3,4,5,6,7}, lags{1,2,3,4,8,13,26}, absolute distance1..44와 normalized gap5를 고정했다.
+다섯 family1793개 후보의 동일한 검색을 IID199·fixed-margin199개에도 적용했다.
 
 **현재까지 결과**
 
-별도 가설은 미실행이다. Phase 10의 spacing 기술 통계가 이 전체 가설을 검증한 것은 아니다.
+다섯 family 모두 보정 후 유의하지 않았다. modular temporal의 가장 작은 보정 p도 fixed0.95/IID1이다.
+개발401–900에서 mod7/lag13, distance lag3/support20, shapeK25/sigma1을 동결했다.
+이후 평균Top6는 .786/.777/.838, Gap.835이며 주요 paired 구간은0을 포함했다.
+Modular/Difference는 NOT CURRENTLY JUSTIFIED, GapShape는 K 민감도를 남긴 탐색적 ENSEMBLE CANDIDATE다.
 
 **다음 결정**
 
-중복 표현과 경계 조건을 정리한 후 독립 protocol로 검증한다.
+선택된 단일 modulus·distance 모델과 약한 shape 후보를 보존한다. 최종 ensemble은 만들지 않는다.
+1247 발행은 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION이다.
 
 **주요 false-positive 위험**
 
@@ -484,7 +489,7 @@ modulus·정렬·차분 정의를 사전 제한하고 동일 변환 탐색을 nu
 
 **관련 문서**
 
-[Number-space 방법](number-space-analysis.md)
+[Phase15 방법](transformed-space-analysis.md) · [결과·검증](phase15-results.md)
 
 ## H14 — Entropy / compression / algorithmic randomness
 

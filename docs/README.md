@@ -86,10 +86,19 @@ Hypergraph는 NOT CURRENTLY JUSTIFIED입니다. 예측 우위를 확립한 판�
 [방법](graph-hypergraph-analysis.md) · [결과·설정·검증](phase14-results.md) · [실행 계획](superpowers/plans/2026-10-18-phase14.md)
 1247 발행은 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION입니다.
 
+## Phase 15 — Modular / Difference-Space Transforms
+
+H13: TESTED / INCONCLUSIVE. moduli2–7·lag7개의199+199 전체 null 검색에서
+다섯 family 모두 보정 후 유의하지 않았습니다. 이후 Modular/Difference의 근거는 부족하며,
+GapShape는 약한 양의 점추정치와 낮은 순위 상관을 보존하는 탐색적 ENSEMBLE CANDIDATE입니다.
+주요 paired 구간은0을 포함하고 K 민감도가 있습니다.
+[방법](transformed-space-analysis.md) · [결과·설정·검증](phase15-results.md) · [실행 계획](superpowers/plans/2026-10-18-phase15.md)
+1247 발행은 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION입니다.
+
 ## 향후 연구 가설
 
 [가설 노트](research-ideas.md)의 H7은 DEFERRED,
-H13–H17은 BACKLOG입니다. Modular / difference-space, entropy / compression,
+H14–H17은 BACKLOG입니다. Entropy / compression,
 tensor, symmetry / reflection, validated ensemble을 별도 가설로 관리합니다.
 
 ## Historical protocol archive

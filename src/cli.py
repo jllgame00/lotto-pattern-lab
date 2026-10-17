@@ -95,6 +95,8 @@ def _parser():
     add_information_commands(commands)
     from src.graph_hypergraph_cli import add_commands as add_graph_hypergraph_commands
     add_graph_hypergraph_commands(commands)
+    from src.transformed_cli import add_commands as add_transformed_commands
+    add_transformed_commands(commands)
     evaluation=commands.add_parser('evaluate-freeze',help='Offline evaluation of a frozen snapshot and explicit local result JSON')
     evaluation.add_argument('snapshot',type=Path)
     evaluation.add_argument('result_file',type=Path)
@@ -298,6 +300,10 @@ def main(argv=None) -> int:
         if args.command == 'graph-hypergraph':
             from src.graph_hypergraph_cli import run as run_graph_hypergraph
             run_graph_hypergraph(args)
+            return 0
+        if args.command == 'transformed-space':
+            from src.transformed_cli import run as run_transformed
+            run_transformed(args)
             return 0
         if args.command in ('analyze-number-space','compare-number-space','freeze-number-space'):
             from src.number_space_cli import run as run_number_space
