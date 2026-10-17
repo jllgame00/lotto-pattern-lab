@@ -3,7 +3,7 @@
 ## 연구 개요
 
 - [프로젝트 소개와 Phase 지도](../README.md)
-- [Canonical H1–H17 연구 가설 노트](research-ideas.md)
+- [Canonical 연구 가설 노트](research-ideas.md)
 - [현재 prospective workflow](prospective-workflow.md)
 - [데이터·출처·검증·해시 범위](data-provenance.md)
 - [문서 전체 inventory와 보존·검증 기록](documentation-audit.md)
@@ -149,7 +149,15 @@ PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION이며 H21 이후는 시작�
 H21: TESTED / INCONCLUSIVE. 구조적 zero mode를 제외한45번호 correlation의2443cell complete search를
 IID199/fixed199로 보정했으나 collective spectral evidence가 없었습니다. 개발 gate 실패로 predictor/ensemble/prospective capability를 만들지 않았습니다.
 [방법](random-matrix-analysis.md) · [결과·검증](random-matrix-results.md) · [계획](superpowers/plans/2026-10-18-phase22.md)
-기존 archive는 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION이며 H22 이후는 시작하지 않았습니다.
+기존 archive는 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION이며 Phase22 종료 시점에 H22 이후는 시작하지 않았습니다.
+
+## Phase23 — H22 Topological Data Analysis / persistent structure
+
+H22: TESTED / INCONCLUSIVE. H0 exact MST의560cell complete-search IID199/fixed199 보정에서
+구조 근거가 없었고 개발 gate도 실패했습니다. H1은 H1_DEFERRED_DEPENDENCY_LIMITATION입니다.
+PREDICTIVE_MODEL_NOT_JUSTIFIED이며 예측·prospective capability를 만들지 않았습니다.
+[방법](topology-analysis.md) · [결과·검증](topology-results.md) · [계획](superpowers/plans/2026-10-18-phase23.md)
+기존 archive는 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION입니다.
 
 ## 향후 연구 가설
 

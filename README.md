@@ -113,6 +113,7 @@ canonical history는 **1–1245회**, **2002-12-07–2026-10-10**입니다.
 | H19 | Point process / Hawkes-like influence / renewal | TESTED / INCONCLUSIVE |
 | H20 | Long-memory / fractal scaling / DFA | TESTED / INCONCLUSIVE |
 | H21 | Random Matrix Theory / collective number modes | TESTED / INCONCLUSIVE |
+| H22 | Topological Data Analysis / persistent structure | TESTED / INCONCLUSIVE |
 
 H17은 남은 독립 가설 검증까지 의도적으로 미룹니다. Phase와 H번호는 서로 다른 분류이며 기존 번호는 보존합니다.
 대응 관계는 [번호 이관 안내](docs/research-ideas.md#번호-이관-안내)에 설명합니다.
@@ -270,6 +271,13 @@ H21은 TESTED / INCONCLUSIVE입니다. 구조적 zero mode를 제외한 correlat
 동일 complete-search IID199/fixed199 비교에서 보정된 collective-mode 근거가 없었습니다.
 개발 gate 실패로 PREDICTIVE_MODEL_NOT_JUSTIFIED이며 예측·prospective capability를 만들지 않았습니다.
 [방법](docs/random-matrix-analysis.md) · [결과·검증](docs/random-matrix-results.md)
+
+### Phase 23 — Topological Data Analysis / persistent structure
+
+H22는 TESTED / INCONCLUSIVE입니다. H0 persistence의 동일 complete-search IID199/fixed199 비교에서
+보정된 구조 근거가 없었고 개발 gate도 실패했습니다. H1은 dependency 한계로 유보했습니다.
+PREDICTIVE_MODEL_NOT_JUSTIFIED이며 예측·prospective capability를 만들지 않았습니다.
+[방법](docs/topology-analysis.md) · [결과·검증](docs/topology-results.md)
 
 ## Prospective experiments
 

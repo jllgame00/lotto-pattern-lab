@@ -40,6 +40,7 @@ Current active documentation uses the canonical H1–H17 numbering below.
 | H19 | Point process / Hawkes-like influence / renewal | TESTED / INCONCLUSIVE |
 | H20 | Long-memory / fractal scaling / DFA | TESTED / INCONCLUSIVE |
 | H21 | Random Matrix Theory / collective number modes | TESTED / INCONCLUSIVE |
+| H22 | Topological Data Analysis / persistent structure | TESTED / INCONCLUSIVE |
 
 ## H1 — 개별 번호의 시간적 패턴
 
@@ -771,7 +772,7 @@ Frozen Graph11window 비교는 descriptive이며 뚜렷한 일관된 loading/com
 
 PREDICTIVE_MODEL_NOT_JUSTIFIED. SpectralFactorModel/ResidualModel,예측 비교/후보 rank 상관과prospective capability를 만들지 않았다.
 Ensemble은 NOT CURRENTLY JUSTIFIED,H17은 독립 가설 검증 종료까지 BACKLOG다.
-Archive는 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION이며 H22–H25는 미시작으로 유지한다.
+Archive는 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION이며 Phase22 종료 시점에는 H22–H25를 미시작으로 유지했다.
 
 **주요 false-positive 위험**
 
@@ -782,13 +783,54 @@ degenerate basis의IPR·개별vector 회전,overlapping window의높은 stabilit
 
 [방법](random-matrix-analysis.md) · [결과·검증](random-matrix-results.md) · [계획](superpowers/plans/2026-10-18-phase22.md)
 
+## H22 — Topological Data Analysis / persistent structure
+
+**상태**
+
+TESTED / INCONCLUSIVE
+
+**핵심 아이디어**
+
+Draw set/shape와 비중첩 activity point cloud에서 random Lotto histories를 넘는 persistent 연결 구조가 있는지 검증한다.
+Persistence를 attractor나 번호 예측력과 동일시하지 않는다.
+
+**검증 방법**
+
+A/Jaccard·Hamming,B/frozen shape7 Euclidean,C26/52 비중첩 activity Euclidean의5configs,
+whole+W208/416/624,stride104를 고정했다. H0는 exact MST이며 finite n−1bars와 infinite component를 구분한다.
+Full560/dev380cells의4family를 IID199/fixed199의 자체 complete-search global maximum과 Bonferroni4로 보정했다.
+Independent IID32pilots/cutoff의 finite-sample center/scale와 동일 point 수를 적용했다.
+
+**현재까지 결과**
+
+가장 강한 lifetime은 C52/W208,313–520회의4points에서 .526656305(z4.083085729)였다.
+IID/fixed global p=.215/.205,corrected p=.860/.820로 보정을 통과하지 못했다.
+Total corrected p=.740/.640,entropy와 tail은 모두1이었다. 개발에서도 corrected evidence가 없었다.
+H1_DEFERRED_DEPENDENCY_LIMITATION이며 loop 부재를 판정한 것은 아니다.
+Graph/RMT의 frozen outputs만 descriptive로 비교하고 refit하지 않았다.
+
+**다음 결정**
+
+PREDICTIVE_MODEL_NOT_JUSTIFIED. TopologyStateModel,walk-forward 비교/후보 predictive rank 상관/1247 capability를 만들지 않았다.
+Ensemble은 NOT CURRENTLY JUSTIFIED,H17은 BACKLOG다.
+Archive는 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION이며 H23/H24/H25는 미시작이다.
+
+**주요 false-positive 위험**
+
+고차원 거리 집중,rolling activity의 기계적 overlap,point 수·metric 단위 차이,
+MST tie의 비유일한 attribution,임의 threshold/representation 선택,random loop의 과해석,
+같은 history의 Graph/RMT 상관을 독립 evidence로 취급하는 오류.
+
+**관련 문서**
+
+[방법](topology-analysis.md) · [결과·검증](topology-results.md) · [계획](superpowers/plans/2026-10-18-phase23.md)
+
 ## 추가 독립 가설 backlog
 
-아래 가설은 명칭만 별도 보존하며 Phase22에서 구현하지 않았다. H1–H21을 renumber하지 않는다.
+아래 가설은 명칭만 별도 보존하며 Phase23에서 구현하지 않았다. 기존 H번호를 renumber하지 않는다.
 
 | ID | 가설 | 상태 |
 |---|---|---|
-| H22 | Topological Data Analysis | BACKLOG |
 | H23 | Optimal Transport / Wasserstein geometry | BACKLOG |
 | H24 | Symbolic Dynamics / Markov order | BACKLOG |
 | H25 | Integrated randomness battery | BACKLOG |
