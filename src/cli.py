@@ -89,6 +89,8 @@ def _parser():
     add_number_space_commands(commands)
     from src.recurrence_cli import add_commands as add_recurrence_commands
     add_recurrence_commands(commands)
+    from src.multiscale_cli import add_commands as add_multiscale_commands
+    add_multiscale_commands(commands)
     evaluation=commands.add_parser('evaluate-freeze',help='Offline evaluation of a frozen snapshot and explicit local result JSON')
     evaluation.add_argument('snapshot',type=Path)
     evaluation.add_argument('result_file',type=Path)
@@ -280,6 +282,10 @@ def main(argv=None) -> int:
         if args.command == 'recurrence':
             from src.recurrence_cli import run as run_recurrence
             run_recurrence(args)
+            return 0
+        if args.command == 'multiscale':
+            from src.multiscale_cli import run as run_multiscale
+            run_multiscale(args)
             return 0
         if args.command in ('analyze-number-space','compare-number-space','freeze-number-space'):
             from src.number_space_cli import run as run_number_space

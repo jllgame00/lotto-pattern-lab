@@ -28,7 +28,7 @@ Current active documentation uses the canonical H1–H17 numbering below.
 | H7 | Full continuous 4D geometry | DEFERRED |
 | H8 | Spatial neighborhood / range-density | TESTED / INCONCLUSIVE |
 | H9 | Delay embedding / recurrence geometry | TESTED / INCONCLUSIVE |
-| H10 | Wavelet / SSA multiscale structure | BACKLOG |
+| H10 | Wavelet / SSA multiscale structure | TESTED / INCONCLUSIVE |
 | H11 | Mutual information / Transfer Entropy | BACKLOG |
 | H12 | Dynamic graph / Hypergraph | BACKLOG |
 | H13 | Modular / difference-space transforms | BACKLOG |
@@ -347,7 +347,7 @@ Phase 11에서 A/B/C 표현·180개 embedding/metric·두 recurrence 정의를 �
 
 **상태**
 
-BACKLOG
+TESTED / INCONCLUSIVE
 
 **핵심 아이디어**
 
@@ -359,15 +359,15 @@ time-varying periodicity·multiscale decomposition·quasi-periodic structure를 
 
 **검증 방법**
 
-Wavelet scale / family와 SSA window / rank를 제한하고 동일 surrogate search와 causal reconstruction을 설계한다.
+Phase12에서53개 series, Morlet8개 주기, SSA L26/52/104와5개 역사 window를 사전 제한했다. IID199회와 fixed-margin199회 각각이 자체 최고 번호·시간·scale·L·pair를 선택하는 전체 탐색 최대값을 여섯 family 보정으로 비교했다. 개발401–900회에서 설정을 선택하고901–1245회에서 training-prefix만으로 walk-forward 평가했다.
 
 **현재까지 결과**
 
-미실행이며 발견된 주기나 예측 성능은 없다.
+번호5의 약13.42회 SSA 성분이 인접 역사 window에서 안정적이었으며 두 null 모두 global p=0.005, family 보정 p=0.03이었다. Wavelet 지속 영역은 보정을 통과하지 못했다. 이후 Wavelet/SSA 평균 Top6는0.7739/0.8087로 Gap Logistic0.8348 대비 안정적 개선이 없었다. 두 ensemble 후보는 NOT CURRENTLY JUSTIFIED이다. 구조와 예측의 두 조건을 함께 만족하지 못해 PROMISING으로 승격하지 않는다.
 
 **다음 결정**
 
-Phase 11과 분리된 연구로 사전 설계한다. 이번 작업에서 구현하지 않는다.
+1–1245회 역사 연구와 개발 선택 설정을 동결했다. SSA 구조 신호는 보존하되 예측 근거와 분리한다. 1246은 사용하지 않았다. draw1247_phase12_multiscale 준비 gate는 구현했지만 archive 부재로 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION이며 발행하지 않았다. Phase12에서 멈추고 다음 가설과 final ensemble은 구현하지 않는다.
 
 **주요 false-positive 위험**
 
@@ -375,7 +375,7 @@ scale·rank·구간 선택, boundary effect, 전체 자료 decomposition의 futu
 
 **관련 문서**
 
-[시간 분석](temporal-analysis.md)
+[Phase12 방법](multiscale-analysis.md) · [결과·검증](phase12-results.md) · [이전 시간 분석](temporal-analysis.md)
 
 ## H11 — Mutual information / Transfer Entropy
 

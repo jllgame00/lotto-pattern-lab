@@ -101,7 +101,7 @@ canonical history는 **1–1245회**, **2002-12-07–2026-10-10**입니다.
 | H7 | Full continuous 4D geometry | DEFERRED |
 | H8 | Spatial neighborhood / range-density | TESTED / INCONCLUSIVE |
 | H9 | Delay embedding / recurrence geometry | TESTED / INCONCLUSIVE |
-| H10 | Wavelet / SSA multiscale structure | BACKLOG |
+| H10 | Wavelet / SSA multiscale structure | TESTED / INCONCLUSIVE |
 | H11 | Mutual information / Transfer Entropy | BACKLOG |
 | H12 | Dynamic graph / Hypergraph | BACKLOG |
 | H13 | Modular / difference-space transforms | BACKLOG |
@@ -182,13 +182,20 @@ H8은 TESTED / INCONCLUSIVE이며 neighbor 기여를 입증하지 못했습니�
 H9는 **TESTED / INCONCLUSIVE**, ensemble 후보는 **NOT CURRENTLY JUSTIFIED**입니다.
 [방법](docs/recurrence-analysis.md) · [결과·동결 설정](docs/phase11-results.md)
 
+### Phase 12 — Wavelet / SSA Multiscale Structure
+
+특정 시기·scale에만 나타나는 반복 구조를 1–1245회와199 IID +199 fixed-margin 전체 탐색으로 비교했습니다.
+번호5의 SSA window 안정성은 두 null 모두 family 보정 p=0.03이었지만, 이후 예측 우위와 강건성은 확보하지 못했습니다.
+H10은 **TESTED / INCONCLUSIVE**, Wavelet·SSA ensemble 후보는 **NOT CURRENTLY JUSTIFIED**입니다.
+[방법](docs/multiscale-analysis.md) · [결과·동결 설정·검증](docs/phase12-results.md)
+
 ## Prospective experiments
 
 여러 draw-1246 실험은 결과가 알려지기 전에 동결된 역사적 증거입니다.
 **1246회 결과는 현재 외부에 알려져 있으며 새로운 prospective 대상이 아닙니다.**
 원본의 FROZEN_UNEVALUATED는 당시 동결 상태로 보존하고 결과를 자동 평가하지 않습니다.
 
-Phase 11의 역사 연구와 설정은 고정했으며 다음 prospective 대상은 **1247회**입니다.
+Phase 11·12의 역사 연구와 설정은 고정했으며 다음 prospective 대상은 **1247회**입니다.
 기존 archive가 없어 **PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION** 상태입니다.
 1247 준비 gate만 구현했고 1246회 import·새 prospective snapshot 발행은 수행하지 않았습니다.
 
@@ -201,7 +208,7 @@ Phase 11의 역사 연구와 설정은 고정했으며 다음 prospective 대상
 ## 실행 방법
 
 아래는 존재하는 명령의 사용 예입니다. 분석·freeze 명령은 출력 파일을 만듭니다.
-Phase 11 명령은 연구 입력을 1–1245회로 제한하며 데이터 수집을 수행하지 않습니다.
+Phase 11·12 명령은 연구 입력을 1–1245회로 제한하며 데이터 수집을 수행하지 않습니다.
 
 ### 환경 설정
 
@@ -257,6 +264,7 @@ python main.py compare-joint
 python main.py analyze-number-space --surrogates 199
 python main.py compare-number-space
 python main.py recurrence --help
+python main.py multiscale --help
 ```
 
 ### Prospective workflow

@@ -60,10 +60,18 @@ H9: TESTED / INCONCLUSIVE. 연구 cutoff는 영구적으로 1245회입니다.
 199+199 전체 surrogate 탐색과 이후 평가에서 안정적인 개선을 확인하지 못했습니다.
 1247 발행은 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION입니다.
 
+## Phase 12 — Wavelet / SSA Multiscale Structure
+
+H10: TESTED / INCONCLUSIVE. 1–1245회만 사용한199+199 전체 surrogate 탐색에서
+번호5의 SSA 안정성 보정 p=0.03이 남았지만 이후 예측 우위는 확보하지 못했습니다.
+Wavelet·SSA 모델은 모두 NOT CURRENTLY JUSTIFIED입니다.
+[방법](multiscale-analysis.md) · [결과·동결 설정·검증](phase12-results.md) · [실행 계획](superpowers/plans/2026-10-17-phase12.md)
+1247 발행은 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION입니다.
+
 ## 향후 연구 가설
 
 [가설 노트](research-ideas.md)의 H7은 DEFERRED,
-H10–H17은 BACKLOG입니다. Wavelet / SSA, information / Transfer Entropy,
+H11–H17은 BACKLOG입니다. Information / Transfer Entropy,
 graph / hypergraph, modular / difference-space, entropy / compression,
 tensor, symmetry / reflection, validated ensemble을 별도 가설로 관리합니다.
 
