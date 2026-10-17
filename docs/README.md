@@ -103,10 +103,18 @@ H14: TESTED / INCONCLUSIVE.53개 표현·5184개 후보의 IID199/fixed199/draw-
 [방법](complexity-analysis.md) · [결과·결정·검증](phase16-results.md) · [실행 계획](superpowers/plans/2026-10-18-phase16.md)
 기존 prospective archive는 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION입니다.
 
+## Phase 17 — Tensor Decomposition
+
+H15: TESTED / INCONCLUSIVE. causal Tensor A/B/C·36 Tucker 조합·165 statistic cell을
+IID199/fixed-margin199에서 완전히 검색했습니다. 모든 family는 보정 후 유의하지 않았고 최소 보정 p=.400이었습니다.
+개발 gate 실패로 PREDICTIVE_MODEL_NOT_JUSTIFIED이며 예측/Phase17 prospective 기능은 만들지 않았습니다.
+[방법](tensor-analysis.md) · [결과·결정·검증](phase17-results.md) · [실행 계획](superpowers/plans/2026-10-18-phase17.md)
+기존 prospective archive는 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION입니다.
+
 ## 향후 연구 가설
 
 [가설 노트](research-ideas.md)의 H7은 DEFERRED,
-H15–H17은 BACKLOG입니다. Tensor, symmetry / reflection, validated ensemble을 별도 가설로 관리합니다.
+H16–H17은 BACKLOG입니다. symmetry / reflection, validated ensemble을 별도 가설로 관리합니다.
 
 ## Historical protocol archive
 

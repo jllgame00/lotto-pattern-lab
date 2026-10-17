@@ -33,7 +33,7 @@ Current active documentation uses the canonical H1–H17 numbering below.
 | H12 | Dynamic graph / Hypergraph | TESTED / INCONCLUSIVE |
 | H13 | Modular / difference-space transforms | TESTED / INCONCLUSIVE |
 | H14 | Entropy / compression / algorithmic randomness | TESTED / INCONCLUSIVE |
-| H15 | Tensor decomposition | BACKLOG |
+| H15 | Tensor decomposition | TESTED / INCONCLUSIVE |
 | H16 | Symmetry / reflection structure | BACKLOG |
 | H17 | Validated weak-signal ensemble | BACKLOG |
 
@@ -535,11 +535,11 @@ symbolization 선택, compressor header 비용, 표본 길이 차이, entropy �
 
 **상태**
 
-BACKLOG
+TESTED / INCONCLUSIVE
 
 **핵심 아이디어**
 
-time × number × feature tensor의 CP/Tucker-style structure를 조사한다.
+time × number × lag/activity/state tensor의 HOSVD/Tucker structure를 조사한다.
 
 **왜 검증할 가치가 있는가**
 
@@ -547,15 +547,21 @@ time × number × feature tensor의 CP/Tucker-style structure를 조사한다.
 
 **검증 방법**
 
-feature·rank·regularization을 제한하고 training-only factorization과 동일 null rank search를 설계한다.
+고정 IID scaling의 causal A/B/C,36개 Tucker rank 조합,165개 primary statistic cell을
+독립32pilot로 calibration하고 IID199/fixed-margin199에서 동일한 자체 global maximum을 비교했다.
+sign/rotation에 불변인 number subspace 안정성과 temporal factor의 lag1 smoothness를 구분했다.
 
 **현재까지 결과**
 
-미실행이며 latent factor나 예측 성능을 보고하지 않는다.
+다섯 family 모두 보정 후 유의하지 않았다. 전체 최소 보정 p는.400(fixed-margin effective rank),
+IID 최소는.675(stability)였다. Tensor B/C의 smooth factor는 rolling overlap의 null에서도 생겼다.
+실제가 더 low-rank이거나 안정적인 latent factor를 가진다는 근거를 확보하지 못했다.
 
 **다음 결정**
 
-낮은 차원 연구 근거와 계산량을 검토한 뒤 별도 protocol을 작성한다.
+개발1–900 gate 실패로 PREDICTIVE_MODEL_NOT_JUSTIFIED, ensemble은 NOT CURRENTLY JUSTIFIED다.
+예측 평가와 draw1247_phase17_tensor capability는 만들지 않았다.
+기존 archive는 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION이다. H16/H17은 진행하지 않았다.
 
 **주요 false-positive 위험**
 
@@ -563,7 +569,7 @@ rank 탐색, rotation / scaling 모호성, factor 해석의 사후 선택, 전�
 
 **관련 문서**
 
-[연구 가설 노트](research-ideas.md)
+[Phase17 방법](tensor-analysis.md) · [결과·검증](phase17-results.md)
 
 ## H16 — Symmetry / reflection structure
 

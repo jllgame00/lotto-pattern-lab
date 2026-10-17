@@ -99,6 +99,8 @@ def _parser():
     add_transformed_commands(commands)
     from src.complexity_cli import add_commands as add_complexity_commands
     add_complexity_commands(commands)
+    from src.tensor_cli import add_commands as add_tensor_commands
+    add_tensor_commands(commands)
     evaluation=commands.add_parser('evaluate-freeze',help='Offline evaluation of a frozen snapshot and explicit local result JSON')
     evaluation.add_argument('snapshot',type=Path)
     evaluation.add_argument('result_file',type=Path)
@@ -310,6 +312,10 @@ def main(argv=None) -> int:
         if args.command == 'complexity':
             from src.complexity_cli import run as run_complexity
             run_complexity(args)
+            return 0
+        if args.command == 'tensor':
+            from src.tensor_cli import run as run_tensor
+            run_tensor(args)
             return 0
         if args.command in ('analyze-number-space','compare-number-space','freeze-number-space'):
             from src.number_space_cli import run as run_number_space

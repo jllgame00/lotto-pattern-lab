@@ -106,7 +106,7 @@ canonical history는 **1–1245회**, **2002-12-07–2026-10-10**입니다.
 | H12 | Dynamic graph / Hypergraph | TESTED / INCONCLUSIVE |
 | H13 | Modular / difference-space transforms | TESTED / INCONCLUSIVE |
 | H14 | Entropy / compression / algorithmic randomness | TESTED / INCONCLUSIVE |
-| H15 | Tensor decomposition | BACKLOG |
+| H15 | Tensor decomposition | TESTED / INCONCLUSIVE |
 | H16 | Symmetry / reflection structure | BACKLOG |
 | H17 | Validated weak-signal ensemble | BACKLOG |
 
@@ -223,6 +223,15 @@ GapShape는 K 민감도를 남긴 탐색적 **ENSEMBLE CANDIDATE**입니다. 최
 H14는 **TESTED / INCONCLUSIVE**이며, 개발 gate가 실패해 predictor·ensemble 후보·H14 prospective 기능은 만들지 않았습니다.
 [방법](docs/complexity-analysis.md) · [결과·결정·검증](docs/phase16-results.md)
 
+### Phase 17 — Tensor Decomposition
+
+causal Tensor A/B/C와36개 Tucker rank 조합,165개 statistic cell을 IID199/fixed-margin199에서 동일하게 검색했습니다.
+다섯 family는 모두 보정 후 유의하지 않았으며, 가장 작은 보정 p는0.400이었습니다.
+low-rank factor나 smooth temporal trajectory가 random history보다 특별하다는 근거를 확보하지 못했습니다.
+H15는 **TESTED / INCONCLUSIVE**입니다. 개발 gate 실패로 TensorFactorModel은
+**PREDICTIVE_MODEL_NOT_JUSTIFIED**이며 예측·ensemble 후보·Phase17 prospective 기능을 만들지 않았습니다.
+[방법](docs/tensor-analysis.md) · [결과·결정·검증](docs/phase17-results.md)
+
 ## Prospective experiments
 
 여러 draw-1246 실험은 결과가 알려지기 전에 동결된 역사적 증거입니다.
@@ -230,7 +239,7 @@ H14는 **TESTED / INCONCLUSIVE**이며, 개발 gate가 실패해 predictor·ense
 원본의 FROZEN_UNEVALUATED는 당시 동결 상태로 보존하고 결과를 자동 평가하지 않습니다.
 
 Phase 11–15의 역사 연구와 설정은 고정했으며 다음 prospective 대상은 **1247회**입니다.
-Phase16은 정당화된 predictor가 없어 별도 prospective capability를 생성하지 않았습니다.
+Phase16–17은 정당화된 predictor가 없어 별도 prospective capability를 생성하지 않았습니다.
 기존 archive가 없어 **PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION** 상태입니다.
 1247 준비 gate만 구현했고 1246회 import·새 prospective snapshot 발행은 수행하지 않았습니다.
 
