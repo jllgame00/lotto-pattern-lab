@@ -39,6 +39,7 @@ Current active documentation uses the canonical H1–H17 numbering below.
 | H18 | Change-point / piecewise-stationary regimes | TESTED / INCONCLUSIVE |
 | H19 | Point process / Hawkes-like influence / renewal | TESTED / INCONCLUSIVE |
 | H20 | Long-memory / fractal scaling / DFA | TESTED / INCONCLUSIVE |
+| H21 | Random Matrix Theory / collective number modes | TESTED / INCONCLUSIVE |
 
 ## H1 — 개별 번호의 시간적 패턴
 
@@ -744,13 +745,49 @@ crossover fit 개선과 asymptotic long-range dependence의 혼동,선택 이후
 
 [방법](long-memory-analysis.md) · [결과·검증](long-memory-results.md) · [계획](superpowers/plans/2026-10-18-phase21.md)
 
+## H21 — Random Matrix Theory / collective number modes
+
+**상태**
+
+TESTED / INCONCLUSIVE
+
+**핵심 아이디어**
+
+개별 pair 대신45번호 전체 covariance/correlation에 Lotto-valid noise를 넘는 collective mode가 존재하는지 검증한다.
+
+**검증 방법**
+
+Correlation primary,covariance secondary이며 fixed-six 구조의 zero mode를 제외했다.
+W104/208/416/624,r1/2/3/5,작은 subspace recurrence와lag1/2/4/8/13 SVD를 사전 고정했다.
+Full2443/dev1699cells를 IID199/fixed199에서 각각 새로 검색해 own global-max와 Bonferroni6을 적용했다.
+
+**현재까지 결과**
+
+Whole λ1=1.393598268,effective rank43.315875083이며 안정된 spectral outlier 근거가 없었다.
+강한 localized mode IPR=.156765688도 corrected p=.480/.330(IID/fixed)이고 다른 family는1이었다.
+Frozen Graph11window 비교는 descriptive이며 뚜렷한 일관된 loading/community 대응을 확인하지 못했다.
+
+**다음 결정**
+
+PREDICTIVE_MODEL_NOT_JUSTIFIED. SpectralFactorModel/ResidualModel,예측 비교/후보 rank 상관과prospective capability를 만들지 않았다.
+Ensemble은 NOT CURRENTLY JUSTIFIED,H17은 독립 가설 검증 종료까지 BACKLOG다.
+Archive는 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION이며 H22–H25는 미시작으로 유지한다.
+
+**주요 false-positive 위험**
+
+Fixed-six의구조적 zero mode를 anomaly로 오인,MP 경계의 과해석,여러window/rank/mode 선택,
+degenerate basis의IPR·개별vector 회전,overlapping window의높은 stability,서로무관한winner의evidence 결합.
+
+**관련 문서**
+
+[방법](random-matrix-analysis.md) · [결과·검증](random-matrix-results.md) · [계획](superpowers/plans/2026-10-18-phase22.md)
+
 ## 추가 독립 가설 backlog
 
-아래 가설은 명칭만 별도 보존하며 Phase21에서 구현하지 않았다. H1–H20을 renumber하지 않는다.
+아래 가설은 명칭만 별도 보존하며 Phase22에서 구현하지 않았다. H1–H21을 renumber하지 않는다.
 
 | ID | 가설 | 상태 |
 |---|---|---|
-| H21 | Random Matrix Theory | BACKLOG |
 | H22 | Topological Data Analysis | BACKLOG |
 | H23 | Optimal Transport / Wasserstein geometry | BACKLOG |
 | H24 | Symbolic Dynamics / Markov order | BACKLOG |

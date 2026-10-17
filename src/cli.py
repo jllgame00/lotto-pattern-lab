@@ -109,6 +109,8 @@ def _parser():
     add_point_process_commands(commands)
     from src.long_memory_cli import add_commands as add_long_memory_commands
     add_long_memory_commands(commands)
+    from src.random_matrix_cli import add_commands as add_random_matrix_commands
+    add_random_matrix_commands(commands)
     evaluation=commands.add_parser('evaluate-freeze',help='Offline evaluation of a frozen snapshot and explicit local result JSON')
     evaluation.add_argument('snapshot',type=Path)
     evaluation.add_argument('result_file',type=Path)
@@ -340,6 +342,10 @@ def main(argv=None) -> int:
         if args.command == 'long-memory':
             from src.long_memory_cli import run as run_long_memory
             run_long_memory(args)
+            return 0
+        if args.command == 'random-matrix':
+            from src.random_matrix_cli import run as run_random_matrix
+            run_random_matrix(args)
             return 0
         if args.command in ('analyze-number-space','compare-number-space','freeze-number-space'):
             from src.number_space_cli import run as run_number_space

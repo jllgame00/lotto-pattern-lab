@@ -144,6 +144,13 @@ H20: TESTED / INCONCLUSIVE. DFA1의 동일 complete-search IID199/fixed199 비�
 [방법](long-memory-analysis.md) · [결과·검증](long-memory-results.md) · [계획](superpowers/plans/2026-10-18-phase21.md)
 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION이며 H21 이후는 시작하지 않았습니다.
 
+## Phase22 — H21 Random Matrix Theory / collective number modes
+
+H21: TESTED / INCONCLUSIVE. 구조적 zero mode를 제외한45번호 correlation의2443cell complete search를
+IID199/fixed199로 보정했으나 collective spectral evidence가 없었습니다. 개발 gate 실패로 predictor/ensemble/prospective capability를 만들지 않았습니다.
+[방법](random-matrix-analysis.md) · [결과·검증](random-matrix-results.md) · [계획](superpowers/plans/2026-10-18-phase22.md)
+기존 archive는 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION이며 H22 이후는 시작하지 않았습니다.
+
 ## 향후 연구 가설
 
 [가설 노트](research-ideas.md)의 H7은 DEFERRED,

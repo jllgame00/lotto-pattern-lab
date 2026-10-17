@@ -112,6 +112,7 @@ canonical history는 **1–1245회**, **2002-12-07–2026-10-10**입니다.
 | H18 | Change-point / piecewise-stationary regimes | TESTED / INCONCLUSIVE |
 | H19 | Point process / Hawkes-like influence / renewal | TESTED / INCONCLUSIVE |
 | H20 | Long-memory / fractal scaling / DFA | TESTED / INCONCLUSIVE |
+| H21 | Random Matrix Theory / collective number modes | TESTED / INCONCLUSIVE |
 
 H17은 남은 독립 가설 검증까지 의도적으로 미룹니다. Phase와 H번호는 서로 다른 분류이며 기존 번호는 보존합니다.
 대응 관계는 [번호 이관 안내](docs/research-ideas.md#번호-이관-안내)에 설명합니다.
@@ -263,6 +264,13 @@ H20은 TESTED / INCONCLUSIVE입니다. DFA1과 동일 complete-search IID199/fix
 장기 의존성은 보정 검정을 통과하지 못해 PREDICTIVE_MODEL_NOT_JUSTIFIED로 결정했습니다.
 [방법](docs/long-memory-analysis.md) · [결과·검증](docs/long-memory-results.md)
 
+### Phase 22 — Random Matrix Theory / collective number modes
+
+H21은 TESTED / INCONCLUSIVE입니다. 구조적 zero mode를 제외한 correlation spectrum과
+동일 complete-search IID199/fixed199 비교에서 보정된 collective-mode 근거가 없었습니다.
+개발 gate 실패로 PREDICTIVE_MODEL_NOT_JUSTIFIED이며 예측·prospective capability를 만들지 않았습니다.
+[방법](docs/random-matrix-analysis.md) · [결과·검증](docs/random-matrix-results.md)
+
 ## Prospective experiments
 
 여러 draw-1246 실험은 결과가 알려지기 전에 동결된 역사적 증거입니다.
@@ -270,7 +278,7 @@ H20은 TESTED / INCONCLUSIVE입니다. DFA1과 동일 complete-search IID199/fix
 원본의 FROZEN_UNEVALUATED는 당시 동결 상태로 보존하고 결과를 자동 평가하지 않습니다.
 
 Phase 11–15의 역사 연구와 설정은 고정했으며 다음 prospective 대상은 **1247회**입니다.
-Phase16–21은 prospective에 정당화된 predictor가 없어 별도 prospective capability를 생성하지 않았습니다.
+Phase16–22은 prospective에 정당화된 predictor가 없어 별도 prospective capability를 생성하지 않았습니다.
 기존 archive가 없어 **PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION** 상태입니다.
 1247 준비 gate만 구현했고 1246회 import·새 prospective snapshot 발행은 수행하지 않았습니다.
 
