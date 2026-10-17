@@ -81,6 +81,8 @@ def _parser():
     add_spatiotemporal_commands(commands)
     from src.gap3d_cli import add_commands as add_gap3d_commands
     add_gap3d_commands(commands)
+    from src.frequency_cli import add_commands as add_frequency_commands
+    add_frequency_commands(commands)
     evaluation=commands.add_parser('evaluate-freeze',help='Offline evaluation of a frozen snapshot and explicit local result JSON')
     evaluation.add_argument('snapshot',type=Path)
     evaluation.add_argument('result_file',type=Path)
@@ -268,6 +270,10 @@ def main(argv=None) -> int:
                 with args.output.open('x',encoding='utf-8') as stream: stream.write(text)
                 print(f'Offline evaluation saved: {args.output}; original freeze and registry unchanged.')
             else: print(text)
+            return 0
+        if args.command in ('analyze-frequency3d','compare-frequency3d','freeze-frequency3d'):
+            from src.frequency_cli import run as run_frequency
+            run_frequency(args)
             return 0
         if args.command in ('analyze-gap3d','compare-gap3d','freeze-gap3d'):
             from src.gap3d_cli import run as run_gap3d

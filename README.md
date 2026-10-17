@@ -5,8 +5,9 @@ app or frontend. It provides data collection and validation, binary histories,
 frequency/gap statistics, exploratory calendar and periodicity analysis, and a
 reproducible random baseline backtester. It does **not** establish predictive performance.
 
-**Research seal active:** CLI research uses only draws1..1244. Draw1245 and later
-are excluded; current prediction and network collection are temporarily blocked.
+**Legacy research seal active:** older research commands retain draws1..1244.
+Dedicated Phase6–8 offline commands admit canonical draws1..1245 only; network
+collection remains blocked. Draw1245 is not a pristine holdout.
 Run `python main.py prize-eval` for gap robustness, candidate-pool concentration,
 and equal-budget virtual portfolios. See [the gap/prize research report](docs/gap-prize-research.md)
 for methods, uncertainty, results and the prior-phase access caveat.
@@ -209,8 +210,9 @@ evaluation pipeline; **no predictive advantage is claimed**.
 | H2 — Gap / periodicity / regime models | TESTED / INCONCLUSIVE |
 | H3 — 2D translational number patterns | TESTED / INCONCLUSIVE |
 | H4 — Gap-conditioned 3D translational patterns | TESTED / INCONCLUSIVE |
-| H5 — Alternative state-conditioned 3D patterns | PLANNED |
-| H6 — Higher-dimensional trajectories / embeddings / tensors | BACKLOG |
+| H5 — Recent-frequency-conditioned 3D translational patterns | IN PROGRESS |
+| H6 — Multi-state / 4D patterns | BACKLOG |
+| H7 — Delay embeddings / tensor methods | BACKLOG |
 
 Phase6 tests bounded translations through draw and ordered number space against
 complete-search maxima from IID and exact-margin surrogate histories. It uses
@@ -237,6 +239,26 @@ own registry. It never fetches results, and refuses a second freeze for the same
 Phase6 target. Old commands and defaults remain intact.
 
 ## Structure and next phases
+
+Phase8 replaces gap with **recent appearance frequency**, using only predeclared
+10/26/52-draw windows. Two numbers can have the same current gap while one had
+zero appearances in the10 draws before its latest appearance and the other had
+four. Their recent-frequency states differ. The exploratory question is whether
+a translation such as(+3 draws,+3 numbers) concentrates in a HOT source state.
+No gap/frequency combination or4D model is introduced.
+See [the Phase8 protocol](docs/superpowers/plans/2026-10-17-phase8.md).
+All Phase5/6/7 prospective artifacts remain immutable.
+
+```powershell
+python main.py analyze-frequency3d --surrogates 199
+python main.py compare-frequency3d
+python main.py compare-frequency3d --cadence 13
+python main.py freeze-frequency3d
+```
+
+These commands write research exports under `reports/spatiotemporal_frequency/`
+and one independent freeze under `reports/prospective/phase8/`. Existing
+experiments cannot be regenerated. See [Phase8 methods](docs/frequency3d-analysis.md).
 
 Phase7 tests only **causal current gap** as the third dimension. A translation
 may hypothetically concentrate in a gap state even when its pooled2D pattern is
@@ -304,3 +326,6 @@ Tests require no network. Test scratch directories inherit normal permissions
 because the Windows sandbox cannot reopen pytest's owner-only directories;
 pytest's optional cache is disabled for the same reason. The complete suite was
 run with Python 3.13.1. No commits or pushes were made.
+
+Phase8 complete-search null tests and walk-forward comparisons found no reliable
+advantage. H5 remains TESTED / INCONCLUSIVE. See [Phase8 results](docs/phase8-results.md).
