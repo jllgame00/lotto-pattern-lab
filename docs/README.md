@@ -95,11 +95,18 @@ GapShape는 약한 양의 점추정치와 낮은 순위 상관을 보존하는 �
 [방법](transformed-space-analysis.md) · [결과·설정·검증](phase15-results.md) · [실행 계획](superpowers/plans/2026-10-18-phase15.md)
 1247 발행은 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION입니다.
 
+## Phase 16 — Entropy / Compression / Algorithmic Randomness
+
+H14: TESTED / INCONCLUSIVE.53개 표현·5184개 후보의 IID199/fixed199/draw-shuffle199 전체 검색에서
+여섯 family 모두 보정 p=1이었습니다. 실제의 낮은 complexity와 chronological ordering의 추가 구조는 입증되지 않았습니다.
+개발 gate가 실패해 예측 모델·rank correlation·prospective capability를 만들지 않았습니다.
+[방법](complexity-analysis.md) · [결과·결정·검증](phase16-results.md) · [실행 계획](superpowers/plans/2026-10-18-phase16.md)
+기존 prospective archive는 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION입니다.
+
 ## 향후 연구 가설
 
 [가설 노트](research-ideas.md)의 H7은 DEFERRED,
-H14–H17은 BACKLOG입니다. Entropy / compression,
-tensor, symmetry / reflection, validated ensemble을 별도 가설로 관리합니다.
+H15–H17은 BACKLOG입니다. Tensor, symmetry / reflection, validated ensemble을 별도 가설로 관리합니다.
 
 ## Historical protocol archive
 

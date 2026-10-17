@@ -32,7 +32,7 @@ Current active documentation uses the canonical H1–H17 numbering below.
 | H11 | Mutual information / Transfer Entropy | TESTED / INCONCLUSIVE |
 | H12 | Dynamic graph / Hypergraph | TESTED / INCONCLUSIVE |
 | H13 | Modular / difference-space transforms | TESTED / INCONCLUSIVE |
-| H14 | Entropy / compression / algorithmic randomness | BACKLOG |
+| H14 | Entropy / compression / algorithmic randomness | TESTED / INCONCLUSIVE |
 | H15 | Tensor decomposition | BACKLOG |
 | H16 | Symmetry / reflection structure | BACKLOG |
 | H17 | Validated weak-signal ensemble | BACKLOG |
@@ -495,7 +495,7 @@ Modular/Difference는 NOT CURRENTLY JUSTIFIED, GapShape는 K 민감도를 남긴
 
 **상태**
 
-BACKLOG
+TESTED / INCONCLUSIVE
 
 **핵심 아이디어**
 
@@ -507,15 +507,21 @@ permutation entropy·sample entropy·Lempel-Ziv complexity·compression ratios�
 
 **검증 방법**
 
-encoding·block length·estimator와 compressor 설정을 고정하고 동일 길이·margin null로 calibration한다.
+53개 encoding과 block L1–5, conditional h1/2, PE m3/4/5·tau1/2/4/8,
+SampEn m2/3·r .15/.20/.25std, LZ78, zlib/bz2/lzma를 고정했다.
+독립32IID calibration 뒤 전체5184개·개발3942개를 세 null199개씩 동일하게 검색했다.
 
 **현재까지 결과**
 
-미실행이다. 낮은 entropy가 예측력을 뜻한다는 결론은 없다.
+전체 역사 여섯 family는 IID/fixed-margin/exact-draw-order shuffle 모두 보정 p=1이었다.
+측정 가능한 complexity deficit·압축 이득·추가 chronological structure 근거는 없었다.
+개발 gate가 실패해 ComplexityStateModel을 만들지 않았고 예측 평가·ensemble correlation은 생략했다.
+true Kolmogorov complexity를 측정하거나 randomness를 증명한 것은 아니다.
 
 **다음 결정**
 
-유한 표본 bias와 encoding 의존성부터 synthetic 자료로 검증한다.
+결과와 local artifact를 보존한다. 정당화된 모델이 없어 H14 prospective capability는 생성하지 않았다.
+기존 archive는 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION이다.
 
 **주요 false-positive 위험**
 
@@ -523,7 +529,7 @@ symbolization 선택, compressor header 비용, 표본 길이 차이, entropy �
 
 **관련 문서**
 
-[연구 원칙](../README.md#연구-원칙)
+[Phase16 방법](complexity-analysis.md) · [결과·검증](phase16-results.md)
 
 ## H15 — Tensor decomposition
 

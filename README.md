@@ -105,7 +105,7 @@ canonical history는 **1–1245회**, **2002-12-07–2026-10-10**입니다.
 | H11 | Mutual information / Transfer Entropy | TESTED / INCONCLUSIVE |
 | H12 | Dynamic graph / Hypergraph | TESTED / INCONCLUSIVE |
 | H13 | Modular / difference-space transforms | TESTED / INCONCLUSIVE |
-| H14 | Entropy / compression / algorithmic randomness | BACKLOG |
+| H14 | Entropy / compression / algorithmic randomness | TESTED / INCONCLUSIVE |
 | H15 | Tensor decomposition | BACKLOG |
 | H16 | Symmetry / reflection structure | BACKLOG |
 | H17 | Validated weak-signal ensemble | BACKLOG |
@@ -215,6 +215,14 @@ H13은 **TESTED / INCONCLUSIVE**입니다. Modular·Difference는 **NOT CURRENTL
 GapShape는 K 민감도를 남긴 탐색적 **ENSEMBLE CANDIDATE**입니다. 최종 ensemble은 만들지 않았습니다.
 [방법](docs/transformed-space-analysis.md) · [결과·동결 설정·검증](docs/phase15-results.md)
 
+### Phase 16 — Entropy / Compression / Algorithmic Randomness
+
+53개 고정 표현의 entropy·LZ78·세 compressor를 IID199/fixed-margin199/draw-order shuffle199와 비교했습니다.
+전체·개발을 분리해 전체5184개 후보를 똑같이 검색했으며 전체 역사 여섯 family 보정 p는 모두1이었습니다.
+실제가 더 낮은 complexity를 가지거나 chronological ordering에 hidden temporal structure가 있다는 근거는 없었습니다.
+H14는 **TESTED / INCONCLUSIVE**이며, 개발 gate가 실패해 predictor·ensemble 후보·H14 prospective 기능은 만들지 않았습니다.
+[방법](docs/complexity-analysis.md) · [결과·결정·검증](docs/phase16-results.md)
+
 ## Prospective experiments
 
 여러 draw-1246 실험은 결과가 알려지기 전에 동결된 역사적 증거입니다.
@@ -222,6 +230,7 @@ GapShape는 K 민감도를 남긴 탐색적 **ENSEMBLE CANDIDATE**입니다. 최
 원본의 FROZEN_UNEVALUATED는 당시 동결 상태로 보존하고 결과를 자동 평가하지 않습니다.
 
 Phase 11–15의 역사 연구와 설정은 고정했으며 다음 prospective 대상은 **1247회**입니다.
+Phase16은 정당화된 predictor가 없어 별도 prospective capability를 생성하지 않았습니다.
 기존 archive가 없어 **PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION** 상태입니다.
 1247 준비 gate만 구현했고 1246회 import·새 prospective snapshot 발행은 수행하지 않았습니다.
 
@@ -234,7 +243,7 @@ Phase 11–15의 역사 연구와 설정은 고정했으며 다음 prospective �
 ## 실행 방법
 
 아래는 존재하는 명령의 사용 예입니다. 분석·freeze 명령은 출력 파일을 만듭니다.
-Phase 11–15 명령은 연구 입력을 1–1245회로 제한하며 데이터 수집을 수행하지 않습니다.
+Phase 11–16 명령은 연구 입력을 1–1245회로 제한하며 데이터 수집을 수행하지 않습니다.
 
 ### 환경 설정
 
@@ -294,6 +303,7 @@ python main.py multiscale --help
 python main.py information-flow --help
 python main.py graph-hypergraph --help
 python main.py transformed-space --help
+python main.py complexity --help
 ```
 
 ### Prospective workflow
