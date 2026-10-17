@@ -107,6 +107,8 @@ def _parser():
     add_change_point_commands(commands)
     from src.point_process_cli import add_commands as add_point_process_commands
     add_point_process_commands(commands)
+    from src.long_memory_cli import add_commands as add_long_memory_commands
+    add_long_memory_commands(commands)
     evaluation=commands.add_parser('evaluate-freeze',help='Offline evaluation of a frozen snapshot and explicit local result JSON')
     evaluation.add_argument('snapshot',type=Path)
     evaluation.add_argument('result_file',type=Path)
@@ -334,6 +336,10 @@ def main(argv=None) -> int:
         if args.command == 'point-process':
             from src.point_process_cli import run as run_point_process
             run_point_process(args)
+            return 0
+        if args.command == 'long-memory':
+            from src.long_memory_cli import run as run_long_memory
+            run_long_memory(args)
             return 0
         if args.command in ('analyze-number-space','compare-number-space','freeze-number-space'):
             from src.number_space_cli import run as run_number_space

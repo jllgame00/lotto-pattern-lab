@@ -38,6 +38,7 @@ Current active documentation uses the canonical H1–H17 numbering below.
 | H17 | Validated weak-signal ensemble | BACKLOG |
 | H18 | Change-point / piecewise-stationary regimes | TESTED / INCONCLUSIVE |
 | H19 | Point process / Hawkes-like influence / renewal | TESTED / INCONCLUSIVE |
+| H20 | Long-memory / fractal scaling / DFA | TESTED / INCONCLUSIVE |
 
 ## H1 — 개별 번호의 시간적 패턴
 
@@ -705,13 +706,50 @@ Prospective capability는 만들지 않았고 H17은 독립 가설 연구 종료
 
 [방법](point-process-analysis.md) · [결과·검증](point-process-results.md) · [계획](superpowers/plans/2026-10-18-phase20.md)
 
+## H20 — Long-memory / fractal scaling / DFA
+
+**상태**
+
+TESTED / INCONCLUSIVE
+
+**핵심 아이디어**
+
+개별 번호와 draw 전체 scalar/band count에서 여러 scale에 걸친 persistent/anti-persistent 의존성을 검증한다.
+
+**검증 방법**
+
+DFA1 primary,사전 scales8/13/21/34/52/78/104/156/208/312와 최소4segment 규칙을 고정했다.
+R/S reference,제한된 crossover,aggregation,rolling 및 secondary spectrum/DFA2를 같은 전체 null 검색으로 비교했다.
+전체/개발 각각 독립32pilot를 사용하고 IID199/fixed199의 own global-max와 여섯 primary family 보정을 적용했다.
+
+**현재까지 결과**
+
+Phase21 완료:3200cells(3145eligible),55series의 corrected long-memory evidence가 없었다.
+Number22 alpha=.605785500,number35=.406336383이지만 persistent corrected p=.66(양 null),나머지 primary는1이었다.
+Number16 boundary52 crossover의 큰 SSE 개선과 rolling 극단값도 같은 탐색을 한 null보다 unusual하지 않았다.
+개발 gate와 era 안정성도 실패했다.312scale은 최소1248회가 필요해 역사1–1245에서 미지원으로 남겼다.
+
+**다음 결정**
+
+PREDICTIVE_MODEL_NOT_JUSTIFIED. LongMemoryModel/ScaleStateModel과 예측 비교를 만들지 않았고 ensemble은 NOT CURRENTLY JUSTIFIED다.
+Prospective capability를 생성하지 않았으며 archive는 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION이다.
+H17은 BACKLOG,H21–H25는 미시작으로 유지하고 Phase21에서 종료한다.
+
+**주요 false-positive 위험**
+
+유한 binary sample의 alpha 편향,높은 log-log R²의 과해석,scale/window/series 선택,overlapping rolling 창의 중복 evidence,
+crossover fit 개선과 asymptotic long-range dependence의 혼동,선택 이후 bootstrap CI의 과해석.
+
+**관련 문서**
+
+[방법](long-memory-analysis.md) · [결과·검증](long-memory-results.md) · [계획](superpowers/plans/2026-10-18-phase21.md)
+
 ## 추가 독립 가설 backlog
 
-아래 가설은 명칭만 별도 보존하며 Phase20에서 구현하지 않는다. H1–H18을 renumber하지 않는다.
+아래 가설은 명칭만 별도 보존하며 Phase21에서 구현하지 않았다. H1–H20을 renumber하지 않는다.
 
 | ID | 가설 | 상태 |
 |---|---|---|
-| H20 | Long-memory / fractal scaling | BACKLOG |
 | H21 | Random Matrix Theory | BACKLOG |
 | H22 | Topological Data Analysis | BACKLOG |
 | H23 | Optimal Transport / Wasserstein geometry | BACKLOG |

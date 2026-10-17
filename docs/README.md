@@ -137,6 +137,13 @@ H19: TESTED / INCONCLUSIVE. IID199/fixed199의36135-cell complete search에서 �
 두 모델은 NOT CURRENTLY JUSTIFIED,Signed는 개발 gate에서 제외했습니다. Prospective 기능과 H17 ensemble은 만들지 않았습니다.
 [방법](point-process-analysis.md) · [결과·검증](point-process-results.md) · [계획](superpowers/plans/2026-10-18-phase20.md)
 
+## Phase21 — H20 Long-memory / fractal scaling / DFA
+
+H20: TESTED / INCONCLUSIVE. DFA1의 동일 complete-search IID199/fixed199 비교에서
+여섯 primary family가 보정을 통과하지 못했습니다. 개발 gate도 실패해 predictor와 prospective capability를 만들지 않았습니다.
+[방법](long-memory-analysis.md) · [결과·검증](long-memory-results.md) · [계획](superpowers/plans/2026-10-18-phase21.md)
+PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION이며 H21 이후는 시작하지 않았습니다.
+
 ## 향후 연구 가설
 
 [가설 노트](research-ideas.md)의 H7은 DEFERRED,
