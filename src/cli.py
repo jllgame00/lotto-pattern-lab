@@ -93,6 +93,8 @@ def _parser():
     add_multiscale_commands(commands)
     from src.information_cli import add_commands as add_information_commands
     add_information_commands(commands)
+    from src.graph_hypergraph_cli import add_commands as add_graph_hypergraph_commands
+    add_graph_hypergraph_commands(commands)
     evaluation=commands.add_parser('evaluate-freeze',help='Offline evaluation of a frozen snapshot and explicit local result JSON')
     evaluation.add_argument('snapshot',type=Path)
     evaluation.add_argument('result_file',type=Path)
@@ -292,6 +294,10 @@ def main(argv=None) -> int:
         if args.command == 'information-flow':
             from src.information_cli import run as run_information
             run_information(args)
+            return 0
+        if args.command == 'graph-hypergraph':
+            from src.graph_hypergraph_cli import run as run_graph_hypergraph
+            run_graph_hypergraph(args)
             return 0
         if args.command in ('analyze-number-space','compare-number-space','freeze-number-space'):
             from src.number_space_cli import run as run_number_space

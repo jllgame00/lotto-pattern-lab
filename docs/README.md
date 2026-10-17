@@ -76,10 +76,20 @@ TE는 target-history baseline 대비 이후 logloss가 나빴습니다. 두 모�
 [방법](information-flow-analysis.md) · [결과·동결 설정·검증](phase13-results.md) · [실행 계획](superpowers/plans/2026-10-18-phase13.md)
 1247 발행은 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION입니다.
 
+## Phase 14 — Dynamic Graph / Hypergraph
+
+H12: TESTED / INCONCLUSIVE. 1–1245회만 사용한199+199 전체 검색에서 community 안정성은
+보정 p=0.10(IID),0.05(fixed-margin)로 두 null에서 일관된 근거를 확보하지 못했습니다.
+빈도를 제거한 successor 진단도 유의하지 않았습니다.
+Graph는 낮은 rank 상관과 약한 양의 성능을 보존하는 탐색적 ENSEMBLE CANDIDATE이며,
+Hypergraph는 NOT CURRENTLY JUSTIFIED입니다. 예측 우위를 확립한 판정은 아닙니다.
+[방법](graph-hypergraph-analysis.md) · [결과·설정·검증](phase14-results.md) · [실행 계획](superpowers/plans/2026-10-18-phase14.md)
+1247 발행은 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION입니다.
+
 ## 향후 연구 가설
 
 [가설 노트](research-ideas.md)의 H7은 DEFERRED,
-H12–H17은 BACKLOG입니다. Graph / hypergraph, modular / difference-space, entropy / compression,
+H13–H17은 BACKLOG입니다. Modular / difference-space, entropy / compression,
 tensor, symmetry / reflection, validated ensemble을 별도 가설로 관리합니다.
 
 ## Historical protocol archive

@@ -103,7 +103,7 @@ canonical history는 **1–1245회**, **2002-12-07–2026-10-10**입니다.
 | H9 | Delay embedding / recurrence geometry | TESTED / INCONCLUSIVE |
 | H10 | Wavelet / SSA multiscale structure | TESTED / INCONCLUSIVE |
 | H11 | Mutual information / Transfer Entropy | TESTED / INCONCLUSIVE |
-| H12 | Dynamic graph / Hypergraph | BACKLOG |
+| H12 | Dynamic graph / Hypergraph | TESTED / INCONCLUSIVE |
 | H13 | Modular / difference-space transforms | BACKLOG |
 | H14 | Entropy / compression / algorithmic randomness | BACKLOG |
 | H15 | Tensor decomposition | BACKLOG |
@@ -197,13 +197,22 @@ MI의 이후 약한 상승은 불확실하며, source를 추가한 TE logloss는
 H11은 **TESTED / INCONCLUSIVE**, MI·TE ensemble 후보는 **NOT CURRENTLY JUSTIFIED**입니다.
 [방법](docs/information-flow-analysis.md) · [결과·동결 설정·검증](docs/phase13-results.md)
 
+### Phase 14 — Dynamic Graph / Hypergraph Structure
+
+W26/52/104의 graph·triple·community·successor를199 IID +199 fixed-margin 전체 검색과 비교했습니다.
+community 안정성의 보정 p는0.10/0.05로 두 null에서 일관된 근거를 확보하지 못했습니다.
+이후 Top6 평균은 Graph0.858, Hypergraph0.817, Gap0.835이며 Random·Frequency26·Gap 대비 구간은0을 포함했습니다.
+H12는 **TESTED / INCONCLUSIVE**입니다. Graph는 낮은 rank 상관과 약한 양의 성능을 보존하는
+탐색적 **ENSEMBLE CANDIDATE**, Hypergraph는 **NOT CURRENTLY JUSTIFIED**입니다. 최종 ensemble은 만들지 않았습니다.
+[방법](docs/graph-hypergraph-analysis.md) · [결과·동결 설정·검증](docs/phase14-results.md)
+
 ## Prospective experiments
 
 여러 draw-1246 실험은 결과가 알려지기 전에 동결된 역사적 증거입니다.
 **1246회 결과는 현재 외부에 알려져 있으며 새로운 prospective 대상이 아닙니다.**
 원본의 FROZEN_UNEVALUATED는 당시 동결 상태로 보존하고 결과를 자동 평가하지 않습니다.
 
-Phase 11–13의 역사 연구와 설정은 고정했으며 다음 prospective 대상은 **1247회**입니다.
+Phase 11–14의 역사 연구와 설정은 고정했으며 다음 prospective 대상은 **1247회**입니다.
 기존 archive가 없어 **PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION** 상태입니다.
 1247 준비 gate만 구현했고 1246회 import·새 prospective snapshot 발행은 수행하지 않았습니다.
 
@@ -274,6 +283,7 @@ python main.py compare-number-space
 python main.py recurrence --help
 python main.py multiscale --help
 python main.py information-flow --help
+python main.py graph-hypergraph --help
 ```
 
 ### Prospective workflow

@@ -30,7 +30,7 @@ Current active documentation uses the canonical H1–H17 numbering below.
 | H9 | Delay embedding / recurrence geometry | TESTED / INCONCLUSIVE |
 | H10 | Wavelet / SSA multiscale structure | TESTED / INCONCLUSIVE |
 | H11 | Mutual information / Transfer Entropy | TESTED / INCONCLUSIVE |
-| H12 | Dynamic graph / Hypergraph | BACKLOG |
+| H12 | Dynamic graph / Hypergraph | TESTED / INCONCLUSIVE |
 | H13 | Modular / difference-space transforms | BACKLOG |
 | H14 | Entropy / compression / algorithmic randomness | BACKLOG |
 | H15 | Tensor decomposition | BACKLOG |
@@ -415,7 +415,7 @@ discretization 탐색, estimator bias, sparse joint distribution, 동시출현 �
 
 **상태**
 
-BACKLOG
+TESTED / INCONCLUSIVE
 
 **핵심 아이디어**
 
@@ -427,15 +427,22 @@ number co-occurrence graph·communities·higher-order set relations를 표현한
 
 **검증 방법**
 
-고정 rolling windows·edge rule·community / hyperedge 통계를 사전 선언하고 row/column 제약을 보존하는 null과 비교한다.
+W={26,52,104}, weighted spectral K={2,3}, threshold2, triple support>=3를 고정했다.
+135개 graph, 2,057,700개 primary 후보 cell의 전체 검색을 IID199·fixed-margin199에도 동일하게 허용했다.
 
 **현재까지 결과**
 
-미실행이며 반복 community나 예측 근거는 없다.
+community 안정성 보정 p=0.10(IID),0.05(fixed-margin)로 두 null에 걸친 근거는 부족했다.
+edge·triple·persistence·frequency-controlled successor의 보정 p는 모두1이었다.
+node strength=5×빈도, 전체 triple participation=10×빈도임을 분리했다.
+개발401–900에서 Graph W52 neighbor/communityK3, Hypergraph W104 support2 shrink10을 동결했다.
+이후 평균Top6는Graph0.858/Hypergraph0.817/Gap0.835, 주요 paired 구간은0을 포함했다.
+Graph는 탐색적 ENSEMBLE CANDIDATE로 보존하고 Hypergraph는 NOT CURRENTLY JUSTIFIED로 분류했다.
 
 **다음 결정**
 
-graph 생성과 평가를 causal하게 분리한 별도 protocol을 작성한다.
+역사적 탐색 결과와 인과적 이후 평가를 보존한다. 실제1247 발행은 기존 archive 복원·검증 뒤에만 가능하다.
+PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION.
 
 **주요 false-positive 위험**
 
@@ -443,7 +450,7 @@ community resolution 탐색, 희소 hyperedge, 동일 회차의 음의 의존성
 
 **관련 문서**
 
-[기초 데이터 표현](foundation-analysis.md)
+[Phase14 방법](graph-hypergraph-analysis.md) · [결과·검증](phase14-results.md)
 
 ## H13 — Modular / difference-space transforms
 
