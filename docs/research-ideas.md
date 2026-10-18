@@ -860,12 +860,45 @@ Prospective archive30files/기록된12SHA-256은 VERIFIED이며 원본 byte를 �
 
 [방법](optimal-transport-analysis.md) · [결과·검증](optimal-transport-results.md) · [계획](superpowers/plans/2026-10-18-phase24.md)
 
+## H24 — Symbolic Dynamics / Markov order
+
+**상태**
+
+TESTED / INCONCLUSIVE
+
+**핵심 아이디어**
+
+Parity·low/high·sum·range·spacing·band occupancy의 coarse symbol sequence에서 Markov memory와 transition/word rule을 검정한다.
+처음200회로 quantile 경계를 동결하고 분석 symbol은201회부터 생성해 future-bin leakage를 막는다.
+
+**검증 방법**
+
+여덟 encoding, order0–3, alpha.5/1, word L2–4, fixed support와 lag1/2/3/4/8/13/26을 고정했다.
+개발601–900과 이후901–1245를 구분하고304cells/404transition/47,274word를 IID199/fixed-margin199에서 모두 재구축했다.
+Null도 자신의 first200 bins와 자체 global maximum을 선택하며 Bonferroni6을 적용했다.
+
+**현재까지 결과**
+
+개발·전체 여섯 family의 두 null corrected p는 모두1이었다. 모든 encoding의 개발 order 선택은0이었다.
+Sparse order3의 fitted entropy 감소는 예측 memory 근거가 아니며 supported missing word도0개였다.
+Spacing3→2 suppression과 range4의 L4 word도 전체 null 보정을 통과하지 못했다.
+
+**다음 결정**
+
+PREDICTIVE_MODEL_NOT_JUSTIFIED / NOT CURRENTLY JUSTIFIED. SymbolicContext/DirectContextNumber 모델,
+number walk-forward·rank correlation·1247capability를 만들지 않았다. Archive30files/12recorded hashes는 VERIFIED이며 원본을 보존했다.
+H17은 남은 H25 완료까지 유보한다.
+
+**관련 문서**
+
+[방법](symbolic-analysis.md) · [결과·검증](symbolic-results.md) · [계획](superpowers/plans/2026-10-18-phase25.md)
+
 ## 추가 독립 가설 backlog
 
-기존 H번호를 renumber하지 않는다. H24/H25는 이후 독립 가설이며 H17은 그 완료까지 의도적으로 미룬다.
+기존 H번호를 renumber하지 않는다. H25는 이후 독립 가설이며 H17은 그 완료까지 의도적으로 미룬다.
 
 | ID | 가설 | 상태 |
 |---|---|---|
 | H23 | Optimal Transport / Wasserstein geometry | TESTED / INCONCLUSIVE |
-| H24 | Symbolic Dynamics / Markov order | BACKLOG |
+| H24 | Symbolic Dynamics / Markov order | TESTED / INCONCLUSIVE |
 | H25 | Integrated randomness battery | BACKLOG |
