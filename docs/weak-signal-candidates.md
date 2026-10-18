@@ -1,6 +1,6 @@
 # Weak-signal 후보 원장
 
-약한 역사 점추정치와 다양성을 보존하는 연구용 원장이다. **Validated ensemble이나 미래 예측 우위의 판정이 아니다.** GraphStructureModel·GapShapeModel·MirrorModel의 ENSEMBLE CANDIDATE는 탐색적 분류이며, Gap Logistic은 비교 baseline, MI는 NOT CURRENTLY JUSTIFIED로 유지한다. H17 최종 ensemble은 BACKLOG다.
+약한 역사 점추정치와 다양성을 보존하는 연구용 원장이다. **Validated ensemble이나 미래 예측 우위의 판정이 아니다.** GraphStructureModel·GapShapeModel·MirrorModel의 ENSEMBLE CANDIDATE는 탐색적 분류이며, Gap Logistic은 비교 baseline, MI는 NOT CURRENTLY JUSTIFIED로 유지한다. H17 Phase27 현재 판정은 **NO_ENSEMBLE_ADVANTAGE_ESTABLISHED**, ready_for_1247=false다. validation gate 실패 후 네 연구 입력의 equal-all 조합은 AUDIT_ONLY로 남겼으며 후보를 승격하지 않았다. MI는 기존 NOT CURRENTLY JUSTIFIED에 따라 선정에서 제외했다. 연구 방법은 [Phase27 분석](final-ensemble-analysis.md), 결과는 [Phase27 결과](final-ensemble-results.md)에 기록했다.
 
 범위·수치·판정의 canonical 기록은 [JSON](weak-signal-candidates.json), 가설 전체는 [증거 종합](research-evidence-synthesis.md)에 있다. 문서에서 전사한 정밀도만 보존한다. null이나 diversity가 다른 것은 예측력이 있다는 뜻이 아니다. 주요 paired CI는 명목 95% circular block-bootstrap 구간이며 모델·지표·시작점 전체의 동시구간이 아니다. 동일 역사 구간의 비교와 sensitivity를 독립 반복으로 세지 않는다.
 
@@ -45,6 +45,9 @@
 - `reports/transformed_space/walk_forward_26/predictions.csv` — HISTORICAL_UNAVAILABLE — 후속45score/rank·target·cutoff
 - `reports/transformed_space/run_manifest.json` — HISTORICAL_UNAVAILABLE — 과거 byte/hash inventory
 
+Phase27 H17: **AUDIT_ONLY** — Eligible historical research input; failed Phase27 validation does not promote the candidate or establish predictive advantage.
+
+
 ## GraphStructureModel
 
 **ENSEMBLE CANDIDATE (탐색적)** — 약한 양의 역사 점추정치와 낮은 순위 상관을 보존한다. 주요 CI·W104 민감도로 검증된 예측 신호는 아니다.
@@ -81,6 +84,9 @@
 - `reports/graph_hypergraph/walk_forward_26/rank_diversity.csv` — HISTORICAL_UNAVAILABLE — 번호 좌표 순위 상관·TopK overlap
 - [src/graph_hypergraph_cli.py](../src/graph_hypergraph_cli.py) — 정확한 출력 이름·protocol 구현
 
+Phase27 H17: **AUDIT_ONLY** — Eligible historical research input; failed Phase27 validation does not promote the candidate or establish predictive advantage.
+
+
 ## GapShapeModel
 
 **ENSEMBLE CANDIDATE (탐색적)** — 약한 양의 점추정치와 다양성 보존용. 주요 paired CI가0을 포함하고 K에 민감해 최종 채택 근거가 아니다.
@@ -114,6 +120,9 @@
 - `reports/transformed_space/walk_forward_26/paired.csv` — HISTORICAL_UNAVAILABLE — paired 차이·명목95% 구간
 - `reports/transformed_space/walk_forward_26/rank_diversity.csv` — HISTORICAL_UNAVAILABLE — 번호 좌표 순위 상관·TopK overlap
 - [src/transformed_cli.py](../src/transformed_cli.py) — 정확한 출력 이름·protocol 구현
+
+Phase27 H17: **AUDIT_ONLY** — Eligible historical research input; failed Phase27 validation does not promote the candidate or establish predictive advantage.
+
 
 ## MirrorModel
 
@@ -150,6 +159,9 @@
 - `reports/symmetry/walk_forward_26/rank_diversity.csv` — HISTORICAL_UNAVAILABLE — 번호 좌표 순위 상관·TopK overlap
 - [src/symmetry_cli.py](../src/symmetry_cli.py) — 정확한 출력 이름·protocol 구현
 
+Phase27 H17: **AUDIT_ONLY** — Eligible historical research input; failed Phase27 validation does not promote the candidate or establish predictive advantage.
+
+
 ## MutualInformationModel (MI)
 
 **NOT CURRENTLY JUSTIFIED** — 관심 있는 양의 점추정치지만 paired·시간 안정성·parameter 민감도 조건을 충족하지 못해 후보로 승격하지 않는다.
@@ -184,6 +196,9 @@
 - `reports/information_flow/walk_forward_26/rank_diversity.csv` — HISTORICAL_UNAVAILABLE — 번호 좌표 순위 상관·TopK overlap
 - [src/information_cli.py](../src/information_cli.py) — 정확한 출력 이름·protocol 구현
 
-HISTORICAL_UNAVAILABLE은 현재 checkout에 파일이 없다는 뜻이다. 원문 결과는 존재하지만 해당 CSV·동결 설정·manifest의 byte/hash를 이번 원장 작업에서 재검증하지 못했다. AVAILABLE은 현재 파일 존재만 확인한 상태이며 자동으로 과거 전체 산출물의 무결성을 보증하지 않는다. 후보를 재학습하거나 더 좋은 사후 설정으로 교체하지 않았고 실제1246 결과를 사용하지 않았다.
+Phase27 H17: **AUDIT_ONLY** — Excluded from ensemble selection under the unchanged NOT CURRENTLY JUSTIFIED decision; diversity was inspected for audit only.
+
+
+HISTORICAL_UNAVAILABLE은 현재 checkout에 파일이 없다는 뜻이다. 원문 결과는 존재하지만 해당 CSV·동결 설정·manifest의 byte/hash를 이번 원장 작업에서 재검증하지 못했다. AVAILABLE은 현재 파일 존재만 확인한 상태이며 자동으로 과거 전체 산출물의 무결성을 보증하지 않는다. 원래 Phase26 원장 작성에서는 후보를 재학습하거나 더 좋은 사후 설정으로 교체하지 않았다. Phase27은 기존 동결 설정으로 새 causal replay를 수행했으며 unavailable 원본의 byte/hash를 복원했다고 주장하지 않는다. 실제1246 결과는 사용하지 않았다.
 
 생성·검증: `python -m src.analysis.evidence_ledger --check`.

@@ -22,7 +22,7 @@
 | H14 | 16 / entropy·LZ78·compression53encodings | TESTED / INCONCLUSIVE | 여섯 family IID/fixed/exact-draw-order shuffle 보정 p 모두1 | 개발 gate 실패; PREDICTIVE_MODEL_NOT_JUSTIFIED | 해당 없음(모델 미구현) | NOT CURRENTLY JUSTIFIED | [docs/phase16-results.md](../docs/phase16-results.md) |
 | H15 | 17 / causal A/B/C tensor·Tucker ranks | TESTED / INCONCLUSIVE | effective-rank 보정 p=.825/.400(IID/fixed); 모든 family 불통과 | 개발 gate 실패; PREDICTIVE_MODEL_NOT_JUSTIFIED | 해당 없음(모델 미구현) | NOT CURRENTLY JUSTIFIED | [docs/phase17-results.md](../docs/phase17-results.md) |
 | H16 | 18 / fixed mirror·anti-symmetry·bounded shift | TESTED / INCONCLUSIVE | 일곱 family 양 null 보정 p 모두1 | MirrorModel 역사 실험; PairModel 미구현 | 901–1245 Mirror=.826087; Gap=.834783 | Mirror ENSEMBLE CANDIDATE(탐색) | [docs/phase18-results.md](../docs/phase18-results.md) |
-| H17 | 미실행 / validated weak-signal final ensemble | BACKLOG | 최종 ensemble 검정 미실행; 후보 다양성은 효과 증거 아님 | 최종 ensemble 미구현 | 해당 없음 | BACKLOG | [docs/research-ideas.md](../docs/research-ideas.md) |
+| H17 | 27 / Frozen four-input rank ensemble; chronological development/validation/final and equal-budget ticket audit | NO_ENSEMBLE_ADVANTAGE_ESTABLISHED | Validation gate failed; paired final intervals and robustness do not establish an ensemble advantage. Placebos are selection diagnostics, not calibrated global p-values. | Development winner failed validation; equal_all retained only as an audit fallback. Configuration readiness=false. | 1131-1245 SelectedEnsemble=.765217; mean winning-number rank=23.417391 (115 historical targets) | NO_ENSEMBLE_ADVANTAGE_ESTABLISHED | [docs/research-ideas.md](../docs/research-ideas.md) · [docs/final-ensemble-analysis.md](../docs/final-ensemble-analysis.md) · [docs/final-ensemble-results.md](../docs/final-ensemble-results.md) |
 | H18 | 19 / penalized change-point·CUSUM·prefix stability | TESTED / INCONCLUSIVE | 전체 다섯 family 양 null 보정 p 모두1 | RegimeFrequency 역사 실험; later에서 CP=0으로 누적 빈도와 동일 | 901–1245 Regime=.794203; Gap=.834783 | NOT CURRENTLY JUSTIFIED | [docs/change-point-results.md](../docs/change-point-results.md) |
 | H19 | 20 / renewal·self/cross excitation/inhibition·Hawkes-like kernel | TESTED / INCONCLUSIVE | self-inhibition 보정 p=.750/.570; kernel .630/.720(IID/fixed); 통과 없음 | Renewal·Hawkes falsification 실험; Signed gate 실패 | 901–1245 Renewal=.753623 / Hawkes=.707246 | NOT CURRENTLY JUSTIFIED | [docs/point-process-results.md](../docs/point-process-results.md) |
 | H20 | 21 / DFA1·crossover·aggregation·rolling; R/S·DFA2 secondary | TESTED / INCONCLUSIVE | primary persistent 최소 보정 p=.660/.660; secondary 모두1 | 개발 gate 실패; predictor 미구현 | 해당 없음 | NOT CURRENTLY JUSTIFIED | [docs/long-memory-results.md](../docs/long-memory-results.md) |
@@ -32,7 +32,14 @@
 | H24 | 25 / symbolic dynamics·order0–3 Markov·여덟 encoding | TESTED / INCONCLUSIVE | 개발·전체 여섯 family 양 null 보정 p 모두1 | 모든 encoding에서 개발 order0 선택; 모델 미구현 | 해당 없음 | NOT CURRENTLY JUSTIFIED | [docs/symbolic-results.md](../docs/symbolic-results.md) |
 | H25 | 26 / Integrated randomness battery | TESTED / INCONCLUSIVE | IID199/fixed-margin199,2200/2147units, 전체6 omnibus 보정 p 모두1. FamilyMax/Sum/HC global p: IID=.775/.500/1,fixed=.615/.275/.300. 이전 Phase p 결합 없음. | Randomness audit만 수행; predictor·ensemble·prospective prediction 없음 | 해당 없음 | 새 후보 없음; H17 BACKLOG / NEXT PHASE | [docs/randomness-battery-results.md](../docs/randomness-battery-results.md) · [docs/randomness-battery-analysis.md](../docs/randomness-battery-analysis.md) |
 
-H7은 실행하지 않은 DEFERRED, H17은 검증된 최종 조합을 아직 만들지 않은 BACKLOG다. H22의 H1 persistence는 dependency limitation으로 보류했으며 완료 범위는 H0다. 구조 보정 통과와 예측 개선은 다른 조건이다. SSA 구조 신호와 Graph의 fixed-margin 경계값을 예측 성공으로 승격하지 않는다.
+## H17 판정 이력
+
+Phase27 이전: **BACKLOG** — 최종 ensemble 미구현. 이 이전 항목 전체와 다른 가설·후보의 기존 상태·수치는 JSON에 보존했다.
+
+Phase27 historical final 1131–1245: SelectedEnsemble 평균 Top6=0.765217, 평균 당첨번호 순위=23.417391. 과거 자료를 재사용한 감사 결과이며 prospective 검증이나 새로운 독립 holdout이 아니다.
+
+
+H7은 실행하지 않은 DEFERRED다. H17 Phase27 현재 판정은 **NO_ENSEMBLE_ADVANTAGE_ESTABLISHED**, ready_for_1247=false다. validation gate 실패 후 네 연구 입력의 equal-all 조합은 AUDIT_ONLY로 남겼으며 후보를 승격하지 않았다. MI는 기존 NOT CURRENTLY JUSTIFIED에 따라 선정에서 제외했다. 연구 방법은 [Phase27 분석](final-ensemble-analysis.md), 결과는 [Phase27 결과](final-ensemble-results.md)에 기록했다. H22의 H1 persistence는 dependency limitation으로 보류했으며 완료 범위는 H0다. 구조 보정 통과와 예측 개선은 다른 조건이다. SSA 구조 신호와 Graph의 fixed-margin 경계값을 예측 성공으로 승격하지 않는다.
 
 현재 후보의 상세 불확실성·정확한 설정·산출물 가용성은 [후보 원장](weak-signal-candidates.md)에 있다. canonical machine-readable 기록은 [JSON](weak-signal-candidates.json)이다. 현재 checkout에서 없는 과거 산출물의 수치는 원문 문서에서 전사했으며 재계산했다고 주장하지 않는다.
 

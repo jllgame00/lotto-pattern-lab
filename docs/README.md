@@ -189,10 +189,21 @@ Archive30files/12recorded hashes VERIFIED, 새 모델·ensemble·prospective 발
 
 ## 향후 연구 가설
 
-H25 broad randomness audit는 완료했습니다. H17은 BACKLOG이며 다음 Phase입니다. 자동 착수하지 않습니다.
+H25 broad randomness audit는 완료했습니다. Phase26 당시 H17을 다음 Phase로 남겼으며, 아래 Phase27에서 검증했습니다.
 
 [가설 노트](research-ideas.md)의 H7은 DEFERRED,
-H17은 BACKLOG입니다. validated ensemble 연구는 별도로 남아 있습니다.
+H17은 Phase27에서 NO_ENSEMBLE_ADVANTAGE_ESTABLISHED로 마쳤습니다. 기존 후보의 탐색적 분류와 현재 감사 판정은 원장에 함께 보존합니다.
+
+## Phase27 — H17 Final validated weak-signal ensemble
+
+네 기존 후보의47개 제한된 rank-weight 설정을 개발에서 비교했습니다. 선택한 GapShape/Mirror60/40은 validation을 통과하지 못했습니다.
+사전 fallback equal-all의 final Top6=.765217, MWR=23.417391이며 paired 우위를 확립하지 못했습니다.
+Configuration-only freeze는 NOT_CURRENTLY_JUSTIFIED / ready_for_1247=false입니다. 새 가설·feature family·1247 예측은 없습니다.
+
+- [방법·provenance·chronological protocol](final-ensemble-analysis.md)
+- [결과·bootstrap·placebo·portfolio·테스트](final-ensemble-results.md)
+- [최종 후보 원장](weak-signal-candidates.md) / [canonical JSON](weak-signal-candidates.json)
+- [사전 실행 계획](superpowers/plans/2026-10-18-phase27.md)
 
 ## Historical protocol archive
 

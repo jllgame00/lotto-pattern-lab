@@ -108,7 +108,7 @@ canonical history는 **1–1245회**, **2002-12-07–2026-10-10**입니다.
 | H14 | Entropy / compression / algorithmic randomness | TESTED / INCONCLUSIVE |
 | H15 | Tensor decomposition | TESTED / INCONCLUSIVE |
 | H16 | Symmetry / reflection structure | TESTED / INCONCLUSIVE |
-| H17 | Validated weak-signal ensemble | BACKLOG |
+| H17 | Validated weak-signal ensemble | NO_ENSEMBLE_ADVANTAGE_ESTABLISHED |
 | H18 | Change-point / piecewise-stationary regimes | TESTED / INCONCLUSIVE |
 | H19 | Point process / Hawkes-like influence / renewal | TESTED / INCONCLUSIVE |
 | H20 | Long-memory / fractal scaling / DFA | TESTED / INCONCLUSIVE |
@@ -118,7 +118,7 @@ canonical history는 **1–1245회**, **2002-12-07–2026-10-10**입니다.
 | H24 | Symbolic Dynamics / Markov order | TESTED / INCONCLUSIVE |
 | H25 | Integrated randomness battery | TESTED / INCONCLUSIVE |
 
-H25까지 독립 가설 검증을 완료했습니다. H17은 BACKLOG이며 다음 Phase입니다. Phase와 H번호는 서로 다른 분류이며 기존 번호는 보존합니다.
+H25까지 독립 가설 검증과 Phase27/H17 조합 감사를 완료했습니다. H17의 역사적 ensemble 우위는 확립되지 않았습니다. Phase와 H번호는 서로 다른 분류이며 기존 번호는 보존합니다.
 대응 관계는 [번호 이관 안내](docs/research-ideas.md#번호-이관-안내)에 설명합니다.
 
 ## Phase별 요약
@@ -306,7 +306,15 @@ fixed-margin=.615/.275/.300이며 전체6개 omnibus 보정 p는 모두1입니�
 Diffuse anomaly나 margin conditioning 후 시간·관계 구조의 보정된 증거를 얻지 못했습니다.
 Early/middle/recent 및 leave-one-family-out을 함께 보고했습니다. Archive30files/12recorded hashes는 VERIFIED입니다.
 새 테스트30개 통과, 전체1256passed/4failed/2skipped이며 기존 Windows named-pipe WinError5 네 실패를 재현했습니다.
-Predictor·ensemble·prospective prediction은 만들지 않았고 H17은 BACKLOG / NEXT PHASE입니다.
+Phase26 당시 predictor·ensemble·prospective prediction은 만들지 않았고 H17을 다음 Phase로 남겼습니다.
+
+### Phase 27 — Final validated weak-signal ensemble
+
+H17은 **NO_ENSEMBLE_ADVANTAGE_ESTABLISHED**입니다. 기존 Gap/Graph/GapShape/Mirror만 조합했고 MI는 감사용으로 제외했습니다.
+901–1245를115회씩 개발/검증/최종 구간으로 나누었으며, 개발 winner는 validation에서 실패했습니다.
+동결 equal-all audit baseline의 final Top6=.765217, MWR=23.417391로 paired 우위가 없었습니다.
+Configuration-only freeze는 NOT_CURRENTLY_JUSTIFIED / ready_for_1247=false입니다. 실제1246을 사용하거나1247 예측을 생성하지 않았습니다.
+[방법](docs/final-ensemble-analysis.md) · [결과·검증](docs/final-ensemble-results.md) · [최종 후보 원장](docs/weak-signal-candidates.md).
 [방법](docs/randomness-battery-analysis.md) · [결과·검증·변경 파일](docs/randomness-battery-results.md) ·
 [연구 증거 종합](docs/research-evidence-synthesis.md) · [후보 원장](docs/weak-signal-candidates.md)
 

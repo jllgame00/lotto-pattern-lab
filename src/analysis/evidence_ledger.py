@@ -5,9 +5,50 @@ omit --check to regenerate the two Markdown views from the canonical JSON.
 No fitting, null simulation, p-value aggregation, or prospective access occurs.
 """
 import argparse
+import copy
+from hashlib import sha256
 import json
 import math
 from pathlib import Path, PurePosixPath
+
+
+def _validate_phase27(data):
+    """Keep the historical record immutable and failed validation unpromoted."""
+    phase = data.get('phase27')
+    if phase is None:
+        return
+    h17 = next(h for h in data['hypotheses'] if h['id'] == 'H17')
+    if (h17.get('phase') != '27' or h17.get('status') != phase.get('status')
+            or h17.get('ensemble_status') != phase.get('status')):
+        raise ValueError('Phase27 and H17 current status must agree')
+    if not isinstance(phase.get('validation_passed'), bool) or not isinstance(phase.get('ready_for_1247'), bool):
+        raise ValueError('Phase27 validation and readiness must be explicit booleans')
+    if phase['validation_passed'] is False:
+        if phase.get('status') != 'NO_ENSEMBLE_ADVANTAGE_ESTABLISHED' or phase['ready_for_1247']:
+            raise ValueError('Failed Phase27 validation cannot promote an ensemble or readiness')
+        if (phase.get('selected', {}).get('id') != 'equal_all'
+                or phase['selected'].get('weights') != [.25, .25, .25, .25]):
+            raise ValueError('Failed Phase27 validation retains only the equal-all audit fallback')
+        if any(c.get('h17_status') != 'AUDIT_ONLY' for c in data['candidates']):
+            raise ValueError('Failed Phase27 validation permits AUDIT_ONLY candidate annotations')
+    eligible = {'GapLogistic', 'GraphStructure', 'GapShape', 'Mirror'}
+    if any(c.get('h17_eligible') is not (c['id'] in eligible) for c in data['candidates']):
+        raise ValueError('Phase27 eligibility must preserve MI exclusion and the four research inputs')
+    history = h17.get('history', [])
+    if len(history) != 1 or history[0].get('id') != 'H17' or history[0].get('status') != 'BACKLOG':
+        raise ValueError('Phase27 must preserve the complete H17 BACKLOG historical provenance')
+    prior = copy.deepcopy(data)
+    prior.pop('phase27')
+    for index, hypothesis in enumerate(prior['hypotheses']):
+        if hypothesis['id'] == 'H17':
+            prior['hypotheses'][index] = history[0]
+    for candidate in prior['candidates']:
+        for field in list(candidate):
+            if field.startswith('h17_'):
+                candidate.pop(field)
+    digest = sha256(json.dumps(prior, sort_keys=True, ensure_ascii=False, allow_nan=False).encode('utf-8')).hexdigest()
+    if digest != phase.get('prior_ledger_sha256'):
+        raise ValueError('Phase27 historical provenance changed; original statuses and metrics must be retained')
 
 
 def validate_ledger(data, root):
@@ -49,6 +90,7 @@ def validate_ledger(data, root):
                 raise ValueError('Invalid rank diversity metric')
         references.extend(c['sources'])
         references.extend(c['artifacts'])
+    references.extend(data.get('phase27', {}).get('sources', []))
     root = Path(root).resolve()
     for ref in references:
         path = PurePosixPath(ref['path'])
@@ -62,6 +104,7 @@ def validate_ledger(data, root):
             raise ValueError(f'Availability inventory must be updated: {path}')
         if status not in ('AVAILABLE', 'HISTORICAL_UNAVAILABLE'):
             raise ValueError('Unknown availability')
+    _validate_phase27(data)
     return data
 
 
@@ -78,6 +121,17 @@ def _cell(value):
 
 def render_documents(data):
     """Return deterministic Markdown views, retaining explicit source decisions."""
+    phase27 = data.get('phase27')
+    h17_note = 'H17 최종 ensemble은 BACKLOG다.'
+    deferred_note = 'H7은 실행하지 않은 DEFERRED, H17은 검증된 최종 조합을 아직 만들지 않은 BACKLOG다. '
+    if phase27:
+        h17_note = (f"H17 Phase27 현재 판정은 **{phase27['status']}**, "
+                    f"ready_for_1247={str(phase27['ready_for_1247']).lower()}다. "
+                    'validation gate 실패 후 네 연구 입력의 equal-all 조합은 AUDIT_ONLY로 남겼으며 후보를 승격하지 않았다. '
+                    'MI는 기존 NOT CURRENTLY JUSTIFIED에 따라 선정에서 제외했다. '
+                    '연구 방법은 [Phase27 분석](final-ensemble-analysis.md), '
+                    '결과는 [Phase27 결과](final-ensemble-results.md)에 기록했다.')
+        deferred_note = 'H7은 실행하지 않은 DEFERRED다. ' + h17_note + ' '
     synthesis = [
         '# 연구 증거 종합 — H1–H25', '',
         '이 표는 기존 완료 연구의 **기술적 종합(descriptive synthesis)**이다. 이전 p-value를 수학적으로 결합하거나 '
@@ -94,7 +148,17 @@ def render_documents(data):
                   h['corrected_null_evidence'], h['predictive_model_status'],
                   h['later_avg_top6'], h['ensemble_status'], ' · '.join(_source(s) for s in h['sources'])]
         synthesis.append('| ' + ' | '.join(_cell(v) for v in values) + ' |')
-    synthesis += ['', 'H7은 실행하지 않은 DEFERRED, H17은 검증된 최종 조합을 아직 만들지 않은 BACKLOG다. '
+    if phase27:
+        previous = next(h for h in data['hypotheses'] if h['id'] == 'H17')['history'][0]
+        final = phase27['final']
+        synthesis += ['', '## H17 판정 이력', '',
+                      f"Phase27 이전: **{previous['status']}** — {previous['predictive_model_status']}. "
+                      '이 이전 항목 전체와 다른 가설·후보의 기존 상태·수치는 JSON에 보존했다.', '',
+                      f"Phase27 historical final {final['targets'][0]}–{final['targets'][1]}: "
+                      f"SelectedEnsemble 평균 Top6={final['avg_top6']:.6f}, "
+                      f"평균 당첨번호 순위={final['mean_winning_rank']:.6f}. "
+                      '과거 자료를 재사용한 감사 결과이며 prospective 검증이나 새로운 독립 holdout이 아니다.', '']
+    synthesis += ['', deferred_note +
                   'H22의 H1 persistence는 dependency limitation으로 보류했으며 완료 범위는 H0다. '
                   '구조 보정 통과와 예측 개선은 다른 조건이다. SSA 구조 신호와 Graph의 fixed-margin 경계값을 '
                   '예측 성공으로 승격하지 않는다.', '',
@@ -108,7 +172,7 @@ def render_documents(data):
         '# Weak-signal 후보 원장', '',
         '약한 역사 점추정치와 다양성을 보존하는 연구용 원장이다. **Validated ensemble이나 미래 예측 우위의 판정이 아니다.** '
         'GraphStructureModel·GapShapeModel·MirrorModel의 ENSEMBLE CANDIDATE는 탐색적 분류이며, '
-        'Gap Logistic은 비교 baseline, MI는 NOT CURRENTLY JUSTIFIED로 유지한다. H17 최종 ensemble은 BACKLOG다.', '',
+        'Gap Logistic은 비교 baseline, MI는 NOT CURRENTLY JUSTIFIED로 유지한다. ' + h17_note, '',
         '범위·수치·판정의 canonical 기록은 [JSON](weak-signal-candidates.json), 가설 전체는 '
         '[증거 종합](research-evidence-synthesis.md)에 있다. 문서에서 전사한 정밀도만 보존한다. '
         'null이나 diversity가 다른 것은 예측력이 있다는 뜻이 아니다. '
@@ -135,10 +199,14 @@ def render_documents(data):
                        f"순위 다양성: {c['rank_diversity']}", '',
                        f"명시적 미확인 값: {c['missing_evidence']}", '', '정확한 설정·출력 경로:', '']
         candidates += [f"- {_source(a)} — {a['role']}" for a in c['artifacts']]
+        if phase27:
+            candidates += ['', f"Phase27 H17: **{c['h17_status']}** — {c['h17_reason']}", '']
     candidates += ['', 'HISTORICAL_UNAVAILABLE은 현재 checkout에 파일이 없다는 뜻이다. 원문 결과는 존재하지만 '
                    '해당 CSV·동결 설정·manifest의 byte/hash를 이번 원장 작업에서 재검증하지 못했다. '
                    'AVAILABLE은 현재 파일 존재만 확인한 상태이며 자동으로 과거 전체 산출물의 무결성을 보증하지 않는다. '
-                   '후보를 재학습하거나 더 좋은 사후 설정으로 교체하지 않았고 실제1246 결과를 사용하지 않았다.', '',
+                   '원래 Phase26 원장 작성에서는 후보를 재학습하거나 더 좋은 사후 설정으로 교체하지 않았다. '
+                   'Phase27은 기존 동결 설정으로 새 causal replay를 수행했으며 unavailable 원본의 byte/hash를 '
+                   '복원했다고 주장하지 않는다. 실제1246 결과는 사용하지 않았다.', '',
                    '생성·검증: `python -m src.analysis.evidence_ledger --check`.', '']
     return {'research-evidence-synthesis.md': '\n'.join(synthesis),
             'weak-signal-candidates.md': '\n'.join(candidates)}

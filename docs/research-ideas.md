@@ -35,7 +35,7 @@ Current active documentation uses the canonical H1–H17 numbering below.
 | H14 | Entropy / compression / algorithmic randomness | TESTED / INCONCLUSIVE |
 | H15 | Tensor decomposition | TESTED / INCONCLUSIVE |
 | H16 | Symmetry / reflection structure | TESTED / INCONCLUSIVE |
-| H17 | Validated weak-signal ensemble | BACKLOG |
+| H17 | Validated weak-signal ensemble | NO_ENSEMBLE_ADVANTAGE_ESTABLISHED |
 | H18 | Change-point / piecewise-stationary regimes | TESTED / INCONCLUSIVE |
 | H19 | Point process / Hawkes-like influence / renewal | TESTED / INCONCLUSIVE |
 | H20 | Long-memory / fractal scaling / DFA | TESTED / INCONCLUSIVE |
@@ -621,7 +621,7 @@ prospective에 정당화된 모델이 없어 draw1247_phase18_symmetry capabilit
 
 **상태**
 
-BACKLOG
+NO_ENSEMBLE_ADVANTAGE_ESTABLISHED (Phase27 완료; 이전 BACKLOG 기록은 후보 원장에 보존)
 
 **핵심 아이디어**
 
@@ -637,11 +637,11 @@ rank / prediction correlation을 측정하고 weight는 development에서만 선
 
 **현재까지 결과**
 
-최종 validated ensemble은 만들지 않았다. Phase 4의 고정 ensemble 실험이나 Phase 6 조합은 이 가설의 완료를 뜻하지 않는다.
+Phase27에서 기존Gap/Graph/GapShape/Mirror의47개 rank 조합을 검증했다. 공통901–1245를115회씩 개발/검증/최종으로 나누었다. 개발 winner GapShape60%/Mirror40%는 validation에 실패했다. 사전 equal-all fallback final Top6=.765217, MWR=23.417391이며 paired 우위가 없다. MI는 기존 NOT CURRENTLY JUSTIFIED 때문에 감사용으로만 남겼다. Phase4/6의 이전 실험과 구분한다.
 
 **다음 결정**
 
-안정적 약한 predictive evidence와 정보 차별성을 모두 갖춘 후보가 있을 때만 진행한다.
+역사 조합 연구는 종료한다. 감사용 configuration-only freeze는 NOT_CURRENTLY_JUSTIFIED / ready_for_1247=false다. 새로운 가설·feature·미래 번호 예측을 자동 추가하지 않는다.
 
 **주요 false-positive 위험**
 
@@ -649,7 +649,7 @@ rank / prediction correlation을 측정하고 weight는 development에서만 선
 
 **관련 문서**
 
-[Regime 연구](regime-research.md) · [Prospective workflow](prospective-workflow.md)
+[Phase27 방법](final-ensemble-analysis.md) · [결과](final-ensemble-results.md) · [최종 후보 원장](weak-signal-candidates.md) · [Regime 연구](regime-research.md) · [Prospective workflow](prospective-workflow.md)
 
 ## H18 — Change-point / piecewise-stationary regimes
 
@@ -929,7 +929,7 @@ Gap은 baseline,Graph/GapShape/Mirror는 탐색적 후보,MI는 NOT CURRENTLY JU
 
 ## 추가 독립 가설 상태
 
-기존 H번호를 renumber하지 않는다. H25까지 broad audit를 완료했으며 H17은 BACKLOG / NEXT PHASE다.
+기존 H번호를 renumber하지 않는다. H25 broad audit 이후 Phase27/H17을 완료했으며 ensemble 우위는 확립되지 않았다. 이전 Phase 단락의 BACKLOG/NEXT 문구는 해당 시점의 기록이다.
 
 | ID | 가설 | 상태 |
 |---|---|---|

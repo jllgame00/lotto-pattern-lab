@@ -275,17 +275,43 @@
     },
     {
       "id": "H17",
-      "phase": "미실행",
-      "method": "validated weak-signal final ensemble",
-      "status": "BACKLOG",
-      "corrected_null_evidence": "최종 ensemble 검정 미실행; 후보 다양성은 효과 증거 아님",
-      "predictive_model_status": "최종 ensemble 미구현",
-      "later_avg_top6": "해당 없음",
-      "ensemble_status": "BACKLOG",
+      "phase": "27",
+      "method": "Frozen four-input rank ensemble; chronological development/validation/final and equal-budget ticket audit",
+      "status": "NO_ENSEMBLE_ADVANTAGE_ESTABLISHED",
+      "corrected_null_evidence": "Validation gate failed; paired final intervals and robustness do not establish an ensemble advantage. Placebos are selection diagnostics, not calibrated global p-values.",
+      "predictive_model_status": "Development winner failed validation; equal_all retained only as an audit fallback. Configuration readiness=false.",
+      "later_avg_top6": "1131-1245 SelectedEnsemble=.765217; mean winning-number rank=23.417391 (115 historical targets)",
+      "ensemble_status": "NO_ENSEMBLE_ADVANTAGE_ESTABLISHED",
       "sources": [
         {
           "path": "docs/research-ideas.md",
           "availability": "AVAILABLE"
+        },
+        {
+          "path": "docs/final-ensemble-analysis.md",
+          "availability": "AVAILABLE"
+        },
+        {
+          "path": "docs/final-ensemble-results.md",
+          "availability": "AVAILABLE"
+        }
+      ],
+      "history": [
+        {
+          "id": "H17",
+          "phase": "미실행",
+          "method": "validated weak-signal final ensemble",
+          "status": "BACKLOG",
+          "corrected_null_evidence": "최종 ensemble 검정 미실행; 후보 다양성은 효과 증거 아님",
+          "predictive_model_status": "최종 ensemble 미구현",
+          "later_avg_top6": "해당 없음",
+          "ensemble_status": "BACKLOG",
+          "sources": [
+            {
+              "path": "docs/research-ideas.md",
+              "availability": "AVAILABLE"
+            }
+          ]
         }
       ]
     },
@@ -579,7 +605,10 @@
           1245
         ],
         "later_targets_count": 345
-      }
+      },
+      "h17_status": "AUDIT_ONLY",
+      "h17_eligible": true,
+      "h17_reason": "Eligible historical research input; failed Phase27 validation does not promote the candidate or establish predictive advantage."
     },
     {
       "id": "GraphStructure",
@@ -721,7 +750,10 @@
           1245
         ],
         "later_targets_count": 345
-      }
+      },
+      "h17_status": "AUDIT_ONLY",
+      "h17_eligible": true,
+      "h17_reason": "Eligible historical research input; failed Phase27 validation does not promote the candidate or establish predictive advantage."
     },
     {
       "id": "GapShape",
@@ -845,7 +877,10 @@
           1245
         ],
         "later_targets_count": 345
-      }
+      },
+      "h17_status": "AUDIT_ONLY",
+      "h17_eligible": true,
+      "h17_reason": "Eligible historical research input; failed Phase27 validation does not promote the candidate or establish predictive advantage."
     },
     {
       "id": "Mirror",
@@ -998,7 +1033,10 @@
           1245
         ],
         "later_targets_count": 345
-      }
+      },
+      "h17_status": "AUDIT_ONLY",
+      "h17_eligible": true,
+      "h17_reason": "Eligible historical research input; failed Phase27 validation does not promote the candidate or establish predictive advantage."
     },
     {
       "id": "MI",
@@ -1112,7 +1150,84 @@
           1245
         ],
         "later_targets_count": 345
-      }
+      },
+      "h17_status": "AUDIT_ONLY",
+      "h17_eligible": false,
+      "h17_reason": "Excluded from ensemble selection under the unchanged NOT CURRENTLY JUSTIFIED decision; diversity was inspected for audit only."
     }
-  ]
+  ],
+  "phase27": {
+    "status": "NO_ENSEMBLE_ADVANTAGE_ESTABLISHED",
+    "validation_passed": false,
+    "ready_for_1247": false,
+    "readiness": "H17_CONFIGURATION_FROZEN_NOT_CURRENTLY_JUSTIFIED",
+    "historical_cutoff": 1245,
+    "common_targets": [
+      901,
+      1245
+    ],
+    "development_targets": [
+      901,
+      1015
+    ],
+    "validation_targets": [
+      1016,
+      1130
+    ],
+    "final": {
+      "targets": [
+        1131,
+        1245
+      ],
+      "target_count": 115,
+      "avg_top6": 0.7652173913043478,
+      "mean_winning_rank": 23.417391304347827
+    },
+    "selected": {
+      "id": "equal_all",
+      "candidates": [
+        "GapLogistic",
+        "GraphStructureModel",
+        "GapShapeModel",
+        "MirrorModel"
+      ],
+      "weights": [
+        0.25,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "role": "AUDIT_ONLY fallback after failed validation"
+    },
+    "development_winner": {
+      "id": "s2_23_w1",
+      "weights": [
+        0.0,
+        0.0,
+        0.6,
+        0.4
+      ]
+    },
+    "best_single": "GapShapeModel",
+    "replay": {
+      "matched_models": 7,
+      "original_bytes_verified": false,
+      "interpretation": "New exact-configuration causal replay matches all seven documented hit distributions; unavailable original artifacts remain unavailable."
+    },
+    "draw1246_used": false,
+    "draw1247_prediction_generated": false,
+    "statistical_combination": false,
+    "interpretation": "Retrospective historical audit; no ensemble advantage established, no promotion, and no prospective readiness. Existing candidate decisions and metrics are preserved.",
+    "prior_ledger_sha256": "55ec96e99f405c7bea7bae8a20797722d0089f76f9a1845757159fb49c23c529",
+    "sources": [
+      {
+        "path": "docs/final-ensemble-analysis.md",
+        "availability": "AVAILABLE"
+      },
+      {
+        "path": "docs/final-ensemble-results.md",
+        "availability": "AVAILABLE"
+      }
+    ]
+  }
 }

@@ -119,6 +119,8 @@ def _parser():
     add_symbolic_commands(commands)
     from src.randomness_cli import add_commands as add_randomness_commands
     add_randomness_commands(commands)
+    from src.final_ensemble_cli import add_commands as add_final_ensemble_commands
+    add_final_ensemble_commands(commands)
     evaluation=commands.add_parser('evaluate-freeze',help='Offline evaluation of a frozen snapshot and explicit local result JSON')
     evaluation.add_argument('snapshot',type=Path)
     evaluation.add_argument('result_file',type=Path)
@@ -354,6 +356,10 @@ def main(argv=None) -> int:
         if args.command == 'random-matrix':
             from src.random_matrix_cli import run as run_random_matrix
             run_random_matrix(args)
+            return 0
+        if args.command == 'final-ensemble':
+            from src.final_ensemble_cli import run as run_final_ensemble
+            run_final_ensemble(args)
             return 0
         if args.command == 'randomness-battery':
             from src.randomness_cli import run as run_randomness
