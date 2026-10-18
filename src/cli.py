@@ -117,6 +117,8 @@ def _parser():
     add_optimal_transport_commands(commands)
     from src.symbolic_cli import add_commands as add_symbolic_commands
     add_symbolic_commands(commands)
+    from src.randomness_cli import add_commands as add_randomness_commands
+    add_randomness_commands(commands)
     evaluation=commands.add_parser('evaluate-freeze',help='Offline evaluation of a frozen snapshot and explicit local result JSON')
     evaluation.add_argument('snapshot',type=Path)
     evaluation.add_argument('result_file',type=Path)
@@ -352,6 +354,10 @@ def main(argv=None) -> int:
         if args.command == 'random-matrix':
             from src.random_matrix_cli import run as run_random_matrix
             run_random_matrix(args)
+            return 0
+        if args.command == 'randomness-battery':
+            from src.randomness_cli import run as run_randomness
+            run_randomness(args)
             return 0
         if args.command == 'symbolic':
             from src.symbolic_cli import run as run_symbolic

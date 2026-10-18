@@ -893,12 +893,46 @@ H17은 남은 H25 완료까지 유보한다.
 
 [방법](symbolic-analysis.md) · [결과·검증](symbolic-results.md) · [계획](superpowers/plans/2026-10-18-phase25.md)
 
-## 추가 독립 가설 backlog
+## H25 — Integrated randomness battery
 
-기존 H번호를 renumber하지 않는다. H25는 이후 독립 가설이며 H17은 그 완료까지 의도적으로 미룬다.
+**상태**
+
+TESTED / INCONCLUSIVE
+
+**핵심 아이디어**
+
+하나의 최대 이상치와 여러 작은 편향의 누적을 구분하여 전체 history가 valid Lotto null과 구별되는지 검정한다.
+IID TrackA와 marginal-conditioned TrackB를 분리하고 FamilyMax/SumOfAnomalies/HigherCriticism을 모두 사전 고정했다.
+
+**검증 방법**
+
+6-of45 제약을 보존한 IID199/fixed-margin199에 동일한9/8families,2200/2147units를 재구축했다.
+200행 exchangeable pool에서 매 행 자신을 제외한199peers로 방향별 정규화하고 전체6omnibus Bonferroni를 적용했다.
+Early/middle/recent와 leave-one-family-out도 frozen configuration으로 확인했다. 이전 Phase p-value는 결합하지 않았다.
+
+**현재까지 결과**
+
+Full FamilyMax/Sum/HC global p는 IID=.775/.500/1,fixed-margin=.615/.275/.300이며 전체6보정 p는 모두1이다.
+Diffuse anomaly 또는 margin conditioning 후 시간·관계 구조의 보정된 증거를 얻지 못했다.
+Early maximum raw p=.005는18era검정 보정 후 .090이며 반복된 diffuse evidence가 아니다.
+Archive30files/12recorded hashes VERIFIED, 기존 byte 변경 없음. 새30tests 통과; 전체 suite의 Windows WinError5 네 실패는 기존과 동일하다.
+
+**다음 결정**
+
+H25에서 종료한다. Predictor·ensemble·prospective prediction은 만들지 않았다.
+H17은 BACKLOG / NEXT PHASE이며 [증거 종합](research-evidence-synthesis.md)과 [후보 원장](weak-signal-candidates.md)을 입력으로 남긴다.
+Gap은 baseline,Graph/GapShape/Mirror는 탐색적 후보,MI는 NOT CURRENTLY JUSTIFIED를 유지한다.
+
+**관련 문서**
+
+[방법](randomness-battery-analysis.md) · [결과·검증](randomness-battery-results.md) · [계획](superpowers/plans/2026-10-18-phase26.md)
+
+## 추가 독립 가설 상태
+
+기존 H번호를 renumber하지 않는다. H25까지 broad audit를 완료했으며 H17은 BACKLOG / NEXT PHASE다.
 
 | ID | 가설 | 상태 |
 |---|---|---|
 | H23 | Optimal Transport / Wasserstein geometry | TESTED / INCONCLUSIVE |
 | H24 | Symbolic Dynamics / Markov order | TESTED / INCONCLUSIVE |
-| H25 | Integrated randomness battery | BACKLOG |
+| H25 | Integrated randomness battery | TESTED / INCONCLUSIVE |

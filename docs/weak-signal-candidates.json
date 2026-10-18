@@ -1,0 +1,1118 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-10-18",
+  "research_cutoff": 1245,
+  "statistical_combination": false,
+  "purpose": "기존 연구의 descriptive synthesis; 이전 p-value 수학적 결합 없음",
+  "hypotheses": [
+    {
+      "id": "H1",
+      "phase": "2",
+      "method": "45개 binary ACF·spectrum·fixed-scope shuffle",
+      "status": "TESTED / INCONCLUSIVE",
+      "corrected_null_evidence": "180 scopes 중 최강 number8/W52 raw p=.0028, 보정 p=.504; rolling/regime 전체 검색 보정 아님",
+      "predictive_model_status": "이 Phase는 기술 분석; 이후 Phase3에서 causal ranking 비교",
+      "later_avg_top6": "해당 없음(Phase2 predictor 없음)",
+      "ensemble_status": "정당화되지 않음",
+      "sources": [
+        {
+          "path": "docs/temporal-analysis.md",
+          "availability": "AVAILABLE"
+        }
+      ]
+    },
+    {
+      "id": "H2",
+      "phase": "3–4",
+      "method": "Gap Logistic·hazard·Bayesian·HMM·robustness",
+      "status": "TESTED / INCONCLUSIVE",
+      "corrected_null_evidence": "Gap primary random-tail Bonferroni p=.447776; 주요 paired CI는0 포함. 구조 own-max 검정과 다른 예측 비교",
+      "predictive_model_status": "비교 baseline 유지; 복잡한 regime 개선 미확립",
+      "later_avg_top6": "601–1244 Gap=.849379; 후속901–1245 Gap26=.834783(다른 fit calendar)",
+      "ensemble_status": "BASELINE / 우위 미확립",
+      "sources": [
+        {
+          "path": "docs/predictive-experiments.md",
+          "availability": "AVAILABLE"
+        },
+        {
+          "path": "docs/gap-prize-research.md",
+          "availability": "AVAILABLE"
+        },
+        {
+          "path": "docs/regime-research.md",
+          "availability": "AVAILABLE"
+        },
+        {
+          "path": "docs/phase15-results.md",
+          "availability": "AVAILABLE"
+        }
+      ]
+    },
+    {
+      "id": "H3",
+      "phase": "6",
+      "method": "2D shift·chain·Hough·FFT complete search",
+      "status": "TESTED / INCONCLUSIVE",
+      "corrected_null_evidence": "shift 최소 보정 p=.330(IID)/.480(fixed); 나머지1",
+      "predictive_model_status": "Translation·Chain 역사 실험, 안정적 개선 없음",
+      "later_avg_top6": "901–1245 Translation=.776812 / Chain=.834783 / 사전조합=.823188",
+      "ensemble_status": "정당화되지 않음",
+      "sources": [
+        {
+          "path": "docs/phase6-results.md",
+          "availability": "AVAILABLE"
+        }
+      ]
+    },
+    {
+      "id": "H4",
+      "phase": "7",
+      "method": "source-gap 조건3D·trajectory",
+      "status": "TESTED / INCONCLUSIVE",
+      "corrected_null_evidence": "destination 보정 p=.725/.500; longest .525/.625(IID/fixed); 통과 없음",
+      "predictive_model_status": "Gap-conditioned Translation·Chain 역사 실험",
+      "later_avg_top6": "901–1245 Translation=.8580 / Chain=.7623(cadence26)",
+      "ensemble_status": "정당화되지 않음",
+      "sources": [
+        {
+          "path": "docs/phase7-results.md",
+          "availability": "AVAILABLE"
+        }
+      ]
+    },
+    {
+      "id": "H5",
+      "phase": "8",
+      "method": "W10/26/52 frequency 조건3D",
+      "status": "TESTED / INCONCLUSIVE",
+      "corrected_null_evidence": "다섯 family 양 null 보정 p 모두1",
+      "predictive_model_status": "사전 W26·개발선택 진단; 우위 없음",
+      "later_avg_top6": "901–1245 W26 Translation=.8348 / Chain=.7362; 개발선택 W10 Translation=.7855 / W52 Chain=.7768",
+      "ensemble_status": "정당화되지 않음",
+      "sources": [
+        {
+          "path": "docs/phase8-results.md",
+          "availability": "AVAILABLE"
+        }
+      ]
+    },
+    {
+      "id": "H6",
+      "phase": "9",
+      "method": "Gap×W26 frequency 아홉 joint states",
+      "status": "TESTED / INCONCLUSIVE",
+      "corrected_null_evidence": "joint conditional 보정 p=.880/1(IID/fixed); 나머지1",
+      "predictive_model_status": "Joint propensity·Translation·Chain; parent 이상의 개선 미확립",
+      "later_avg_top6": "901–1245 baseline=.7478 / Translation=.8145 / Chain=.7652",
+      "ensemble_status": "정당화되지 않음",
+      "sources": [
+        {
+          "path": "docs/phase9-results.md",
+          "availability": "AVAILABLE"
+        }
+      ]
+    },
+    {
+      "id": "H7",
+      "phase": "미실행",
+      "method": "full continuous4D geometry",
+      "status": "DEFERRED",
+      "corrected_null_evidence": "미실행; H6 categorical interaction으로 대체하지 않음",
+      "predictive_model_status": "미구현",
+      "later_avg_top6": "해당 없음",
+      "ensemble_status": "해당 없음",
+      "sources": [
+        {
+          "path": "docs/research-ideas.md",
+          "availability": "AVAILABLE"
+        }
+      ]
+    },
+    {
+      "id": "H8",
+      "phase": "10",
+      "method": "range-density·kernel neighborhood·spacing",
+      "status": "TESTED / INCONCLUSIVE",
+      "corrected_null_evidence": "여섯 family 양 null 보정 p 모두1",
+      "predictive_model_status": "Range/Neighborhood/GapNeighborhood; 선택 W52는 own-number control",
+      "later_avg_top6": "901–1245 .7652/.7304/.7507; 당시 Gap=.8232",
+      "ensemble_status": "정당화되지 않음",
+      "sources": [
+        {
+          "path": "docs/phase10-results.md",
+          "availability": "AVAILABLE"
+        }
+      ]
+    },
+    {
+      "id": "H9",
+      "phase": "11",
+      "method": "delay embedding·RQA·successor similarity",
+      "status": "TESTED / INCONCLUSIVE",
+      "corrected_null_evidence": "successor ρ=-.02407, 보정 p=.400/.425(IID/fixed)",
+      "predictive_model_status": "nearest·analog·continuation 역사 실험",
+      "later_avg_top6": "901–1245 .7855/.7362/.7884; Gap=.8348",
+      "ensemble_status": "NOT CURRENTLY JUSTIFIED",
+      "sources": [
+        {
+          "path": "docs/phase11-results.md",
+          "availability": "AVAILABLE"
+        }
+      ]
+    },
+    {
+      "id": "H10",
+      "phase": "12",
+      "method": "Morlet wavelet·SSA multiscale",
+      "status": "TESTED / INCONCLUSIVE",
+      "corrected_null_evidence": "번호5 약13.42회 SSA 안정성: 양 null global p=.005, 여섯-family 보정 p=.030; Wavelet 불통과",
+      "predictive_model_status": "Wavelet·SSA 역사 실험; 구조 신호와 예측 분리",
+      "later_avg_top6": "901–1245 Wavelet=.7739 / SSA=.8087; Gap=.8348",
+      "ensemble_status": "NOT CURRENTLY JUSTIFIED",
+      "sources": [
+        {
+          "path": "docs/phase12-results.md",
+          "availability": "AVAILABLE"
+        }
+      ]
+    },
+    {
+      "id": "H11",
+      "phase": "13",
+      "method": "MI·CMI·TE·방향·stability",
+      "status": "TESTED / INCONCLUSIVE",
+      "corrected_null_evidence": "MI2→33 lag13 보정 p=.225/.175; TE·asymmetry 양 null1",
+      "predictive_model_status": "MI·TE 역사 실험; TE source-added logloss 악화",
+      "later_avg_top6": "901–1245 MI=.8435 / TE=.7797; Gap=.8348",
+      "ensemble_status": "MI/TE NOT CURRENTLY JUSTIFIED",
+      "sources": [
+        {
+          "path": "docs/phase13-results.md",
+          "availability": "AVAILABLE"
+        }
+      ]
+    },
+    {
+      "id": "H12",
+      "phase": "14",
+      "method": "dynamic graph·spectral community·hypergraph",
+      "status": "TESTED / INCONCLUSIVE",
+      "corrected_null_evidence": "community stability 보정 p=.10/.05(IID/fixed), fixed 경계값; 나머지1",
+      "predictive_model_status": "Graph·Hypergraph 역사 실험",
+      "later_avg_top6": "901–1245 Graph=.8580 / Hypergraph=.8174; Gap=.8348",
+      "ensemble_status": "Graph ENSEMBLE CANDIDATE(탐색); Hypergraph NOT CURRENTLY JUSTIFIED",
+      "sources": [
+        {
+          "path": "docs/phase14-results.md",
+          "availability": "AVAILABLE"
+        }
+      ]
+    },
+    {
+      "id": "H13",
+      "phase": "15",
+      "method": "modular·absolute distance·normalized gap-shape",
+      "status": "TESTED / INCONCLUSIVE",
+      "corrected_null_evidence": "modular temporal 최소 보정 p=1/.95(IID/fixed); shape 양 null1",
+      "predictive_model_status": "Modular·Difference·GapShape 역사 실험",
+      "later_avg_top6": "901–1245 .7855/.7768/.8377; Gap=.8348",
+      "ensemble_status": "GapShape ENSEMBLE CANDIDATE(탐색); 나머지 NOT CURRENTLY JUSTIFIED",
+      "sources": [
+        {
+          "path": "docs/phase15-results.md",
+          "availability": "AVAILABLE"
+        }
+      ]
+    },
+    {
+      "id": "H14",
+      "phase": "16",
+      "method": "entropy·LZ78·compression53encodings",
+      "status": "TESTED / INCONCLUSIVE",
+      "corrected_null_evidence": "여섯 family IID/fixed/exact-draw-order shuffle 보정 p 모두1",
+      "predictive_model_status": "개발 gate 실패; PREDICTIVE_MODEL_NOT_JUSTIFIED",
+      "later_avg_top6": "해당 없음(모델 미구현)",
+      "ensemble_status": "NOT CURRENTLY JUSTIFIED",
+      "sources": [
+        {
+          "path": "docs/phase16-results.md",
+          "availability": "AVAILABLE"
+        }
+      ]
+    },
+    {
+      "id": "H15",
+      "phase": "17",
+      "method": "causal A/B/C tensor·Tucker ranks",
+      "status": "TESTED / INCONCLUSIVE",
+      "corrected_null_evidence": "effective-rank 보정 p=.825/.400(IID/fixed); 모든 family 불통과",
+      "predictive_model_status": "개발 gate 실패; PREDICTIVE_MODEL_NOT_JUSTIFIED",
+      "later_avg_top6": "해당 없음(모델 미구현)",
+      "ensemble_status": "NOT CURRENTLY JUSTIFIED",
+      "sources": [
+        {
+          "path": "docs/phase17-results.md",
+          "availability": "AVAILABLE"
+        }
+      ]
+    },
+    {
+      "id": "H16",
+      "phase": "18",
+      "method": "fixed mirror·anti-symmetry·bounded shift",
+      "status": "TESTED / INCONCLUSIVE",
+      "corrected_null_evidence": "일곱 family 양 null 보정 p 모두1",
+      "predictive_model_status": "MirrorModel 역사 실험; PairModel 미구현",
+      "later_avg_top6": "901–1245 Mirror=.826087; Gap=.834783",
+      "ensemble_status": "Mirror ENSEMBLE CANDIDATE(탐색)",
+      "sources": [
+        {
+          "path": "docs/phase18-results.md",
+          "availability": "AVAILABLE"
+        }
+      ]
+    },
+    {
+      "id": "H17",
+      "phase": "미실행",
+      "method": "validated weak-signal final ensemble",
+      "status": "BACKLOG",
+      "corrected_null_evidence": "최종 ensemble 검정 미실행; 후보 다양성은 효과 증거 아님",
+      "predictive_model_status": "최종 ensemble 미구현",
+      "later_avg_top6": "해당 없음",
+      "ensemble_status": "BACKLOG",
+      "sources": [
+        {
+          "path": "docs/research-ideas.md",
+          "availability": "AVAILABLE"
+        }
+      ]
+    },
+    {
+      "id": "H18",
+      "phase": "19",
+      "method": "penalized change-point·CUSUM·prefix stability",
+      "status": "TESTED / INCONCLUSIVE",
+      "corrected_null_evidence": "전체 다섯 family 양 null 보정 p 모두1",
+      "predictive_model_status": "RegimeFrequency 역사 실험; later에서 CP=0으로 누적 빈도와 동일",
+      "later_avg_top6": "901–1245 Regime=.794203; Gap=.834783",
+      "ensemble_status": "NOT CURRENTLY JUSTIFIED",
+      "sources": [
+        {
+          "path": "docs/change-point-results.md",
+          "availability": "AVAILABLE"
+        }
+      ]
+    },
+    {
+      "id": "H19",
+      "phase": "20",
+      "method": "renewal·self/cross excitation/inhibition·Hawkes-like kernel",
+      "status": "TESTED / INCONCLUSIVE",
+      "corrected_null_evidence": "self-inhibition 보정 p=.750/.570; kernel .630/.720(IID/fixed); 통과 없음",
+      "predictive_model_status": "Renewal·Hawkes falsification 실험; Signed gate 실패",
+      "later_avg_top6": "901–1245 Renewal=.753623 / Hawkes=.707246",
+      "ensemble_status": "NOT CURRENTLY JUSTIFIED",
+      "sources": [
+        {
+          "path": "docs/point-process-results.md",
+          "availability": "AVAILABLE"
+        }
+      ]
+    },
+    {
+      "id": "H20",
+      "phase": "21",
+      "method": "DFA1·crossover·aggregation·rolling; R/S·DFA2 secondary",
+      "status": "TESTED / INCONCLUSIVE",
+      "corrected_null_evidence": "primary persistent 최소 보정 p=.660/.660; secondary 모두1",
+      "predictive_model_status": "개발 gate 실패; predictor 미구현",
+      "later_avg_top6": "해당 없음",
+      "ensemble_status": "NOT CURRENTLY JUSTIFIED",
+      "sources": [
+        {
+          "path": "docs/long-memory-results.md",
+          "availability": "AVAILABLE"
+        }
+      ]
+    },
+    {
+      "id": "H21",
+      "phase": "22",
+      "method": "nontrivial correlation spectrum·localization·collective modes",
+      "status": "TESTED / INCONCLUSIVE",
+      "corrected_null_evidence": "localization 보정 p=.480/.330(IID/fixed); 나머지1",
+      "predictive_model_status": "개발 gate 실패; PREDICTIVE_MODEL_NOT_JUSTIFIED",
+      "later_avg_top6": "해당 없음",
+      "ensemble_status": "NOT CURRENTLY JUSTIFIED",
+      "sources": [
+        {
+          "path": "docs/random-matrix-results.md",
+          "availability": "AVAILABLE"
+        }
+      ]
+    },
+    {
+      "id": "H22",
+      "phase": "23",
+      "method": "H0 persistent structure·exact MST; H1 persistence 보류",
+      "status": "TESTED / INCONCLUSIVE",
+      "corrected_null_evidence": "H0 total 최소 보정 p=.740/.640(IID/fixed); 통과 없음",
+      "predictive_model_status": "개발 gate 실패; PREDICTIVE_MODEL_NOT_JUSTIFIED; H1_DEFERRED_DEPENDENCY_LIMITATION",
+      "later_avg_top6": "해당 없음",
+      "ensemble_status": "NOT CURRENTLY JUSTIFIED",
+      "sources": [
+        {
+          "path": "docs/topology-results.md",
+          "availability": "AVAILABLE"
+        }
+      ]
+    },
+    {
+      "id": "H23",
+      "phase": "24",
+      "method": "exact1D Optimal Transport·Wasserstein",
+      "status": "TESTED / INCONCLUSIVE",
+      "corrected_null_evidence": "여섯 family 양 null 보정 p 모두1",
+      "predictive_model_status": "개발 gate 실패; mean barycenter=trivial baseline; 미구현",
+      "later_avg_top6": "해당 없음",
+      "ensemble_status": "NOT CURRENTLY JUSTIFIED",
+      "sources": [
+        {
+          "path": "docs/optimal-transport-results.md",
+          "availability": "AVAILABLE"
+        }
+      ]
+    },
+    {
+      "id": "H24",
+      "phase": "25",
+      "method": "symbolic dynamics·order0–3 Markov·여덟 encoding",
+      "status": "TESTED / INCONCLUSIVE",
+      "corrected_null_evidence": "개발·전체 여섯 family 양 null 보정 p 모두1",
+      "predictive_model_status": "모든 encoding에서 개발 order0 선택; 모델 미구현",
+      "later_avg_top6": "해당 없음",
+      "ensemble_status": "NOT CURRENTLY JUSTIFIED",
+      "sources": [
+        {
+          "path": "docs/symbolic-results.md",
+          "availability": "AVAILABLE"
+        }
+      ]
+    },
+    {
+      "id": "H25",
+      "phase": "26",
+      "method": "Integrated randomness battery",
+      "status": "TESTED / INCONCLUSIVE",
+      "corrected_null_evidence": "IID199/fixed-margin199,2200/2147units, 전체6 omnibus 보정 p 모두1. FamilyMax/Sum/HC global p: IID=.775/.500/1,fixed=.615/.275/.300. 이전 Phase p 결합 없음.",
+      "predictive_model_status": "Randomness audit만 수행; predictor·ensemble·prospective prediction 없음",
+      "later_avg_top6": "해당 없음",
+      "ensemble_status": "새 후보 없음; H17 BACKLOG / NEXT PHASE",
+      "sources": [
+        {
+          "path": "docs/randomness-battery-results.md",
+          "availability": "AVAILABLE"
+        },
+        {
+          "path": "docs/randomness-battery-analysis.md",
+          "availability": "AVAILABLE"
+        }
+      ]
+    }
+  ],
+  "candidates": [
+    {
+      "id": "GapLogistic",
+      "name": "Gap Logistic",
+      "source_phase": "3–4; 비교 재사용 Phase11–20",
+      "history": "초기 primary601–1244(644targets), robustness starts401/501/601/701/801; 후속901–1245(345targets)",
+      "avg_top6": 0.849379,
+      "metric_note": "대표값은 Phase3 primary다. 후속 frozen Gap26=.834783, Gap13=.831884는 별도 값이다. Phase6/10 Gap26=.823188/.8232는 fit calendar가 다르다.",
+      "configuration": "Logistic C=1,seed42,SciPy L-BFGS-B; features=current_gap,has_appeared,mean_gap,median_gap,gap_std,gap_ratio; primary start601/end1244/cadence26,bootstrap2000/block26. exact 초기 config=reports/prize_research/experiment.json. 후속 Gap는 해당 Phase frozen predictions를 기준선으로 사용.",
+      "paired_intervals": [
+        {
+          "reference": "RandomModel",
+          "difference": 0.051242,
+          "ci95": [
+            -0.032609,
+            0.133579
+          ],
+          "scope": "601–1244; Phase3 prize robustness block26/2000"
+        },
+        {
+          "reference": "RandomModel",
+          "difference": 0.051242,
+          "ci95": [
+            -0.035714,
+            0.13979
+          ],
+          "scope": "601–1244; 초기 prediction 비교의 별도 bootstrap stream"
+        }
+      ],
+      "robustness": "starts401/501/601/701/801 평균=.843602/.831989/.849379/.845588/.853604이며 모든 paired CI가0을 포함한다. primary early/middle/recent=.809302/.869767/.869159, Random 차이=-.046512/+.097674/+.102804. coefficient 부호 안정성은 예측 우위 증거가 아니다. 주기 추가·hazard/Bayesian/HMM의 안정적 개선 미확립.",
+      "null_evidence": "초기 Random upper-tail=.055972, learned-specification Bonferroni=.447776. 별도 구조-null corrected p가 아니다. 주요 paired 구간에서 예측 우위 미확립.",
+      "rank_diversity": "후속 상대 순위 기준: Graph 대비 Spearman=.0611,GapShape=-.0357,Mirror=.007219,MI=-.2095(각345targets 번호 좌표 평균). 상관을 결합해 효과를 계산하지 않는다.",
+      "ensemble_status": "BASELINE / 우위 미확립",
+      "decision_reason": "반복 비교용으로 보존하지만 validated signal 또는 신규 ensemble 채택 판정은 아니다.",
+      "missing_evidence": "초기 Phase3 config·ranking audit·비교 출력은 존재한다. 후속 Phase15 Gap frozen CSV/manifest가 없어 byte/hash를 현재 재검증하지 못했다.",
+      "sources": [
+        {
+          "path": "docs/predictive-experiments.md",
+          "availability": "AVAILABLE"
+        },
+        {
+          "path": "docs/gap-prize-research.md",
+          "availability": "AVAILABLE"
+        },
+        {
+          "path": "docs/regime-research.md",
+          "availability": "AVAILABLE"
+        },
+        {
+          "path": "docs/phase15-results.md",
+          "availability": "AVAILABLE"
+        },
+        {
+          "path": "docs/phase18-results.md",
+          "availability": "AVAILABLE"
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "reports/prize_research/experiment.json",
+          "availability": "AVAILABLE",
+          "role": "초기 exact 모델·seed·cadence 설정"
+        },
+        {
+          "path": "reports/prize_research/ranking_audit.csv",
+          "availability": "AVAILABLE",
+          "role": "초기 target별 예측 audit"
+        },
+        {
+          "path": "reports/prize_research/ranking_comparisons.csv",
+          "availability": "AVAILABLE",
+          "role": "초기 paired 순위 비교"
+        },
+        {
+          "path": "reports/prize_research/comparison.csv",
+          "availability": "AVAILABLE",
+          "role": "초기 성능"
+        },
+        {
+          "path": "reports/prize_research/gap_vs_heuristics.csv",
+          "availability": "AVAILABLE",
+          "role": "Gap robustness·heuristic 비교"
+        },
+        {
+          "path": "reports/transformed_space/walk_forward_26/predictions.csv",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "후속45score/rank·target·cutoff"
+        },
+        {
+          "path": "reports/transformed_space/run_manifest.json",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "과거 byte/hash inventory"
+        }
+      ],
+      "unverified_configuration_hash": null,
+      "rank_diversity_metrics": [
+        {
+          "reference": "GraphStructureModel",
+          "spearman": 0.0611,
+          "top6_overlap": 1.0435,
+          "top10_overlap": 2.7391,
+          "top15_overlap": 5.5072,
+          "targets": 345,
+          "target_start": 901,
+          "target_end": 1245
+        },
+        {
+          "reference": "GapShapeModel",
+          "spearman": -0.0357,
+          "top6_overlap": 0.6609,
+          "top10_overlap": 1.9971,
+          "top15_overlap": 4.7565,
+          "targets": 345,
+          "target_start": 901,
+          "target_end": 1245
+        },
+        {
+          "reference": "MirrorModel",
+          "spearman": 0.007219,
+          "top6_overlap": 0.73913,
+          "top10_overlap": 2.0,
+          "top15_overlap": 5.043478,
+          "targets": 345,
+          "target_start": 901,
+          "target_end": 1245
+        },
+        {
+          "reference": "MI",
+          "spearman": -0.2095,
+          "top6_overlap": 0.4783,
+          "top10_overlap": 1.5246,
+          "top15_overlap": 3.1623,
+          "targets": 345,
+          "target_start": 901,
+          "target_end": 1245
+        }
+      ],
+      "reported_precision": 6,
+      "evaluation_ranges": {
+        "initial_history_end": 1244,
+        "primary_targets": [
+          601,
+          1244
+        ],
+        "primary_targets_count": 644,
+        "sensitivity_starts": [
+          401,
+          501,
+          601,
+          701,
+          801
+        ],
+        "later_targets": [
+          901,
+          1245
+        ],
+        "later_targets_count": 345
+      }
+    },
+    {
+      "id": "GraphStructure",
+      "name": "GraphStructureModel",
+      "source_phase": "14 / H12",
+      "history": "구조1–1245; 개발401–900(500targets); 이후901–1245(345targets)",
+      "avg_top6": 0.858,
+      "metric_note": "원문 표4자리 정밀도. 개발=.884; Gap=.8348,Random=.7681,Frequency26=.7739.",
+      "configuration": "W52; neighbor/community 동일 평균; spectral K3; graph threshold2; 매 target prefix<T에서 rolling 재fit. 개발30configs에서 Top6 선택,동률 선언순서. Phase14의 Graph/Hypergraph 동결 JSON SHA-256=a9712639a2cc76fc182f26a6b8767fdda32a7b218e1f362ee5395977e0f0390e(문서 전사,실제 파일 미검증).",
+      "paired_intervals": [
+        {
+          "reference": "Random",
+          "difference": 0.0899,
+          "ci95": [
+            -0.0291,
+            0.2058
+          ],
+          "scope": "901–1245; circular block26 bootstrap2000"
+        },
+        {
+          "reference": "Frequency26",
+          "difference": 0.0841,
+          "ci95": [
+            -0.058,
+            0.2116
+          ],
+          "scope": "901–1245; circular block26 bootstrap2000"
+        },
+        {
+          "reference": "Gap",
+          "difference": 0.0232,
+          "ci95": [
+            -0.0928,
+            0.1275
+          ],
+          "scope": "901–1245; circular block26 bootstrap2000"
+        },
+        {
+          "reference": "matched Frequency52",
+          "difference": 0.1275,
+          "ci95": [
+            0.0029,
+            0.2435
+          ],
+          "scope": "901–1245; circular block26 bootstrap2000"
+        }
+      ],
+      "robustness": "early/middle/recent=.8522/.8435/.8783; starts1001/1101=.8653/.8621. start1101 Gap 차이=-.0207 CI[-.2000,.1586]. W26=.8348,W52=.8580,W104=.7710; W52/K2=.8667. Gap13 대비+.0261[-.0928,.1420]; Gap 대비 block52/104 CI[-.1043,.1362]/[-.1014,.1276]. matched Frequency52만 약한 양의 CI,주요 기준선 CI는0 포함.",
+      "null_evidence": "135graphs·2,057,700primary cells의 IID199/fixed199 own maxima. community stability corrected p=.10/.05(경계); edge/triple/persistence/frequency-controlled successor corrected p=1/1. 빈도 이상의 successor 정보 미확립.",
+      "rank_diversity": "Gap Spearman=.0611,Top6/10/15 overlap=1.0435/2.7391/5.5072; frozen MI Spearman=-.0062,overlap=.7420/2.0986/4.7652. 기존 기준선 refit 없음.",
+      "ensemble_status": "ENSEMBLE CANDIDATE (탐색적)",
+      "decision_reason": "약한 양의 역사 점추정치와 낮은 순위 상관을 보존한다. 주요 CI·W104 민감도로 검증된 예측 신호는 아니다.",
+      "missing_evidence": "해당 과거 출력 CSV·selected_configuration·manifest는 현재 checkout에 없다. 문서에 없는 더 정밀한 수치·hash는 null(미확인)이며 새로 추정하지 않았다.",
+      "sources": [
+        {
+          "path": "docs/phase14-results.md",
+          "availability": "AVAILABLE"
+        },
+        {
+          "path": "docs/graph-hypergraph-analysis.md",
+          "availability": "AVAILABLE"
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "reports/graph_hypergraph/selected_configuration.json",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "개발 선택 동결 설정"
+        },
+        {
+          "path": "reports/graph_hypergraph/run_manifest.json",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "과거 byte/hash inventory"
+        },
+        {
+          "path": "reports/graph_hypergraph/global_null_comparison.csv",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "complete-search null 비교"
+        },
+        {
+          "path": "reports/graph_hypergraph/walk_forward_26/predictions.csv",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "후속45score/rank·target·cutoff"
+        },
+        {
+          "path": "reports/graph_hypergraph/walk_forward_26/summary.csv",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "성능·ranking 지표"
+        },
+        {
+          "path": "reports/graph_hypergraph/walk_forward_26/paired.csv",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "paired 차이·명목95% 구간"
+        },
+        {
+          "path": "reports/graph_hypergraph/walk_forward_26/rank_diversity.csv",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "번호 좌표 순위 상관·TopK overlap"
+        },
+        {
+          "path": "src/graph_hypergraph_cli.py",
+          "availability": "AVAILABLE",
+          "role": "정확한 출력 이름·protocol 구현"
+        }
+      ],
+      "unverified_configuration_hash": "a9712639a2cc76fc182f26a6b8767fdda32a7b218e1f362ee5395977e0f0390e",
+      "rank_diversity_metrics": [
+        {
+          "reference": "GapLogistic",
+          "spearman": 0.0611,
+          "top6_overlap": 1.0435,
+          "top10_overlap": 2.7391,
+          "top15_overlap": 5.5072,
+          "targets": 345,
+          "target_start": 901,
+          "target_end": 1245
+        },
+        {
+          "reference": "frozen MI",
+          "spearman": -0.0062,
+          "top6_overlap": 0.742,
+          "top10_overlap": 2.0986,
+          "top15_overlap": 4.7652,
+          "targets": 345,
+          "target_start": 901,
+          "target_end": 1245
+        }
+      ],
+      "reported_precision": 4,
+      "evaluation_ranges": {
+        "history_start": 1,
+        "history_end": 1245,
+        "development_targets": [
+          401,
+          900
+        ],
+        "later_targets": [
+          901,
+          1245
+        ],
+        "later_targets_count": 345
+      }
+    },
+    {
+      "id": "GapShape",
+      "name": "GapShapeModel",
+      "source_phase": "15 / H13",
+      "history": "구조1–1245; 개발401–900(500targets); 이후901–1245(345targets)",
+      "avg_top6": 0.8377,
+      "metric_note": "원문 표4자리. 개발=.836(절반 .808/.864); Gap=.8348.",
+      "configuration": "K25,normalized-gap Euclidean,exclusion26,Gaussian sigma1; 매 target prefix<T에서 neighbor/transition 재계산. selection SHA256=f6cac03e51aa8036824301d4d07a559900fb18a3674f2a2826b8c99eacfc3eb3(문서 전사,실제 파일 미검증).",
+      "paired_intervals": [
+        {
+          "reference": "Random",
+          "difference": 0.0696,
+          "ci95": [
+            -0.0406,
+            0.1768
+          ],
+          "scope": "901–1245; circular block26 bootstrap2000"
+        },
+        {
+          "reference": "Gap",
+          "difference": 0.0029,
+          "ci95": [
+            -0.1014,
+            0.1159
+          ],
+          "scope": "901–1245; circular block26 bootstrap2000"
+        }
+      ],
+      "robustness": "early/middle/recent=.8000/.8783/.8348; starts1001/1101=.8735/.8621. Gap 대비 start1001 +.0082[-.1143,.1429],start1101 -.0207[-.1862,.1241]. K25/sigma2=.8261이나 K10/sigma1=.7478,K10/sigma2=.7797로 K에 민감. cadence13 Gap 대비+.0058[-.1101,.1275],block52 Gap CI[-.0812,.0928]. 이후 최고 설정으로 교체하지 않음.",
+      "null_evidence": "다섯family·1793cells complete search IID199/fixed199. Gap-shape corrected p=1/1; 다섯family 최소 corrected p는 modular temporal 1/.95. K10/K25 successor normalized-shape MSEgain은 음수이며 number ranking과 target이 다르다.",
+      "rank_diversity": "Gap Spearman=-.0357,Top6/10/15 overlap=.6609/1.9971/4.7565; frozen Graph Spearman=.0024,overlap=.7855/2.2290/5.0464. Graph refit/reselect 없음.",
+      "ensemble_status": "ENSEMBLE CANDIDATE (탐색적)",
+      "decision_reason": "약한 양의 점추정치와 다양성 보존용. 주요 paired CI가0을 포함하고 K에 민감해 최종 채택 근거가 아니다.",
+      "missing_evidence": "해당 과거 출력 CSV·selected_configuration·manifest는 현재 checkout에 없다. 문서에 없는 더 정밀한 수치·hash는 null(미확인)이며 새로 추정하지 않았다.",
+      "sources": [
+        {
+          "path": "docs/phase15-results.md",
+          "availability": "AVAILABLE"
+        },
+        {
+          "path": "docs/transformed-space-analysis.md",
+          "availability": "AVAILABLE"
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "reports/transformed_space/selected_configuration.json",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "개발 선택 동결 설정"
+        },
+        {
+          "path": "reports/transformed_space/run_manifest.json",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "과거 byte/hash inventory"
+        },
+        {
+          "path": "reports/transformed_space/global_null_comparison.csv",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "complete-search null 비교"
+        },
+        {
+          "path": "reports/transformed_space/walk_forward_26/predictions.csv",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "후속45score/rank·target·cutoff"
+        },
+        {
+          "path": "reports/transformed_space/walk_forward_26/summary.csv",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "성능·ranking 지표"
+        },
+        {
+          "path": "reports/transformed_space/walk_forward_26/paired.csv",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "paired 차이·명목95% 구간"
+        },
+        {
+          "path": "reports/transformed_space/walk_forward_26/rank_diversity.csv",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "번호 좌표 순위 상관·TopK overlap"
+        },
+        {
+          "path": "src/transformed_cli.py",
+          "availability": "AVAILABLE",
+          "role": "정확한 출력 이름·protocol 구현"
+        }
+      ],
+      "unverified_configuration_hash": "f6cac03e51aa8036824301d4d07a559900fb18a3674f2a2826b8c99eacfc3eb3",
+      "rank_diversity_metrics": [
+        {
+          "reference": "GapLogistic",
+          "spearman": -0.0357,
+          "top6_overlap": 0.6609,
+          "top10_overlap": 1.9971,
+          "top15_overlap": 4.7565,
+          "targets": 345,
+          "target_start": 901,
+          "target_end": 1245
+        },
+        {
+          "reference": "frozen Graph",
+          "spearman": 0.0024,
+          "top6_overlap": 0.7855,
+          "top10_overlap": 2.229,
+          "top15_overlap": 5.0464,
+          "targets": 345,
+          "target_start": 901,
+          "target_end": 1245
+        }
+      ],
+      "reported_precision": 4,
+      "evaluation_ranges": {
+        "history_start": 1,
+        "history_end": 1245,
+        "development_targets": [
+          401,
+          900
+        ],
+        "later_targets": [
+          901,
+          1245
+        ],
+        "later_targets_count": 345
+      }
+    },
+    {
+      "id": "Mirror",
+      "name": "MirrorModel",
+      "source_phase": "18 / H16",
+      "history": "구조1–1245; 개발401–900(500targets); 이후901–1245(345targets)",
+      "avg_top6": 0.826087,
+      "metric_note": "개발=.896(절반 .948/.844). Gap26=.834783,Random=.768116,Frequency26=.773913.",
+      "configuration": "window10,lag1,shrinkage200,support20,pooled linear ridge; 각 available-prefix 재fit; mirror(n)=46-n,center23 중립6/45. 48configs 개발Top6 선택. selection SHA256=6476edcd3f8e989c89a93aa76dc1c83c81f62ead1c4047348f0f0a7c7c00b1a9(문서 전사).",
+      "paired_intervals": [
+        {
+          "reference": "Random",
+          "difference": 0.057971,
+          "ci95": [
+            -0.026087,
+            0.142029
+          ],
+          "scope": "901–1245; circular block26 bootstrap2000"
+        },
+        {
+          "reference": "Frequency26",
+          "difference": 0.052174,
+          "ci95": [
+            -0.055072,
+            0.162319
+          ],
+          "scope": "901–1245; circular block26 bootstrap2000"
+        },
+        {
+          "reference": "Gap",
+          "difference": -0.008696,
+          "ci95": [
+            -0.110145,
+            0.089855
+          ],
+          "scope": "901–1245; circular block26 bootstrap2000"
+        }
+      ],
+      "robustness": "early/middle/recent=.834783/.852174/.791304; starts1001/1101=.804082/.793103. W10/lag2=.820290,W26/lag1=.886957,W26/lag2=.881159(재선택 없음). block13 Random CI[-.037681,.159420],Gap[-.107246,.098551]. block52 Random CI[.005797,.104348]만 양수이나 Frequency[-.037681,.139203],Gap[-.095652,.072464]는0 포함. 유리한 구간 하나를 독립 확인으로 선택하지 않음.",
+      "null_evidence": "3862cells·일곱family IID199/fixed199 complete search corrected p 모두1. strongest pair13→33 lag8 global p=.225/.160,pooled lag8=.595/.640. 보정 후 구조 근거 없음; PairModel·secondary-shift predictor 미구현.",
+      "rank_diversity": "Gap Spearman=.007219,Top6/10/15 overlap=.739130/2.000000/5.043478; Graph=.024548,.947826/2.394203/5.150725; GapShape=-.005878,.739130/2.205797/5.008696; MI=-.002914,.742029/2.231884/5.020290. 기존 모델 frozen 출력만 비교.",
+      "ensemble_status": "ENSEMBLE CANDIDATE (탐색적)",
+      "decision_reason": "낮은 Gap/Graph 상관과 약한 점추정치 보존용. 주요 CI는0 포함,최근 평균은.8 미만이며 corrected 구조 근거가 없다.",
+      "missing_evidence": "해당 과거 출력 CSV·selected_configuration·manifest는 현재 checkout에 없다. 문서에 없는 더 정밀한 수치·hash는 null(미확인)이며 새로 추정하지 않았다.",
+      "sources": [
+        {
+          "path": "docs/phase18-results.md",
+          "availability": "AVAILABLE"
+        },
+        {
+          "path": "docs/symmetry-analysis.md",
+          "availability": "AVAILABLE"
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "reports/symmetry/selected_configuration.json",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "개발 선택 동결 설정"
+        },
+        {
+          "path": "reports/symmetry/run_manifest.json",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "과거 byte/hash inventory"
+        },
+        {
+          "path": "reports/symmetry/global_null_comparison.csv",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "complete-search null 비교"
+        },
+        {
+          "path": "reports/symmetry/walk_forward_26/predictions.csv",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "후속45score/rank·target·cutoff"
+        },
+        {
+          "path": "reports/symmetry/walk_forward_26/summary.csv",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "성능·ranking 지표"
+        },
+        {
+          "path": "reports/symmetry/walk_forward_26/paired.csv",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "paired 차이·명목95% 구간"
+        },
+        {
+          "path": "reports/symmetry/walk_forward_26/rank_diversity.csv",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "번호 좌표 순위 상관·TopK overlap"
+        },
+        {
+          "path": "src/symmetry_cli.py",
+          "availability": "AVAILABLE",
+          "role": "정확한 출력 이름·protocol 구현"
+        }
+      ],
+      "unverified_configuration_hash": "6476edcd3f8e989c89a93aa76dc1c83c81f62ead1c4047348f0f0a7c7c00b1a9",
+      "rank_diversity_metrics": [
+        {
+          "reference": "GapLogistic",
+          "spearman": 0.007219,
+          "top6_overlap": 0.73913,
+          "top10_overlap": 2.0,
+          "top15_overlap": 5.043478,
+          "targets": 345,
+          "target_start": 901,
+          "target_end": 1245
+        },
+        {
+          "reference": "frozen Graph",
+          "spearman": 0.024548,
+          "top6_overlap": 0.947826,
+          "top10_overlap": 2.394203,
+          "top15_overlap": 5.150725,
+          "targets": 345,
+          "target_start": 901,
+          "target_end": 1245
+        },
+        {
+          "reference": "frozen GapShape",
+          "spearman": -0.005878,
+          "top6_overlap": 0.73913,
+          "top10_overlap": 2.205797,
+          "top15_overlap": 5.008696,
+          "targets": 345,
+          "target_start": 901,
+          "target_end": 1245
+        },
+        {
+          "reference": "frozen MI",
+          "spearman": -0.002914,
+          "top6_overlap": 0.742029,
+          "top10_overlap": 2.231884,
+          "top15_overlap": 5.02029,
+          "targets": 345,
+          "target_start": 901,
+          "target_end": 1245
+        }
+      ],
+      "reported_precision": 6,
+      "evaluation_ranges": {
+        "history_start": 1,
+        "history_end": 1245,
+        "development_targets": [
+          401,
+          900
+        ],
+        "later_targets": [
+          901,
+          1245
+        ],
+        "later_targets_count": 345
+      }
+    },
+    {
+      "id": "MI",
+      "name": "MutualInformationModel (MI)",
+      "source_phase": "13 / H11",
+      "history": "구조1–1245; 개발401–900(500targets); 이후901–1245(345targets)",
+      "avg_top6": 0.8435,
+      "metric_note": "원문 표4자리. 개발=.826(절반 .864/.788); Gap=.8348,Random=.7681.",
+      "configuration": "lag1,incoming3; context support20,shrinkage20,positive corrected information weighting,trailing624; pair/state를 매 target prefix<T에서 재선택. MI14개 개발configs. selection SHA256=b3a126bd5ecb1ea374d9ef90d91e667d0fe054d69196ca75205ff11c7a0d5e30(문서 전사).",
+      "paired_intervals": [
+        {
+          "reference": "Random",
+          "difference": 0.0754,
+          "ci95": [
+            -0.0349,
+            0.1884
+          ],
+          "scope": "901–1245; circular block26 bootstrap2000"
+        },
+        {
+          "reference": "Gap",
+          "difference": 0.0087,
+          "ci95": [
+            -0.087,
+            0.113
+          ],
+          "scope": "901–1245; circular block26 bootstrap2000"
+        }
+      ],
+      "robustness": "early/middle/recent=.6783/.9652/.8870; starts1001/1101=.8980/.9241; cadence13도=.8435. lag1/K5=.8290,lag2/K3=.8174,lag3/K3=.8029,lag8/K3=.7188로 lag 의존. 개발 절반 승자 lag3→lag13로 불안정. 이후 상승·early 부진을 함께 보존하며 재선택 없음.",
+      "null_evidence": "166,320primary cells·다섯family IID199/fixed199 own-max. 최고 MI2→33 lag13 corrected p=.225/.175; CMI=.725/.600; TE/asymmetry=1/1; stableTE=.575/.550. source-only shift local 결과와 전체 보정 결과를 결합하지 않음.",
+      "rank_diversity": "Gap Spearman=-.2095,Top6/10/15 overlap=.4783/1.5246/3.1623. 높은 차별성 자체는 개선 증거가 아니다.",
+      "ensemble_status": "NOT CURRENTLY JUSTIFIED",
+      "decision_reason": "관심 있는 양의 점추정치지만 paired·시간 안정성·parameter 민감도 조건을 충족하지 못해 후보로 승격하지 않는다.",
+      "missing_evidence": "해당 과거 출력 CSV·selected_configuration·manifest는 현재 checkout에 없다. 문서에 없는 더 정밀한 수치·hash는 null(미확인)이며 새로 추정하지 않았다.",
+      "sources": [
+        {
+          "path": "docs/phase13-results.md",
+          "availability": "AVAILABLE"
+        },
+        {
+          "path": "docs/information-flow-analysis.md",
+          "availability": "AVAILABLE"
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "reports/information_flow/selected_configuration.json",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "개발 선택 동결 설정"
+        },
+        {
+          "path": "reports/information_flow/run_manifest.json",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "과거 byte/hash inventory"
+        },
+        {
+          "path": "reports/information_flow/global_null_comparison.csv",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "complete-search null 비교"
+        },
+        {
+          "path": "reports/information_flow/walk_forward_26/predictions.csv",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "후속45score/rank·target·cutoff"
+        },
+        {
+          "path": "reports/information_flow/walk_forward_26/summary.csv",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "성능·ranking 지표"
+        },
+        {
+          "path": "reports/information_flow/walk_forward_26/paired.csv",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "paired 차이·명목95% 구간"
+        },
+        {
+          "path": "reports/information_flow/walk_forward_26/rank_diversity.csv",
+          "availability": "HISTORICAL_UNAVAILABLE",
+          "role": "번호 좌표 순위 상관·TopK overlap"
+        },
+        {
+          "path": "src/information_cli.py",
+          "availability": "AVAILABLE",
+          "role": "정확한 출력 이름·protocol 구현"
+        }
+      ],
+      "unverified_configuration_hash": "b3a126bd5ecb1ea374d9ef90d91e667d0fe054d69196ca75205ff11c7a0d5e30",
+      "rank_diversity_metrics": [
+        {
+          "reference": "GapLogistic",
+          "spearman": -0.2095,
+          "top6_overlap": 0.4783,
+          "top10_overlap": 1.5246,
+          "top15_overlap": 3.1623,
+          "targets": 345,
+          "target_start": 901,
+          "target_end": 1245
+        }
+      ],
+      "reported_precision": 4,
+      "evaluation_ranges": {
+        "history_start": 1,
+        "history_end": 1245,
+        "development_targets": [
+          401,
+          900
+        ],
+        "later_targets": [
+          901,
+          1245
+        ],
+        "later_targets_count": 345
+      }
+    }
+  ]
+}

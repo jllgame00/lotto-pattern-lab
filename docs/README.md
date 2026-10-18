@@ -177,9 +177,19 @@ H24: TESTED / INCONCLUSIVE. 여덟 encoding·order0–3의304cell complete-searc
 Archive는 기존30files/12recorded hashes를 재검증해 VERIFIED이며 원본을 수정하지 않았다.
 [방법](symbolic-analysis.md) · [결과·검증](symbolic-results.md) · [계획](superpowers/plans/2026-10-18-phase25.md)
 
+## Phase26 — H25 Integrated randomness battery
+
+H25: TESTED / INCONCLUSIVE. IID199/fixed-margin199의 완전한 battery에서2200/2147units를 비교했습니다.
+세 omnibus FamilyMax/Sum/HC global p는 IID=.775/.500/1,fixed-margin=.615/.275/.300,
+전체6보정 p는 모두1입니다. Era/leave-out도 보고했고 diffuse anomaly의 보정된 증거는 없었습니다.
+Archive30files/12recorded hashes VERIFIED, 새 모델·ensemble·prospective 발행 없음.
+[방법](randomness-battery-analysis.md) · [결과·검증](randomness-battery-results.md) ·
+[계획](superpowers/plans/2026-10-18-phase26.md) · [증거 종합](research-evidence-synthesis.md) ·
+[후보 원장](weak-signal-candidates.md) · [machine-readable JSON](weak-signal-candidates.json)
+
 ## 향후 연구 가설
 
-H25 Integrated randomness battery는 미시작이며 H17은 H25 완료까지 유보다.
+H25 broad randomness audit는 완료했습니다. H17은 BACKLOG이며 다음 Phase입니다. 자동 착수하지 않습니다.
 
 [가설 노트](research-ideas.md)의 H7은 DEFERRED,
 H17은 BACKLOG입니다. validated ensemble 연구는 별도로 남아 있습니다.
@@ -227,4 +237,4 @@ Phase5–10의 기존 integrity record에 기록된 **12개 대상 파일 검증
 원본 기록에 남은 절대 경로·출력 링크는 역사 증거로 보존했습니다.
 이전 문서 감사의 SHA-256은 [문서 감사 기록](documentation-audit.md),
 실제 archive 검증은 [Phase24 결과](optimal-transport-results.md)와
-[Phase25 재검증 결과](symbolic-results.md)에 있습니다.
+[Phase25 재검증 결과](symbolic-results.md), [Phase26 재검증 결과](randomness-battery-results.md)에 있습니다.
