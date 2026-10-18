@@ -10,7 +10,9 @@
 
 현재 방법·결과는 한국어 설명을 기준으로 읽습니다. 기술 명칭·수식·CLI는 원래 표기를
 유지합니다. Phase는 실행 순서이며 H번호와 다릅니다. 표·수치와 원본 동결 기록은 보존합니다.
-일부 상세 연구 출력과 동결 원본은 이 체크아웃에 없습니다. 경로 표기는 파일 존재 보증이 아닙니다.
+일부 상세 연구 출력은 이 체크아웃에 없습니다. 경로 표기는 파일 존재 보증이 아닙니다.
+Phase24 시작 시 기존 prospective 원본30파일/기록된12SHA-256을 검증해 현재 archive 상태는 VERIFIED입니다.
+아래 이전 Phase의 archive 복원 대기 문구는 당시 체크아웃 상태이며 원본 기록을 보존한 것입니다.
 
 ## Phase 1–5
 
@@ -159,7 +161,17 @@ PREDICTIVE_MODEL_NOT_JUSTIFIED이며 예측·prospective capability를 만들지
 [방법](topology-analysis.md) · [결과·검증](topology-results.md) · [계획](superpowers/plans/2026-10-18-phase23.md)
 기존 archive는 PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION입니다.
 
+## Phase24 — H23 Optimal Transport / Wasserstein geometry
+
+H23: TESTED / INCONCLUSIVE. Exact1D OT132cells의 IID199/fixed-margin199 complete-search에서
+전체 여섯 family corrected p는 모두1이었다. 개발 gate 실패와 mean barycenter의 trivial baseline 동일성으로
+PREDICTIVE_MODEL_NOT_JUSTIFIED / NOT CURRENTLY JUSTIFIED다. 예측·prospective capability를 만들지 않았다.
+[방법](optimal-transport-analysis.md) ·
+[결과·검증](optimal-transport-results.md) · [실행 계획](superpowers/plans/2026-10-18-phase24.md)에 기록합니다.
+
 ## 향후 연구 가설
+
+H24 Symbolic Dynamics와 H25 Integrated randomness battery는 미시작이다.
 
 [가설 노트](research-ideas.md)의 H7은 DEFERRED,
 H17은 BACKLOG입니다. validated ensemble 연구는 별도로 남아 있습니다.
@@ -201,8 +213,9 @@ draw 1246은 현재 외부에 알려졌고 새 prospective 대상이 아닙니�
 - [Phase 9 원본 prospective 기록](phase9-prospective.md)
 - [Phase 10 원본 prospective 기록](phase10-prospective.md)
 
-원본 위치는 `reports/prospective/`이나 **이 체크아웃에는 해당 디렉터리가 없습니다**.
-원본 기록에 남은 D: 절대 경로·누락된 출력 링크는 역사 증거의 일부로 그대로 보존했습니다.
-현재 안내는 위의 존재하는 문서 링크를 사용합니다. 실제 동결 파일의 byte-for-byte 비교는
-원본이 제공되지 않아 수행할 수 없습니다. 이번에 보존한 문서의 SHA-256은
-[문서 감사 기록](documentation-audit.md)에 있습니다.
+원본 위치는 `reports/prospective/`이며 Phase24에서 **30개 파일의 전체 SHA-256 inventory**와
+Phase5–10의 기존 integrity record에 기록된 **12개 대상 파일 검증**을 수행했습니다.
+원본·registry·reservation·integrity record의 byte는 수정하지 않았습니다.
+원본 기록에 남은 절대 경로·출력 링크는 역사 증거로 보존했습니다.
+이전 문서 감사의 SHA-256은 [문서 감사 기록](documentation-audit.md),
+현재 실제 archive 검증은 [Phase24 결과](optimal-transport-results.md)에 있습니다.

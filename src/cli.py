@@ -113,6 +113,8 @@ def _parser():
     add_random_matrix_commands(commands)
     from src.topology_cli import add_commands as add_topology_commands
     add_topology_commands(commands)
+    from src.optimal_transport_cli import add_commands as add_optimal_transport_commands
+    add_optimal_transport_commands(commands)
     evaluation=commands.add_parser('evaluate-freeze',help='Offline evaluation of a frozen snapshot and explicit local result JSON')
     evaluation.add_argument('snapshot',type=Path)
     evaluation.add_argument('result_file',type=Path)
@@ -348,6 +350,10 @@ def main(argv=None) -> int:
         if args.command == 'random-matrix':
             from src.random_matrix_cli import run as run_random_matrix
             run_random_matrix(args)
+            return 0
+        if args.command == 'optimal-transport':
+            from src.optimal_transport_cli import run as run_optimal_transport
+            run_optimal_transport(args)
             return 0
         if args.command == 'topology':
             from src.topology_cli import run as run_topology

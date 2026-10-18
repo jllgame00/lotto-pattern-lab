@@ -825,12 +825,47 @@ MST tie의 비유일한 attribution,임의 threshold/representation 선택,rando
 
 [방법](topology-analysis.md) · [결과·검증](topology-results.md) · [계획](superpowers/plans/2026-10-18-phase23.md)
 
+## H23 — Optimal Transport / Wasserstein geometry
+
+**상태**
+
+TESTED / INCONCLUSIVE
+
+**핵심 아이디어**
+
+한 draw를 번호축1..45의 equal-mass empirical measure로 표현하고 exact monotone transport를 계산한다.
+W1 primary/W2 secondary, signed order-statistic vector, rolling distribution drift, W2 barycenter와 geodesic을 검정한다.
+
+**검증 방법**
+
+Lag1/2/3/4/8/13/26, rolling W26/52/104와 step1/4/13/26, barycenter W10/26/52를 고정한다.
+개발1–900/전체1–1245의132cells를 각 IID199/fixed-margin199에서 다시 만들고 own family global maximum과 Bonferroni6으로 비교한다.
+평균 quantile은 단순 sorted-position mean과 같음을 분리하고, 미래를 포함한 geodesic은 descriptive로 제한한다.
+개발의 방향상 유리한 corrected successor evidence가 없으면 모델을 만들지 않는다.
+
+**현재까지 결과**
+
+전체 여섯 family의 IID/fixed-margin corrected p는 모두1이었고 개발 family도 모두 보정을 통과하지 못했다.
+연속 W1평균7.278403001, transport cosine−.420896061과 raw successor relation은 null 이상의 구조로 남지 않았다.
+W2 mean-quantile barycenter는 trivial mean과 정확히 같으며 next draw도 causal 누적 mean보다 가깝지 않았다.
+Geodesic smoothness는 descriptive 전용이며 보정된 근거가 없었다.
+
+**다음 결정**
+
+PREDICTIVE_MODEL_NOT_JUSTIFIED. Continuation/Barycenter 모델·walk-forward·rank correlation·1247capability를 만들지 않았다.
+Ensemble은 NOT CURRENTLY JUSTIFIED, H17은 남은 독립 가설 완료까지 유보다.
+Prospective archive30files/기록된12SHA-256은 VERIFIED이며 원본 byte를 보존했다. 실제 발행은 하지 않았다.
+
+**관련 문서**
+
+[방법](optimal-transport-analysis.md) · [결과·검증](optimal-transport-results.md) · [계획](superpowers/plans/2026-10-18-phase24.md)
+
 ## 추가 독립 가설 backlog
 
-아래 가설은 명칭만 별도 보존하며 Phase23에서 구현하지 않았다. 기존 H번호를 renumber하지 않는다.
+기존 H번호를 renumber하지 않는다. H24/H25는 이후 독립 가설이며 H17은 그 완료까지 의도적으로 미룬다.
 
 | ID | 가설 | 상태 |
 |---|---|---|
-| H23 | Optimal Transport / Wasserstein geometry | BACKLOG |
+| H23 | Optimal Transport / Wasserstein geometry | TESTED / INCONCLUSIVE |
 | H24 | Symbolic Dynamics / Markov order | BACKLOG |
 | H25 | Integrated randomness battery | BACKLOG |

@@ -114,6 +114,9 @@ canonical history는 **1–1245회**, **2002-12-07–2026-10-10**입니다.
 | H20 | Long-memory / fractal scaling / DFA | TESTED / INCONCLUSIVE |
 | H21 | Random Matrix Theory / collective number modes | TESTED / INCONCLUSIVE |
 | H22 | Topological Data Analysis / persistent structure | TESTED / INCONCLUSIVE |
+| H23 | Optimal Transport / Wasserstein geometry | TESTED / INCONCLUSIVE |
+| H24 | Symbolic Dynamics / Markov order | BACKLOG |
+| H25 | Integrated randomness battery | BACKLOG |
 
 H17은 남은 독립 가설 검증까지 의도적으로 미룹니다. Phase와 H번호는 서로 다른 분류이며 기존 번호는 보존합니다.
 대응 관계는 [번호 이관 안내](docs/research-ideas.md#번호-이관-안내)에 설명합니다.
@@ -279,6 +282,14 @@ H22는 TESTED / INCONCLUSIVE입니다. H0 persistence의 동일 complete-search 
 PREDICTIVE_MODEL_NOT_JUSTIFIED이며 예측·prospective capability를 만들지 않았습니다.
 [방법](docs/topology-analysis.md) · [결과·검증](docs/topology-results.md)
 
+### Phase 24 — Optimal Transport / Wasserstein geometry
+
+H23은 TESTED / INCONCLUSIVE입니다. Exact1D W1/W2의132cell complete-search IID199/fixed-margin199 비교에서
+여섯 family의 전체 corrected p가 모두1이었고 개발 gate도 실패했습니다.
+평균 quantile barycenter는 trivial sorted-position mean과 같으며 독자 예측 모델은 정당화되지 않았습니다.
+예측·ensemble·prospective capability를 만들지 않았습니다. 역사 자료는1–1245회만 사용했습니다.
+[방법](docs/optimal-transport-analysis.md) · [결과·검증·정확한 변경 파일](docs/optimal-transport-results.md)
+
 ## Prospective experiments
 
 여러 draw-1246 실험은 결과가 알려지기 전에 동결된 역사적 증거입니다.
@@ -286,15 +297,16 @@ PREDICTIVE_MODEL_NOT_JUSTIFIED이며 예측·prospective capability를 만들지
 원본의 FROZEN_UNEVALUATED는 당시 동결 상태로 보존하고 결과를 자동 평가하지 않습니다.
 
 Phase 11–15의 역사 연구와 설정은 고정했으며 다음 prospective 대상은 **1247회**입니다.
-Phase16–22은 prospective에 정당화된 predictor가 없어 별도 prospective capability를 생성하지 않았습니다.
-기존 archive가 없어 **PROSPECTIVE_PUBLICATION_PENDING_ARCHIVE_RESTORATION** 상태입니다.
+Phase16–23은 prospective에 정당화된 predictor가 없어 별도 prospective capability를 생성하지 않았습니다.
+Phase24 시작 시 이 PC의 기존 archive30파일을 inventory하고 기존 integrity record의12개 대상 SHA-256을 검증했습니다.
+현재 **PROSPECTIVE_ARCHIVE_STATUS = VERIFIED**입니다. 이전 Phase의 archive 부재 표기는 당시 체크아웃 상태입니다.
 1247 준비 gate만 구현했고 1246회 import·새 prospective snapshot 발행은 수행하지 않았습니다.
 
 [Workflow와 보호 규칙](docs/prospective-workflow.md) ·
 [동결 기록 색인](docs/README.md#frozen-prospective-evidence)
 
-이 체크아웃에는 `reports/prospective/` 원본 파일이 없습니다.
-과거 해시 기록 보존과 실제 파일의 무결성 재검증을 구분해야 합니다.
+이 체크아웃의 `reports/prospective/` 원본 파일은 읽기 전용으로 보존합니다.
+VERIFIED는 존재하는 integrity record와 파일의 일치를 뜻하며 독립적인 archive 완전성 증명은 아닙니다.
 
 ## 실행 방법
 
